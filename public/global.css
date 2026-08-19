@@ -775,6 +775,7 @@ h1, h2, h3, h4, h5 {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-top: auto;  /* anchor to the bottom of the card */
   transition: transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .bento-card:hover .bento-card__content,
@@ -1002,16 +1003,6 @@ h1, h2, h3, h4, h5 {
 .hero--pro > * { position: relative; z-index: 1; }
 .hero--pro .hero__title { margin-bottom: 24px; }
 .hero--pro .hero__sub { font-size: clamp(20px, 1.8vw, 24px); line-height: 1.4; max-width: 720px; margin-inline: auto; margin-bottom: 36px; }
-.scroll-hint {
-  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: var(--c-text-3); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
-  opacity: 0.7;
-  animation: float 2.4s ease-in-out infinite;
-}
-.scroll-hint::after {
-  content: ""; width: 1px; height: 32px; background: currentColor;
-}
 
 /* ---------- Cinematic product/feature visual block ---------- */
 .product-visual {
@@ -1233,109 +1224,11 @@ h1, h2, h3, h4, h5 {
   border-radius: var(--r-xl);
 }
 
-/* ---------- Hero Quick Actions Dock (macOS-style magnification) ---------- */
-.hero__dock {
-  margin-top: 56px;
-  display: flex;
-  justify-content: center;
-}
-
-.dock {
-  position: relative;
-  display: inline-flex;
-  align-items: flex-end;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.55);
-  -webkit-backdrop-filter: saturate(180%) blur(24px);
-  backdrop-filter: saturate(180%) blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.6) inset,
-    0 0 0 1px rgba(0, 0, 0, 0.04),
-    0 8px 24px -8px rgba(0, 0, 0, 0.12),
-    0 24px 60px -20px rgba(0, 0, 0, 0.10);
-}
-
-.dock__icon {
-  --dock-size: 40px;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--dock-size);
-  height: var(--dock-size);
-  border-radius: 14px;
-  text-decoration: none;
-  color: var(--c-text);
-  transition: width 220ms var(--ease-out, cubic-bezier(0.22, 0.61, 0.36, 1)),
-              height 220ms var(--ease-out, cubic-bezier(0.22, 0.61, 0.36, 1)),
-              transform 200ms var(--ease-out, cubic-bezier(0.22, 0.61, 0.36, 1));
-  will-change: width, height;
-}
-
-.dock__icon:hover { transform: translateY(-2px); }
-
-.dock__icon-bg {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--dock-tint, #f5f5f7) 22%, #ffffff), #ffffff);
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.05),
-    0 2px 6px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  transition: opacity 200ms var(--ease-out, cubic-bezier(0.22, 0.61, 0.36, 1));
-}
-.dock__icon:hover .dock__icon-bg { opacity: 0.9; }
-
-.dock__icon-glyph {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  color: #1d1d1f;
-}
-
-.dock__icon-label {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  padding: 6px 10px;
-  border-radius: 8px;
-  background: rgba(29, 29, 31, 0.92);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 180ms var(--ease-out, cubic-bezier(0.22, 0.61, 0.36, 1)),
-              transform 180ms var(--ease-out, cubic-bezier(0.22, 0.61, 0.36, 1));
-}
-.dock__icon:hover .dock__icon-label,
-.dock__icon:focus-visible .dock__icon-label {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-.dock__icon-label::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 5px solid transparent;
-  border-top-color: rgba(29, 29, 31, 0.92);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dock__icon,
-  .dock__icon-label { transition: none !important; }
-}
+/* ---------- Hero Quick Actions Dock (macOS-style magnification) ----------
+   The dock was removed in v8 per user request. Component file
+   (src/components/Dock.astro) is also gone. CSS left here as a
+   no-op stub in case we want to restore it; safe to delete entirely. */
+.hero__dock { display: none; }
 
 /* ---------- Reveal v2 (slide up + scale) ---------- */
 .reveal--scale {

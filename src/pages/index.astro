@@ -5,7 +5,6 @@ import SectionDivider from '~/components/SectionDivider.astro';
 import StatTicker from '~/components/StatTicker.astro';
 import BentoGrid from '~/components/BentoGrid.astro';
 import BentoCard from '~/components/BentoCard.astro';
-import Dock from '~/components/Dock.astro';
 import { site } from '~/data/site';
 import { zones } from '~/data/zones';
 
@@ -73,21 +72,7 @@ const serviceDescs: Record<string, string> = {
             Escríbenos por WhatsApp
           </a>
         </div>
-
-        <!-- Quick Actions Dock (macOS-style magnification) -->
-        <div class="hero__dock reveal" data-delay="4">
-          <Dock
-            items={[
-              { href: `tel:${site.phone.tel}`, icon: 'phone', label: 'Llamar', tint: '#34c759' },
-              { href: site.whatsapp,         icon: 'chat',  label: 'WhatsApp', tint: '#25d366', external: true },
-              { href: '/tarifas',            icon: 'tag',   label: 'Tarifas', tint: '#0a84ff' },
-              { href: '/zonas',              icon: 'map-pin', label: 'Zonas', tint: '#5e5cff' },
-            ]}
-          />
-        </div>
       </div>
-
-      <div class="scroll-hint" aria-hidden="true">Desliza para saber más</div>
     </section>
 
     <!-- ===================== SCENE 2: STATS (dark, full) ===================== -->
