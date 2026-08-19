@@ -1140,6 +1140,35 @@ h1, h2, h3, h4, h5 {
   border-radius: var(--r-xl);
 }
 
+/* ---------- Hero floating glass annotation ---------- */
+.hero-floating {
+  position: absolute;
+  top: 50%;
+  right: 6%;
+  transform: translateY(-50%) translateY(-20px);
+  z-index: 5;
+  animation: heroFloat 6s ease-in-out infinite;
+  display: none;
+}
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(-50%) translateY(-20px); }
+  50%      { transform: translateY(-50%) translateY(-32px); }
+}
+@media (min-width: 1100px) {
+  .hero-floating { display: block; }
+}
+
+/* ---------- Spotlight section: colorful background so liquid glass refracts ---------- */
+.spotlight-bg {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 40% 50% at 20% 30%, rgba(0, 113, 227, 0.20), transparent 60%),
+    radial-gradient(ellipse 35% 45% at 80% 70%, rgba(255, 149, 0, 0.18), transparent 60%),
+    radial-gradient(ellipse 30% 40% at 50% 50%, rgba(94, 92, 255, 0.15), transparent 65%),
+    linear-gradient(180deg, #f5f5f7 0%, #e8e8ed 100%);
+}
+
 /* ---------- Reveal v2 (slide up + scale) ---------- */
 .reveal--scale {
   opacity: 0;
@@ -1155,4 +1184,88 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 24px;
 }
 .scene--dark .accent-bar { background: linear-gradient(90deg, #fff, #a1a1a6); }
+
+/* =========================================================================
+   Liquid Glass — Apple-style refractive glass
+   Ported from @kokonutui/liquid-glass-card (kokonutui.com).
+   Requires the SVG filters in BaseLayout (#liquid-glass, #liquid-glass-button).
+   backdrop-filter: url(#id) refracts whatever is behind the element.
+   The inset shadows are INVERTED between light/dark: light theme uses dark
+   inset to create the glass "rim" thickness; dark theme uses light inset.
+   ========================================================================= */
+.liquid-glass {
+  position: relative;
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-backdrop-filter: url(#liquid-glass) saturate(160%);
+  backdrop-filter: url(#liquid-glass) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 24px;
+  box-shadow:
+    0 0 6px rgba(0, 0, 0, 0.03),
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    inset 3px 3px 0.5px -3px rgba(0, 0, 0, 0.9),
+    inset -3px -3px 0.5px -3px rgba(0, 0, 0, 0.85),
+    inset 1px 1px 1px -0.5px rgba(0, 0, 0, 0.6),
+    inset -1px -1px 1px -0.5px rgba(0, 0, 0, 0.6),
+    inset 0 0 6px 6px rgba(0, 0, 0, 0.12),
+    inset 0 0 2px 2px rgba(0, 0, 0, 0.06),
+    0 0 12px rgba(255, 255, 255, 0.15);
+  position: relative;
+  isolation: isolate;
+}
+.liquid-glass::after {
+  content: ""; position: absolute; inset: 0;
+  border-radius: inherit; pointer-events: none;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
+  opacity: 0.6;
+}
+.liquid-glass--dark {
+  background: rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.03),
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    inset 3px 3px 0.5px -3.5px rgba(255, 255, 255, 0.09),
+    inset -3px -3px 0.5px -3.5px rgba(255, 255, 255, 0.85),
+    inset 1px 1px 1px -0.5px rgba(255, 255, 255, 0.6),
+    inset -1px -1px 1px -0.5px rgba(255, 255, 255, 0.6),
+    inset 0 0 6px 6px rgba(255, 255, 255, 0.12),
+    inset 0 0 2px 2px rgba(255, 255, 255, 0.06),
+    0 0 12px rgba(0, 0, 0, 0.15);
+}
+.liquid-glass--dark::after {
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.08) 50%, transparent 70%);
+}
+
+/* Button variant — subtler distortion, smaller radius, no extra layer */
+.liquid-glass-btn {
+  position: relative;
+  background: rgba(255, 255, 255, 0.16);
+  -webkit-backdrop-filter: url(#liquid-glass-button) saturate(180%);
+  backdrop-filter: url(#liquid-glass-button) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 980px;
+  box-shadow:
+    0 0 4px rgba(0, 0, 0, 0.03),
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    inset 2px 2px 0.5px -2px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 0.5px -2px rgba(255, 255, 255, 0.85),
+    inset 0 0 4px 4px rgba(255, 255, 255, 0.14),
+    0 0 8px rgba(255, 255, 255, 0.18);
+  transition: transform 200ms var(--ease-out);
+}
+.liquid-glass-btn:hover { transform: translateY(-1px) scale(1.02); }
+.liquid-glass-btn--dark {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* Fallback: when backdrop-filter is unsupported, fall back to a frosted blur */
+@supports not (backdrop-filter: url(#liquid-glass)) {
+  .liquid-glass, .liquid-glass--dark {
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+  }
+}
 
