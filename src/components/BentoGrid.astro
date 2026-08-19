@@ -1,0 +1,14 @@
+---
+/**
+ * BentoGrid.astro — Asymmetric grid container.
+ * Ported from @magicui/bento-grid (MIT).
+ * Styles live in src/styles/global.css (see .bento-grid).
+ */
+type Props = {
+  class?: string;
+};
+const { class: className = '' } = Astro.props as Props;
+---
+<div class={`bento-grid ${className}`}>
+  <slot />
+</div>

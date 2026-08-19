@@ -3,7 +3,8 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
 import Icon from '~/components/Icon.astro';
 import SectionDivider from '~/components/SectionDivider.astro';
 import StatTicker from '~/components/StatTicker.astro';
-import LiquidGlass from '~/components/LiquidGlass.astro';
+import BentoGrid from '~/components/BentoGrid.astro';
+import BentoCard from '~/components/BentoCard.astro';
 import Dock from '~/components/Dock.astro';
 import { site } from '~/data/site';
 import { zones } from '~/data/zones';
@@ -123,51 +124,67 @@ const serviceDescs: Record<string, string> = {
           <p class="section-heading__aside">A domicilio, en tu negocio o en remoto. Tú eliges cómo. Cero sorpresas, cero letra pequeña.</p>
         </header>
 
-        <div class="bento">
-          <!-- Big card: Soporte Apple (highlighted, dark) -->
-          <a href="/servicios/soporte-apple" class="bento-card bento--lg bento-card--gradient-soft reveal" data-delay="1">
-            <div class="bento-card__visual" aria-hidden="true"></div>
-            <div class="pill-badge pill-badge--dark" style="background:rgba(255,255,255,0.15);">Servicio estrella</div>
-            <h3 class="bento-card__title">Soporte Apple.</h3>
-            <p class="bento-card__desc">Mac, iPhone, iPad, Apple Watch, Apple TV. Más de 2 años como especialista certificado. Configuración, migración, iCloud, Time Machine y reparación.</p>
-            <span class="bento-card__link">Ver detalle</span>
-          </a>
+        <BentoGrid>
+          <!-- Featured: Soporte Apple (2x2, dark) -->
+          <BentoCard
+            name="Soporte Apple."
+            description="Mac, iPhone, iPad, Apple Watch, Apple TV. Más de 2 años como especialista certificado. Configuración, migración, iCloud, Time Machine y reparación."
+            href="/servicios/soporte-apple"
+            cta="Ver soporte Apple"
+            class="col-span-2 row-span-2"
+            theme="dark"
+          >
+            <Icon slot="icon" name="apple" size={28} strokeWidth={1.6} />
+            <div slot="visual" aria-hidden="true" style="position:absolute;right:-15%;bottom:-15%;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(94,92,255,.35),transparent 70%);filter:blur(20px);"></div>
+          </BentoCard>
 
-          <a href="/servicios/reparacion-ordenadores" class="bento-card reveal" data-delay="2">
-            <div class="bento-card__icon"><Icon name="pc" size={28} strokeWidth={1.8} /></div>
-            <h3 class="bento-card__title">Reparación de ordenadores.</h3>
-            <p class="bento-card__desc">{serviceDescs['reparacion-ordenadores']}</p>
-            <span class="bento-card__link">Ver detalle</span>
-          </a>
+          <BentoCard
+            name="Reparación de ordenadores."
+            description={serviceDescs['reparacion-ordenadores']}
+            href="/servicios/reparacion-ordenadores"
+            cta="Ver detalle"
+          >
+            <Icon slot="icon" name="pc" size={26} strokeWidth={1.7} />
+          </BentoCard>
 
-          <a href="/servicios/redes-wifi" class="bento-card bento-card--tinted reveal" data-delay="3">
-            <div class="bento-card__icon"><Icon name="wifi" size={28} strokeWidth={1.8} /></div>
-            <h3 class="bento-card__title">Redes y WiFi.</h3>
-            <p class="bento-card__desc">{serviceDescs['redes-wifi']}</p>
-            <span class="bento-card__link">Ver detalle</span>
-          </a>
+          <BentoCard
+            name="Redes y WiFi."
+            description={serviceDescs['redes-wifi']}
+            href="/servicios/redes-wifi"
+            cta="Ver detalle"
+            theme="tinted"
+          >
+            <Icon slot="icon" name="wifi" size={26} strokeWidth={1.7} />
+          </BentoCard>
 
-          <a href="/servicios/reparacion-consolas" class="bento-card reveal" data-delay="1">
-            <div class="bento-card__icon"><Icon name="console" size={28} strokeWidth={1.8} /></div>
-            <h3 class="bento-card__title">Reparación de consolas.</h3>
-            <p class="bento-card__desc">{serviceDescs['reparacion-consolas']}</p>
-            <span class="bento-card__link">Ver detalle</span>
-          </a>
+          <BentoCard
+            name="Reparación de consolas."
+            description={serviceDescs['reparacion-consolas']}
+            href="/servicios/reparacion-consolas"
+            cta="Ver detalle"
+          >
+            <Icon slot="icon" name="console" size={26} strokeWidth={1.7} />
+          </BentoCard>
 
-          <a href="/servicios/venta-equipos" class="bento-card reveal" data-delay="2">
-            <div class="bento-card__icon"><Icon name="box" size={28} strokeWidth={1.8} /></div>
-            <h3 class="bento-card__title">Venta de equipos.</h3>
-            <p class="bento-card__desc">{serviceDescs['venta-equipos']}</p>
-            <span class="bento-card__link">Ver detalle</span>
-          </a>
+          <BentoCard
+            name="Venta de equipos."
+            description={serviceDescs['venta-equipos']}
+            href="/servicios/venta-equipos"
+            cta="Ver detalle"
+          >
+            <Icon slot="icon" name="box" size={26} strokeWidth={1.7} />
+          </BentoCard>
 
-          <a href="/servicios/clases-personalizadas" class="bento-card bento-card--tinted reveal" data-delay="3">
-            <div class="bento-card__icon"><Icon name="chat" size={28} strokeWidth={1.8} /></div>
-            <h3 class="bento-card__title">Clases personalizadas.</h3>
-            <p class="bento-card__desc">{serviceDescs['clases-personalizadas']}</p>
-            <span class="bento-card__link">Ver detalle</span>
-          </a>
-        </div>
+          <BentoCard
+            name="Clases personalizadas."
+            description={serviceDescs['clases-personalizadas']}
+            href="/servicios/clases-personalizadas"
+            cta="Ver detalle"
+            theme="tinted"
+          >
+            <Icon slot="icon" name="chat" size={26} strokeWidth={1.7} />
+          </BentoCard>
+        </BentoGrid>
 
         <div class="text-center mt-5 reveal">
           <a class="btn btn--outline" href="/tarifas">
@@ -178,18 +195,14 @@ const serviceDescs: Record<string, string> = {
       </div>
     </section>
 
-    <!-- ===================== SCENE 4: SPOTLIGHT (liquid glass over color mesh) ===================== -->
-    <section class="scene spotlight-bg" aria-labelledby="spotlightTitle">
-      <div class="container">
-        <LiquidGlass variant="light" padding="80px 48px" maxWidth="980px" class="reveal" >
-          <div class="text-center">
-            <div class="pill-badge reveal" style="display:inline-flex;">Por qué PCGO</div>
-            <h2 id="spotlightTitle" class="display-2 reveal" data-delay="1" style="margin-top:16px;">Honesto, rápido<br>y con cariño.</h2>
-            <p class="lead reveal" data-delay="2" style="color:rgba(29,29,31,0.75);max-width:680px;margin:24px auto 0;font-size:clamp(18px, 1.5vw, 22px);line-height:1.45;">
-              Tres palabras que resumen cómo trabajo cada día. Cero sorpresas en la factura, cero letra pequeña, cero promesas que no pueda cumplir.
-            </p>
-          </div>
-        </LiquidGlass>
+    <!-- ===================== SCENE 4: SPOTLIGHT ===================== -->
+    <section class="scene section--soft" aria-labelledby="spotlightTitle">
+      <div class="container text-center">
+        <div class="pill-badge reveal" style="display:inline-flex;">Por qué PCGO</div>
+        <h2 id="spotlightTitle" class="display-2 reveal" data-delay="1" style="margin-top:16px;">Honesto, rápido<br>y con cariño.</h2>
+        <p class="lead reveal" data-delay="2" style="color:rgba(29,29,31,0.75);max-width:680px;margin:24px auto 0;font-size:clamp(18px, 1.5vw, 22px);line-height:1.45;">
+          Tres palabras que resumen cómo trabajo cada día. Cero sorpresas en la factura, cero letra pequeña, cero promesas que no pueda cumplir.
+        </p>
       </div>
     </section>
 

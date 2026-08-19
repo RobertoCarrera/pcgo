@@ -1,0 +1,52 @@
+---
+/**
+ * BentoCard.astro — Apple-style bento card with hover-reveal CTA.
+ * Ported from @magicui/bento-grid (MIT).
+ * Styles live in src/styles/global.css (see .bento-card).
+ *
+ * Slot "visual" — decorative background element (optional).
+ * Slot "icon"   — the leading icon.
+ *
+ * On hover:
+ *   - the content block translates up by 2.5rem
+ *   - the icon scales to 0.75
+ *   - the CTA reveal slides in from the bottom
+ *   - a subtle black/3 overlay fades in
+ */
+type Props = {
+  name: string;
+  description: string;
+  href: string;
+  cta: string;
+  class?: string;
+  theme?: 'default' | 'dark' | 'blue' | 'tinted';
+};
+const {
+  name,
+  description,
+  href,
+  cta,
+  class: className = '',
+  theme = 'default',
+} = Astro.props as Props;
+const themeClass = theme !== 'default' ? `bento-card--${theme}` : '';
+---
+<div class={`bento-card ${themeClass} ${className}`}>
+  <div class="bento-card__visual">
+    <slot name="visual" />
+  </div>
+  <div class="bento-card__content">
+    <div class="bento-card__icon">
+      <slot name="icon" />
+    </div>
+    <h3 class="bento-card__name">{name}</h3>
+    <p class="bento-card__desc">{description}</p>
+  </div>
+  <a class="bento-card__cta" href={href}>
+    <span>{cta}</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+    </svg>
+  </a>
+  <div class="bento-card__overlay" aria-hidden="true"></div>
+</div>
