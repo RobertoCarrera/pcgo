@@ -4,6 +4,7 @@ import Icon from '~/components/Icon.astro';
 import SectionDivider from '~/components/SectionDivider.astro';
 import StatTicker from '~/components/StatTicker.astro';
 import LiquidGlass from '~/components/LiquidGlass.astro';
+import Dock from '~/components/Dock.astro';
 import { site } from '~/data/site';
 import { zones } from '~/data/zones';
 
@@ -71,21 +72,18 @@ const serviceDescs: Record<string, string> = {
             Escríbenos por WhatsApp
           </a>
         </div>
-      </div>
 
-      <!-- Floating liquid glass annotation: TarifaGo callout (Apple-style annotation card) -->
-      <div class="hero-floating reveal" data-delay="4" aria-label="TarifaGo: urgencias en menos de 24 horas">
-        <LiquidGlass variant="light" padding="20px 22px" maxWidth="280px" class="hero-floating__card">
-          <div style="display:flex;align-items:center;gap:14px;">
-            <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#ff9500,#ff3b30);display:grid;place-items:center;color:#fff;flex-shrink:0;box-shadow:0 4px 12px rgba(255,59,48,0.25);">
-              <Icon name="zap" size={22} strokeWidth={2.5} />
-            </div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--c-text-2);">TarifaGo</div>
-              <div style="font-size:18px;font-weight:600;letter-spacing:-0.012em;color:var(--c-text);line-height:1.2;margin-top:2px;">Urgencias en &lt;24h</div>
-            </div>
-          </div>
-        </LiquidGlass>
+        <!-- Quick Actions Dock (macOS-style magnification) -->
+        <div class="hero__dock reveal" data-delay="4">
+          <Dock
+            items={[
+              { href: `tel:${site.phone.tel}`, icon: 'phone', label: 'Llamar', tint: '#34c759' },
+              { href: site.whatsapp,         icon: 'chat',  label: 'WhatsApp', tint: '#25d366', external: true },
+              { href: '/tarifas',            icon: 'tag',   label: 'Tarifas', tint: '#0a84ff' },
+              { href: '/zonas',              icon: 'map-pin', label: 'Zonas', tint: '#5e5cff' },
+            ]}
+          />
+        </div>
       </div>
 
       <div class="scroll-hint" aria-hidden="true">Desliza para saber más</div>

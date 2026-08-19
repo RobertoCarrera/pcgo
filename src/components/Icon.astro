@@ -3,7 +3,7 @@
  * Icon.astro — SVG icon set in Apple SF Symbols style (1.5px stroke, currentColor).
  * Use <Icon name="..." />.
  */
-type IconName = 'pc' | 'apple' | 'wifi' | 'box' | 'console' | 'chat' | 'phone' | 'check' | 'arrow-right' | 'arrow-up-right' | 'lock' | 'shield' | 'heart' | 'lightbulb' | 'rocket' | 'star' | 'map-pin' | 'zap';
+type IconName = 'pc' | 'apple' | 'wifi' | 'box' | 'console' | 'chat' | 'phone' | 'check' | 'arrow-right' | 'arrow-up-right' | 'lock' | 'shield' | 'heart' | 'lightbulb' | 'rocket' | 'star' | 'map-pin' | 'zap' | 'tag';
 
 type Props = {
   name: IconName;
@@ -71,4 +71,7 @@ const a11y = ariaLabel
 )}
 {name === 'zap' && (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={strokeWidth} stroke-linecap="round" stroke-linejoin="round" class={className} {...a11y}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+)}
+{name === 'tag' && (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={strokeWidth} stroke-linecap="round" stroke-linejoin="round" class={className} {...a11y}><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
 )}

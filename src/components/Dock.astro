@@ -1,0 +1,105 @@
+---
+/**
+ * Dock.astro — MacOS-style dock with magnification on hover.
+ * Ported from @magicui/dock (MIT) — React + framer-motion → Astro + vanilla JS.
+ * The magnification uses a simple mousemove handler that sizes each icon
+ * based on its distance to the cursor. CSS transitions smooth it out.
+ */
+type DockItem = {
+  href: string;
+  icon: string;        // matches an IconName
+  label: string;
+  tint?: string;       // background tint behind the icon
+  external?: boolean;  // open in new tab
+};
+
+type Props = {
+  items: DockItem[];
+  class?: string;
+  /** Base icon size in px (default 40). */
+  size?: number;
+  /** Max icon size on hover in px (default 60). */
+  magnification?: number;
+  /** Distance in px over which the magnification fades out (default 140). */
+  distance?: number;
+};
+
+const {
+  items,
+  class: className = '',
+  size = 40,
+  magnification = 60,
+  distance = 140,
+} = Astro.props as Props;
+---
+<div
+  class={`dock ${className}`}
+  data-size={size}
+  data-mag={magnification}
+  data-distance={distance}
+  role="toolbar"
+  aria-label="Acciones rápidas"
+>
+  {items.map((item) => (
+    <a
+      class="dock__icon"
+      href={item.href}
+      style={item.tint ? `--dock-tint:${item.tint}` : ''}
+      aria-label={item.label}
+      title={item.label}
+      {...(item.external ? { target: '_blank', rel: 'noopener' } : {})}
+    >
+      <span class="dock__icon-bg" aria-hidden="true"></span>
+      <span class="dock__icon-glyph" set:html={
+        item.icon === 'pc' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>' :
+        item.icon === 'apple' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>' :
+        item.icon === 'wifi' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>' :
+        item.icon === 'box' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M6 7V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3"/><line x1="8" y1="12" x2="8" y2="14"/><line x1="16" y1="12" x2="16" y2="14"/></svg>' :
+        item.icon === 'console' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/></svg>' :
+        item.icon === 'chat' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>' :
+        item.icon === 'phone' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92Z"/></svg>' :
+        item.icon === 'map-pin' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' :
+        item.icon === 'tag' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>' :
+        item.icon === 'zap' ? '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>' :
+        '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/></svg>'
+      } />
+      <span class="dock__icon-label">{item.label}</span>
+    </a>
+  ))}
+</div>
+
+<script>
+  // Magnification on hover — vanilla port of @magicui/dock (framer-motion).
+  // Sizes each icon based on its distance to the mouse, with CSS transition
+  // for smoothness (no spring physics needed for this small effect).
+  const initDock = (root: HTMLElement) => {
+    const size = Number(root.dataset.size) || 40;
+    const mag = Number(root.dataset.mag) || 60;
+    const distance = Number(root.dataset.distance) || 140;
+    const icons = Array.from(root.querySelectorAll<HTMLAnchorElement>('.dock__icon'));
+    if (icons.length === 0) return;
+
+    const setSize = (mouseX: number) => {
+      const rootRect = root.getBoundingClientRect();
+      for (const icon of icons) {
+        const r = icon.getBoundingClientRect();
+        const center = r.left + r.width / 2 - rootRect.left;
+        const d = Math.abs(mouseX - center);
+        const t = Math.max(0, 1 - d / distance);
+        const eased = t * t * (3 - 2 * t); // smoothstep
+        const px = size + (mag - size) * eased;
+        icon.style.setProperty('--dock-size', `${px}px`);
+      }
+    };
+    const reset = () => {
+      for (const icon of icons) {
+        icon.style.removeProperty('--dock-size');
+      }
+    };
+
+    root.addEventListener('mousemove', (e) => setSize(e.clientX - root.getBoundingClientRect().left));
+    root.addEventListener('mouseleave', reset);
+  };
+
+  document.querySelectorAll<HTMLElement>('.dock').forEach(initDock);
+</script>
