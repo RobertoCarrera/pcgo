@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "exclude": ["dist", "dist-old", "dist-old2", "dist-old3", "dist-tmp", "dist-prev", "previews", "previews-astro", "satpcgo-rebuild-html-archive"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

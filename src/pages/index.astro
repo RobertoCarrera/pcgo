@@ -1,11 +1,9 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
-import Hero from '~/components/Hero.astro';
-import CTA from '~/components/CTA.astro';
-import FAQ from '~/components/FAQ.astro';
 import Icon from '~/components/Icon.astro';
+import SectionDivider from '~/components/SectionDivider.astro';
+import StatTicker from '~/components/StatTicker.astro';
 import { site } from '~/data/site';
-import { services } from '~/data/services';
 import { zones } from '~/data/zones';
 
 const seo = {
@@ -16,46 +14,15 @@ const seo = {
   includeGeo: true,
 };
 
-// FAQ schema for SEO
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
-    {
-      '@type': 'Question',
-      name: '¿Cuánto cuesta el servicio técnico a domicilio en Vilanova i la Geltrú?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Para particulares la tarifa es de 45 €/hora. Para empresas 50 €/hora, con descuentos progresivos en los PackGo! (3h a 49 €/h, 5h a 48 €/h, 10h a 46 €/h, 20h a 45 €/h). El desplazamiento está incluido en todo el Garraf.' },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Cuánto tardáis en venir si tengo una urgencia?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Con la TarifaGo, en menos de 24 horas te visitamos en cualquier punto del Garraf. Para soporte remoto la primera hora cuesta 30 € y los tramos adicionales de 30 minutos 15 €, sin necesidad de esperar a un técnico.' },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Trabajáis con productos Apple?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Sí. Más de 2 años como especialista Apple: configuración, reparación, migración de datos e integración con iCloud, iPhone, iPad y Mac. Para presupuestos de iPhone y Mac enlazamos con la herramienta oficial de Apple.' },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Hacéis recogida y entrega del equipo?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Sí. En el servicio de Taller, la recogida y entrega está incluida en todo el territorio del Garraf sin coste adicional. La tarifa de taller es de 40 €/hora.' },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Reparáis consolas y equipos vintage?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Sí. Reparamos PlayStation, Xbox, Nintendo y también consolas y equipos vintage (siempre que haya piezas o posibilidad de adaptación). Trato el equipo como si fuera mío.' },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Cuáles son las zonas que cubrís?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Toda la comarca del Garraf (Vilanova i la Geltrú, Sitges, Sant Pere de Ribes, Cubelles, Canyelles, Olivella), Baix Penedès (Vilafranca, El Vendrell, Calafell, Cunit) y Alt Penedès. Desplazamiento incluido en Garraf; entre 25 y 50 km, 10 € adicionales.' },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Qué formas de pago aceptáis?',
-      acceptedAnswer: { '@type': 'Answer', text: 'Efectivo, tarjeta, Bizum y transferencia bancaria. Para soporte remoto se solicita un depósito previo antes de la asistencia.' },
-    },
+    { '@type': 'Question', name: '¿Cuánto cuesta el servicio técnico a domicilio en Vilanova i la Geltrú?', acceptedAnswer: { '@type': 'Answer', text: 'Para particulares la tarifa es de 45 €/hora. Para empresas 50 €/hora, con descuentos progresivos en los PackGo!.' } },
+    { '@type': 'Question', name: '¿Cuánto tardáis en venir si tengo una urgencia?', acceptedAnswer: { '@type': 'Answer', text: 'Con la TarifaGo, en menos de 24 horas te visitamos en cualquier punto del Garraf.' } },
+    { '@type': 'Question', name: '¿Trabajáis con productos Apple?', acceptedAnswer: { '@type': 'Answer', text: 'Sí. Más de 2 años como especialista Apple.' } },
+    { '@type': 'Question', name: '¿Hacéis recogida y entrega del equipo?', acceptedAnswer: { '@type': 'Answer', text: 'Sí, en el servicio de Taller, recogida y entrega incluida en todo el Garraf.' } },
+    { '@type': 'Question', name: '¿Cuáles son las zonas que cubrís?', acceptedAnswer: { '@type': 'Answer', text: 'Toda la comarca del Garraf, Baix Penedès y Alt Penedès. Desplazamiento incluido en Garraf.' } },
   ],
 };
 
@@ -65,133 +32,186 @@ const breadcrumbs = {
   itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: site.website }],
 };
 
-// Sample testimonials (hard-coded — could be moved to data/testimonials.ts if more)
-const testimonials = [
-  { stars: 5, text: '«Vino a casa en menos de 24h. Me dejó el Mac como nuevo y me explicó todo lo que había hecho. Profesional y honesto.»', author: 'Marta R., Vilanova i la Geltrú' },
-  { stars: 5, text: '«Llevamos años confiando en Alberto para la red de la oficina. Rápido, razonable y siempre disponible. Una apuesta segura.»', author: 'Jordi P., Sitges' },
-  { stars: 5, text: '«Nos configuró la WiFi de toda la casa sin zonas muertas. Y la clase con mi padre para aprender a usar el iPad fue un detallazo.»', author: 'Anna M., Sant Pere de Ribes' },
-];
+// Service descriptions for the bento
+const serviceDescs: Record<string, string> = {
+  'reparacion-ordenadores': 'Diagnóstico, limpieza, ampliación de RAM, cambio a SSD, eliminación de virus. Tu PC como nuevo sin cambiar de equipo.',
+  'soporte-apple': 'Mac, iPhone, iPad, Apple Watch, Apple TV. Configuración, migración, iCloud, Time Machine y reparación. Especialista certificado.',
+  'redes-wifi': 'WiFi mesh, cableado estructurado, switches, NAS. Sin zonas muertas en casa o en la oficina.',
+  'reparacion-consolas': 'PlayStation, Xbox, Nintendo y vintage. Pasta térmica, HDMI, fuentes, lectores.',
+  'venta-equipos': 'PC Gaming a medida, workstations, portátiles, Apple. Asesoramiento honesto y configuración inicial.',
+  'clases-personalizadas': 'Uno-a-uno, a tu ritmo. Smartphone, PC, copias, fotos, videollamadas. Especial personas mayores.',
+};
 ---
 
 <BaseLayout seo={seo} jsonLd={[faqSchema, breadcrumbs]}>
   <main id="main">
-    <Hero
-      eyebrow="Servicio técnico · Vilanova · Sitges · Garraf"
-      title={`Hacemos que la tecnología<br>trabaje <em style="font-style:normal;background:linear-gradient(135deg,#0071e3 0%,#5e5cff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;">para ti</em>, no al revés.`}
-      lead="Informático a domicilio en la comarca del Garraf y Baix Penedès. Reparación de PC, Mac, consolas y redes WiFi — con desplazamiento incluido y tarifa transparente desde 45 €/hora."
-      ctas={[
-        { label: `Llámanos: ${site.phone.display}`, href: `tel:${site.phone.tel}`, variant: 'primary', ariaLabel: `Llamar a PCGO al ${site.phone.display}` },
-        { label: 'Escríbeme por WhatsApp', href: site.whatsapp, variant: 'ghost', external: true },
-      ]}
-      visual={`<div class="hero__visual-text">Servicio técnico honesto.<br>En tu casa, en tu negocio, o en remoto.</div>`}
-    />
 
-    <!-- STATS -->
-    <section class="container" aria-label="Datos clave de PCGO">
-      <div class="stats">
-        {site.stats.map((s, i) => (
-          <div class={`reveal`} data-delay={i + 1}>
-            <div class="stat__num">{s.num}</div>
-            <div class="stat__label">{s.label}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- SERVICIOS -->
-    <section class="section" id="servicios" aria-labelledby="serviciosTitle">
-      <div class="container">
-        <header class="section__head">
-          <span class="eyebrow reveal">Lo que hacemos</span>
-          <h2 id="serviciosTitle" class="h-2 reveal" data-delay="1">Servicio técnico, a tu manera</h2>
-          <p class="lead reveal" data-delay="2">A domicilio, en tu negocio o en remoto. Tú eliges cómo quieres que te ayudemos. Cero sorpresas, cero letra pequeña: te explico el problema y el precio antes de empezar.</p>
-        </header>
-        <div class="grid grid--3">
-          {services.map((s, i) => (
-            <article class="card card--feature reveal" data-delay={(i % 6) + 1}>
-              <div class="svc-icon" aria-hidden="true">
-                <Icon name={s.icon} size={48} />
-              </div>
-              <h3 class="card__title">{s.name}</h3>
-              <p class="card__desc">
-                {s.slug === 'reparacion-ordenadores' && 'Diagnóstico, limpieza, sustitución de componentes, recuperación del sistema, eliminación de malware y aceleración de PCs que van lentos. Trato tu equipo como si fuera mío.'}
-                {s.slug === 'soporte-apple' && 'Especialista en Mac, iPhone y iPad con más de 2 años de experiencia. Configuración inicial, migración entre equipos, iCloud, copias de seguridad y puesta a punto.'}
-                {s.slug === 'redes-wifi' && 'WiFi sin zonas muertas, mesh, switches, cableado estructurado, configuración de routers y NAS. Mejoramos la señal de tu casa o montamos la red de tu negocio desde cero.'}
-                {s.slug === 'reparacion-consolas' && 'PlayStation, Xbox, Nintendo y también equipos vintage cuando hay piezas. Cambios de pasta térmica, fuentes de alimentación, HDMI, lectores, baterías y todo lo que se rompa.'}
-                {s.slug === 'venta-equipos' && 'PC Gaming, workstations, portátiles, barebones y dispositivos Apple. Te asesoro sin venderte humo: solo lo que necesitas, configurado y listo para usar desde el primer minuto.'}
-                {s.slug === 'clases-personalizadas' && 'Uno-a-uno, a tu ritmo, sin tecnicismos. Desde manejar el smartphone hasta montar tu propio PC Gaming, pasando por copias de seguridad, correo, fotos o videollamadas con la familia.'}
-              </p>
-              <a class="card__link" href={`/servicios/${s.slug}`}>Ver detalle</a>
-            </article>
-          ))}
+    <!-- ===================== SCENE 1: HERO (pro) ===================== -->
+    <section class="hero hero--pro" aria-labelledby="heroTitle">
+      <div class="container hero__inner">
+        <div class="pill-badge reveal" data-delay="0">
+          <Icon name="map-pin" size={14} strokeWidth={2} /> Servicio técnico · Garraf
         </div>
-        <div class="text-center mt-5 reveal">
-          <a class="btn btn--outline" href="/tarifas">Ver tarifas completas <Icon name="arrow-right" size={16} strokeWidth={2.5} /></a>
+        <h1 id="heroTitle" class="display-1 hero__title reveal" data-delay="1">
+          Hacemos que la tecnología<br>
+          trabaje <span class="text-gradient-blue">para ti</span>,<br>
+          no al revés.
+        </h1>
+        <p class="lead-soft hero__sub reveal" data-delay="2">
+          Informático a domicilio en la comarca del Garraf y Baix Penedès. Reparación de PC, Mac, consolas y redes WiFi — con desplazamiento incluido y tarifa transparente desde 45 €/h.
+        </p>
+        <div class="hero__cta reveal" data-delay="3" style="margin-top:40px;gap:16px;">
+          <a class="btn btn--primary btn--lg magnetic" href={`tel:${site.phone.tel}`}>
+            <Icon name="phone" size={18} strokeWidth={2.5} />
+            Llámanos · {site.phone.display}
+          </a>
+          <a class="btn btn--ghost btn--lg magnetic" href={site.whatsapp} target="_blank" rel="noopener">
+            <Icon name="chat" size={18} strokeWidth={2.5} />
+            Escríbenos por WhatsApp
+          </a>
         </div>
       </div>
+      <div class="scroll-hint" aria-hidden="true">Desliza para saber más</div>
     </section>
 
-    <!-- VALORES -->
-    <section class="section section--soft" aria-labelledby="valoresTitle">
+    <!-- ===================== SCENE 2: STATS (dark, full) ===================== -->
+    <section class="scene scene--full scene--dark scene--noise" aria-labelledby="statsTitle">
       <div class="container">
-        <header class="section__head">
-          <span class="eyebrow reveal">Por qué PCGO</span>
-          <h2 id="valoresTitle" class="h-2 reveal" data-delay="1">Honesto, rápido y con cariño.</h2>
-          <p class="lead reveal" data-delay="2">Tres palabras que resumen cómo trabajo. Cero sorpresas en la factura, cero letra pequeña.</p>
-        </header>
-        <div class="grid grid--3">
-          <div class="card reveal" data-delay="1">
-            <div class="card__icon" aria-hidden="true"><Icon name="shield" size={28} strokeWidth={2} /></div>
-            <h3 class="card__title">Transparencia total</h3>
-            <p class="card__desc">Te explico el problema, te doy el precio y solo trabajo si tú dices que sí. Si algo cambia, te aviso antes de seguir.</p>
+        <header class="section-heading" style="margin-bottom:80px;">
+          <div class="section-heading__title">
+            <div class="accent-bar" aria-hidden="true"></div>
+            <p class="eyebrow-lg" id="statsTitle">Por qué confían en nosotros</p>
+            <h2 class="display-2" style="margin-top:8px;">Diez años haciendo que la tecnología funcione.</h2>
           </div>
-          <div class="card reveal" data-delay="2">
-            <div class="card__icon" aria-hidden="true"><Icon name="zap" size={28} strokeWidth={2} /></div>
-            <h3 class="card__title">Rapidez real</h3>
-            <p class="card__desc">TarifaGo: en menos de 24h te visitamos en cualquier punto del Garraf. Y si se puede resolver en remoto, en 30 minutos estás funcionando.</p>
-          </div>
-          <div class="card reveal" data-delay="3">
-            <div class="card__icon" aria-hidden="true"><Icon name="heart" size={28} strokeWidth={2} /></div>
-            <h3 class="card__title">Trato como propio</h3>
-            <p class="card__desc">Trato cada equipo como si fuera mío. Por eso muchos clientes vuelven y me recomiendan a sus amigos y familia.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROCESO -->
-    <section class="section" aria-labelledby="procesoTitle">
-      <div class="container">
-        <header class="section__head">
-          <span class="eyebrow reveal">Cómo trabajamos</span>
-          <h2 id="procesoTitle" class="h-2 reveal" data-delay="1">De la llamada al alta en 4 pasos</h2>
+          <p class="section-heading__aside">No prometemos lo que no es. Si tu disco está muerto, te lo digo. Si tu PC tiene arreglo, te lo digo.</p>
         </header>
         <div class="grid grid--4">
-          {[
-            { n: '01', title: 'Me escribes o llamas', desc: 'Cuéntame qué te pasa. Te respondo en menos de 2 horas (laborables). Sin formularios eternos.' },
-            { n: '02', title: 'Diagnóstico y presupuesto', desc: 'Te explico el problema en cristiano y te doy un precio cerrado antes de tocar nada. Si no te convence, no hay compromiso.' },
-            { n: '03', title: 'Reparación in situ o en remoto', desc: 'Voy a tu casa o negocio, o lo solucionamos por escritorio remoto. Lo que prefieras.' },
-            { n: '04', title: 'Pago solo si funciona', desc: 'Si no se soluciona, no se cobra. Pago por Bizum, tarjeta, transferencia o efectivo, como te venga mejor.' },
-          ].map((step, i) => (
-            <div class="card reveal" data-delay={i + 1}>
-              <div style="font-size:48px;font-weight:600;line-height:1;color:var(--c-accent);letter-spacing:-0.02em;margin-bottom:16px;">{step.n}</div>
-              <h3 class="card__title">{step.title}</h3>
-              <p class="card__desc">{step.desc}</p>
-            </div>
-          ))}
+          <StatTicker value={10} suffix="+" label="Años arreglando tecnología" />
+          <StatTicker value={24} suffix="h" label="TarifaGo de urgencia" />
+          <StatTicker value={12} label="Poblaciones cubiertas" />
+          <StatTicker value={0} prefix="" suffix="€" label="Desplazamiento en Garraf" />
         </div>
       </div>
     </section>
 
-    <!-- TARIFAS TEASER -->
-    <section class="section section--soft" aria-labelledby="tarifasTitle">
+    <SectionDivider variant="curve" color="#fbfbfd" flip />
+
+    <!-- ===================== SCENE 3: SERVICES (bento) ===================== -->
+    <section class="scene" id="servicios" aria-labelledby="servicesTitle">
+      <div class="container">
+        <header class="section-heading">
+          <div class="section-heading__title">
+            <div class="accent-bar" aria-hidden="true"></div>
+            <p class="eyebrow-lg" id="servicesTitle">Lo que hacemos</p>
+            <h2 class="display-2" style="margin-top:8px;">Servicio técnico, a tu manera.</h2>
+          </div>
+          <p class="section-heading__aside">A domicilio, en tu negocio o en remoto. Tú eliges cómo. Cero sorpresas, cero letra pequeña.</p>
+        </header>
+
+        <div class="bento">
+          <!-- Big card: Soporte Apple (highlighted) -->
+          <a href="/servicios/soporte-apple" class="bento-card bento--lg bento-card--blue reveal" data-delay="1">
+            <div class="bento-card__visual" aria-hidden="true"></div>
+            <div class="pill-badge pill-badge--dark" style="background:rgba(255,255,255,0.25);">Servicio estrella</div>
+            <h3 class="bento-card__title">Soporte Apple.</h3>
+            <p class="bento-card__desc">Mac, iPhone, iPad, Apple Watch, Apple TV. Más de 2 años como especialista certificado. Configuración, migración, iCloud, Time Machine y reparación.</p>
+            <span class="bento-card__link">Ver detalle</span>
+          </a>
+
+          <a href="/servicios/reparacion-ordenadores" class="bento-card reveal" data-delay="2">
+            <div class="bento-card__icon"><Icon name="pc" size={28} strokeWidth={1.8} /></div>
+            <h3 class="bento-card__title">Reparación de ordenadores.</h3>
+            <p class="bento-card__desc">{serviceDescs['reparacion-ordenadores']}</p>
+            <span class="bento-card__link">Ver detalle</span>
+          </a>
+
+          <a href="/servicios/redes-wifi" class="bento-card bento-card--tinted reveal" data-delay="3">
+            <div class="bento-card__icon"><Icon name="wifi" size={28} strokeWidth={1.8} /></div>
+            <h3 class="bento-card__title">Redes y WiFi.</h3>
+            <p class="bento-card__desc">{serviceDescs['redes-wifi']}</p>
+            <span class="bento-card__link">Ver detalle</span>
+          </a>
+
+          <a href="/servicios/reparacion-consolas" class="bento-card reveal" data-delay="1">
+            <div class="bento-card__icon"><Icon name="console" size={28} strokeWidth={1.8} /></div>
+            <h3 class="bento-card__title">Reparación de consolas.</h3>
+            <p class="bento-card__desc">{serviceDescs['reparacion-consolas']}</p>
+            <span class="bento-card__link">Ver detalle</span>
+          </a>
+
+          <a href="/servicios/venta-equipos" class="bento-card reveal" data-delay="2">
+            <div class="bento-card__icon"><Icon name="box" size={28} strokeWidth={1.8} /></div>
+            <h3 class="bento-card__title">Venta de equipos.</h3>
+            <p class="bento-card__desc">{serviceDescs['venta-equipos']}</p>
+            <span class="bento-card__link">Ver detalle</span>
+          </a>
+
+          <a href="/servicios/clases-personalizadas" class="bento-card bento-card--tinted reveal" data-delay="3">
+            <div class="bento-card__icon"><Icon name="chat" size={28} strokeWidth={1.8} /></div>
+            <h3 class="bento-card__title">Clases personalizadas.</h3>
+            <p class="bento-card__desc">{serviceDescs['clases-personalizadas']}</p>
+            <span class="bento-card__link">Ver detalle</span>
+          </a>
+        </div>
+
+        <div class="text-center mt-5 reveal">
+          <a class="btn btn--outline" href="/tarifas">
+            Ver tarifas completas
+            <Icon name="arrow-right" size={16} strokeWidth={2.5} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 4: SPOTLIGHT ===================== -->
+    <section class="scene" aria-labelledby="spotlightTitle">
+      <div class="container">
+        <div class="spotlight reveal">
+          <div class="pill-badge pill-badge--dark" style="background:rgba(255,255,255,0.2);">Por qué PCGO</div>
+          <h2 id="spotlightTitle" class="display-2">Honesto, rápido<br>y con cariño.</h2>
+          <p class="lead" style="color:rgba(255,255,255,0.85);max-width:680px;margin:24px auto 0;font-size:clamp(18px, 1.5vw, 22px);line-height:1.45;">
+            Tres palabras que resumen cómo trabajo cada día. Cero sorpresas en la factura, cero letra pequeña, cero promesas que no pueda cumplir.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 5: WHY US (3 cols) ===================== -->
+    <section class="scene section--soft" aria-labelledby="valuesTitle">
       <div class="container">
         <header class="section__head">
-          <span class="eyebrow reveal">Tarifas</span>
-          <h2 id="tarifasTitle" class="h-2 reveal" data-delay="1">Honestas, sin sorpresas</h2>
-          <p class="lead reveal" data-delay="2">Tres tarifas claras. La que se ajuste a ti.</p>
+          <p class="eyebrow-lg reveal">Lo que prometemos</p>
+          <h2 id="valuesTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">Tres principios que se notan en cada visita.</h2>
         </header>
-        <div class="grid grid--3">
+        <div class="grid grid--3 mt-5">
+          <article class="card reveal" data-delay="1">
+            <div class="card__icon" aria-hidden="true"><Icon name="shield" size={28} strokeWidth={1.8} /></div>
+            <h3 class="card__title">Transparencia total</h3>
+            <p class="card__desc">Te explico el problema, te doy el precio y solo trabajo si tú dices que sí. Si algo cambia, te aviso antes de seguir.</p>
+          </article>
+          <article class="card reveal" data-delay="2">
+            <div class="card__icon" aria-hidden="true"><Icon name="zap" size={28} strokeWidth={1.8} /></div>
+            <h3 class="card__title">Rapidez real</h3>
+            <p class="card__desc">TarifaGo: en menos de 24h te visitamos en cualquier punto del Garraf. Y si se puede resolver en remoto, en 30 minutos estás funcionando.</p>
+          </article>
+          <article class="card reveal" data-delay="3">
+            <div class="card__icon" aria-hidden="true"><Icon name="heart" size={28} strokeWidth={1.8} /></div>
+            <h3 class="card__title">Trato como propio</h3>
+            <p class="card__desc">Trato cada equipo como si fuera mío. Por eso muchos clientes vuelven y me recomiendan a sus amigos y familia.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 6: PRICING (3 cards) ===================== -->
+    <section class="scene" aria-labelledby="pricingTitle">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow-lg reveal">Tarifas</p>
+          <h2 id="pricingTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">Honestas, sin sorpresas.</h2>
+          <p class="lead reveal" data-delay="2" style="margin-top:16px;">Tres tarifas claras. La que se ajuste a ti.</p>
+        </header>
+        <div class="grid grid--3 mt-5">
           <article class="card card--price reveal" data-delay="1">
             <h3>Particulares</h3>
             <p class="muted" style="margin-top:8px;">Para ti, en casa</p>
@@ -200,7 +220,7 @@ const testimonials = [
             </div>
             <ul class="card__price-features">
               <li><Icon name="check" size={18} /> Desplazamiento incluido en todo el Garraf</li>
-              <li><Icon name="check" size={18} /> TarifaGo urgencia +20 €/h (menos 24h)</li>
+              <li><Icon name="check" size={18} /> TarifaGo urgencia +20 €/h</li>
               <li><Icon name="check" size={18} /> Diagnóstico sin compromiso</li>
             </ul>
             <a class="btn btn--ghost btn--block" href="/tarifas">Ver detalle</a>
@@ -239,75 +259,184 @@ const testimonials = [
       </div>
     </section>
 
-    <!-- ZONAS -->
-    <section class="section" id="zonas" aria-labelledby="zonasTitle">
+    <!-- ===================== SCENE 7: PROCESS (numbered) ===================== -->
+    <section class="scene section--soft" aria-labelledby="processTitle">
       <div class="container">
         <header class="section__head">
-          <span class="eyebrow reveal">Cobertura</span>
-          <h2 id="zonasTitle" class="h-2 reveal" data-delay="1">Toda la comarca del Garraf y Baix Penedès</h2>
-          <p class="lead reveal" data-delay="2">Desplazamiento incluido en el Garraf. Desde 10 € adicionales para poblaciones a 25–50 km.</p>
+          <p class="eyebrow-lg reveal">Cómo trabajamos</p>
+          <h2 id="processTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">De la llamada al alta, en 4 pasos.</h2>
+        </header>
+        <div class="process-grid mt-5 reveal">
+          <div class="process-step">
+            <span class="process-step__num">01</span>
+            <h3 class="process-step__title">Me escribes o llamas</h3>
+            <p class="process-step__desc">Cuéntame qué te pasa. Te respondo en menos de 2 horas (laborables). Sin formularios eternos.</p>
+          </div>
+          <div class="process-step">
+            <span class="process-step__num">02</span>
+            <h3 class="process-step__title">Diagnóstico y presupuesto</h3>
+            <p class="process-step__desc">Te explico el problema en cristiano y te doy un precio cerrado antes de tocar nada. Si no te convence, no hay compromiso.</p>
+          </div>
+          <div class="process-step">
+            <span class="process-step__num">03</span>
+            <h3 class="process-step__title">Reparación in situ o en remoto</h3>
+            <p class="process-step__desc">Voy a tu casa o negocio, o lo solucionamos por escritorio remoto. Lo que prefieras.</p>
+          </div>
+          <div class="process-step">
+            <span class="process-step__num">04</span>
+            <h3 class="process-step__title">Pago solo si funciona</h3>
+            <p class="process-step__desc">Si no se soluciona, no se cobra. Bizum, tarjeta, transferencia o efectivo, como te venga mejor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 8: TESTIMONIALS (dark) ===================== -->
+    <section class="scene scene--full scene--dark scene--noise" aria-labelledby="testimonialsTitle">
+      <div class="container">
+        <header class="section__head">
+          <p class="eyebrow-lg reveal" style="color:#a1a1a6;">Clientes hablan</p>
+          <h2 id="testimonialsTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">Lo que dicen por ahí.</h2>
+        </header>
+        <div class="testimonial-feature reveal" data-delay="2" style="margin-top:48px;">
+          <div role="img" aria-label="5 estrellas" style="color:#ff9500;letter-spacing:4px;font-size:24px;margin-bottom:24px;">★★★★★</div>
+          <blockquote class="testimonial-feature__quote">
+            «Vino a casa en menos de 24h. Me dejó el Mac como nuevo y me explicó todo lo que había hecho. Profesional y honesto. No te la juega con precios inflados.»
+          </blockquote>
+          <p class="testimonial-feature__author">— Marta R., Vilanova i la Geltrú</p>
+        </div>
+        <div class="grid grid--2 mt-5" style="max-width:880px;margin-inline:auto;">
+          <figure class="card reveal" data-delay="3" style="background:#2c2c2e;border-color:#3a3a3c;">
+            <div role="img" aria-label="5 estrellas" style="color:#ff9500;letter-spacing:2px;font-size:18px;">★★★★★</div>
+            <blockquote style="margin-top:14px;font-size:17px;line-height:1.5;color:rgba(255,255,255,0.9);">«Llevamos años confiando en Alberto para la red de la oficina. Rápido, razonable y siempre disponible.»</blockquote>
+            <figcaption style="margin-top:16px;font-weight:500;color:#fff;">— Jordi P., Sitges</figcaption>
+          </figure>
+          <figure class="card reveal" data-delay="4" style="background:#2c2c2e;border-color:#3a3a3c;">
+            <div role="img" aria-label="5 estrellas" style="color:#ff9500;letter-spacing:2px;font-size:18px;">★★★★★</div>
+            <blockquote style="margin-top:14px;font-size:17px;line-height:1.5;color:rgba(255,255,255,0.9);">«Nos configuró la WiFi sin zonas muertas. Y la clase con mi padre fue un detallazo.»</blockquote>
+            <figcaption style="margin-top:16px;font-weight:500;color:#fff;">— Anna M., Sant Pere de Ribes</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SCENE 9: ZONAS (marquee + grid) ===================== -->
+    <section class="scene" id="zonas" aria-labelledby="zonasTitle">
+      <div class="container">
+        <header class="section-heading">
+          <div class="section-heading__title">
+            <div class="accent-bar" aria-hidden="true"></div>
+            <p class="eyebrow-lg" id="zonasTitle">Cobertura</p>
+            <h2 class="display-2" style="margin-top:8px;">Toda la comarca del Garraf<br>y Baix Penedès.</h2>
+          </div>
+          <p class="section-heading__aside">Desplazamiento incluido en el Garraf. Desde 10 € adicionales para poblaciones a 25–50 km.</p>
         </header>
 
-        <div class="marquee reveal" data-delay="1" aria-hidden="false">
-          <div class="marquee__track">
+        <div class="marquee-v2 reveal" aria-hidden="false" style="margin-bottom:48px;">
+          <div class="marquee-v2__track">
             {[...zones.map((z) => z.name), ...zones.map((z) => z.name)].map((name) => (
-              <span class="marquee__item">{name}</span>
+              <span class="marquee-v2__item">{name}</span>
             ))}
           </div>
         </div>
 
-        <div class="grid grid--3 mt-5">
-          {zones.slice(0, 6).map((z, i) => (
-            <a class={`card reveal`} data-delay={(i % 6) + 1} href={`/zonas/${z.slug}`}>
-              <h3 class="card__title">{z.name}</h3>
-              <p class="card__desc">{z.intro}</p>
-              <span class="card__link">Ver zona</span>
-            </a>
-          ))}
+        <div class="bento">
+          <a class="bento-card bento--lg bento-card--gradient-soft reveal" data-delay="1" href="/zonas/vilanova-i-la-geltru">
+            <div class="pill-badge pill-badge--dark" style="background:rgba(255,255,255,0.2);">Sede</div>
+            <h3 class="bento-card__title">Vilanova i la Geltrú</h3>
+            <p class="bento-card__desc">Capital del Garraf y nuestro centro de operaciones. Cobertura completa en todos los barrios.</p>
+            <span class="bento-card__link">Ver zona</span>
+          </a>
+          <a class="bento-card reveal" data-delay="2" href="/zonas/sitges">
+            <h3 class="bento-card__title">Sitges</h3>
+            <p class="bento-card__desc">10+ años atendiendo. Especialista Apple para profesionales y creativos.</p>
+            <span class="bento-card__link">Ver zona</span>
+          </a>
+          <a class="bento-card reveal" data-delay="3" href="/zonas/sant-pere-de-ribes">
+            <h3 class="bento-card__title">Sant Pere de Ribes</h3>
+            <p class="bento-card__desc">Chalets y urbanizaciones. WiFi y soporte a domicilio en pocas horas.</p>
+            <span class="bento-card__link">Ver zona</span>
+          </a>
+          <a class="bento-card reveal" data-delay="1" href="/zonas/cubelles">
+            <h3 class="bento-card__title">Cubelles</h3>
+            <p class="bento-card__desc">Pueblo más al sur del Garraf. Residentes y casas de veraneo.</p>
+            <span class="bento-card__link">Ver zona</span>
+          </a>
+          <a class="bento-card reveal" data-delay="2" href="/zonas/canyelles">
+            <h3 class="bento-card__title">Canyelles</h3>
+            <p class="bento-card__desc">Garraf interior, casas unifamiliares. WiFi en casas grandes.</p>
+            <span class="bento-card__link">Ver zona</span>
+          </a>
+          <a class="bento-card bento--wide reveal" data-delay="3" href="/zonas/baix-penedes">
+            <h3 class="bento-card__title">Baix Penedès</h3>
+            <p class="bento-card__desc">Vilafranca, El Vendrell, Calafell y Cunit. PackGo! empresarial recomendado.</p>
+            <span class="bento-card__link">Ver zona</span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- TESTIMONIOS -->
-    <section class="section section--soft" aria-labelledby="testTitle">
-      <div class="container">
+    <SectionDivider variant="curve" color="#1d1d1f" />
+
+    <!-- ===================== SCENE 10: FAQ (light) ===================== -->
+    <section class="scene section--soft" aria-labelledby="faqTitle">
+      <div class="container container--narrow">
         <header class="section__head">
-          <span class="eyebrow reveal">Clientes hablan</span>
-          <h2 id="testTitle" class="h-2 reveal" data-delay="1">Lo que dicen por ahí</h2>
+          <p class="eyebrow-lg reveal">Preguntas frecuentes</p>
+          <h2 id="faqTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">Resolvemos tus dudas.</h2>
         </header>
-        <div class="grid grid--3">
-          {testimonials.map((t, i) => (
-            <figure class="card reveal" data-delay={i + 1}>
-              <div role="img" aria-label="5 estrellas" style="color:#ff9500;letter-spacing:2px;font-size:18px;">★★★★★</div>
-              <blockquote style="margin-top:14px;font-size:17px;line-height:1.5;">{t.text}</blockquote>
-              <figcaption style="margin-top:16px;font-weight:500;">— {t.author}</figcaption>
-            </figure>
-          ))}
+        <div class="faq reveal" data-delay="2">
+          <details class="faq__item">
+            <summary class="faq__q">¿Cuánto cuesta el servicio a domicilio?</summary>
+            <div class="faq__a"><div class="faq__a-inner"><p>Para particulares la tarifa es de 45 €/hora. Para empresas 50 €/hora, con descuentos progresivos en los PackGo!. El desplazamiento está incluido en todo el Garraf.</p></div></div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">¿Cuánto tardáis si tengo una urgencia?</summary>
+            <div class="faq__a"><div class="faq__a-inner"><p>Con la TarifaGo, en menos de 24 horas te visitamos en cualquier punto del Garraf. Para soporte remoto, en menos de 1 hora.</p></div></div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">¿Trabajáis con productos Apple?</summary>
+            <div class="faq__a"><div class="faq__a-inner"><p>Sí. Más de 2 años como especialista Apple: Mac, iPhone, iPad, Apple Watch y Apple TV. Configuración, migración, iCloud y reparación.</p></div></div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">¿Hacéis recogida y entrega del equipo?</summary>
+            <div class="faq__a"><div class="faq__a-inner"><p>Sí. En el servicio de Taller, la recogida y entrega está incluida en todo el Garraf sin coste adicional. Tarifa 40 €/hora.</p></div></div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">¿Reparáis consolas y equipos vintage?</summary>
+            <div class="faq__a"><div class="faq__a-inner"><p>Sí. PlayStation, Xbox, Nintendo y también consolas y equipos vintage, siempre que haya piezas o posibilidad de adaptación.</p></div></div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">¿Cuáles son las zonas que cubrís?</summary>
+            <div class="faq__a"><div class="faq__a-inner"><p>Toda la comarca del Garraf, Baix Penedès y Alt Penedès. Desplazamiento incluido en Garraf; entre 25 y 50 km, 10 € adicionales.</p></div></div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">¿Qué formas de pago aceptáis?</summary>
+            <div class="faq__a"><div class="faq__a-inner"><p>Efectivo, tarjeta, Bizum y transferencia bancaria. Para soporte remoto se solicita un depósito previo.</p></div></div>
+          </details>
         </div>
       </div>
     </section>
 
-    <FAQ
-      eyebrow="Preguntas frecuentes"
-      title="Resolvemos tus dudas"
-      faqs={[
-        { q: '¿Cuánto cuesta el servicio a domicilio en Vilanova i la Geltrú?', a: 'Para particulares la tarifa es de 45 €/hora. Para empresas 50 €/hora, con descuentos progresivos en los PackGo! (3h a 49 €/h, 5h a 48 €/h, 10h a 46 €/h, 20h a 45 €/h). El desplazamiento está incluido en todo el Garraf.' },
-        { q: '¿Cuánto tardáis si tengo una urgencia?', a: 'Con la TarifaGo, en menos de 24 horas te visitamos en cualquier punto del Garraf. Para soporte remoto la primera hora cuesta 30 € y los tramos adicionales de 30 minutos 15 €, sin necesidad de esperar a un técnico.' },
-        { q: '¿Trabajáis con productos Apple?', a: 'Sí. Más de 2 años como especialista Apple: configuración, reparación, migración de datos e integración con iCloud, iPhone, iPad y Mac.' },
-        { q: '¿Hacéis recogida y entrega del equipo?', a: 'Sí. En el servicio de Taller, la recogida y entrega está incluida en todo el territorio del Garraf sin coste adicional. La tarifa de taller es de 40 €/hora.' },
-        { q: '¿Reparáis consolas y equipos vintage?', a: 'Sí. Reparamos PlayStation, Xbox, Nintendo y también consolas y equipos vintage (siempre que haya piezas).' },
-        { q: '¿Cuáles son las zonas que cubrís?', a: 'Toda la comarca del Garraf (Vilanova, Sitges, Sant Pere de Ribes, Cubelles, Canyelles, Olivella), Baix Penedès (Vilafranca, El Vendrell, Calafell, Cunit) y Alt Penedès.' },
-        { q: '¿Qué formas de pago aceptáis?', a: 'Efectivo, tarjeta, Bizum y transferencia bancaria. Para soporte remoto se solicita un depósito previo.' },
-      ]}
-    />
+    <!-- ===================== SCENE 11: CTA (blue, full) ===================== -->
+    <section class="scene scene--full scene--blue" aria-labelledby="ctaTitle">
+      <div class="container" style="text-align:center;">
+        <h2 id="ctaTitle" class="display-1 reveal" style="margin-bottom:24px;">¿Tienes un problema<br>tecnológico?</h2>
+        <p class="lead reveal" data-delay="1" style="color:rgba(255,255,255,0.9);max-width:680px;margin:0 auto 40px;font-size:clamp(20px, 1.7vw, 24px);line-height:1.4;">
+          Te lo soluciono hoy mismo. Llámame o escríbeme por WhatsApp y lo vemos al momento. Sin compromiso.
+        </p>
+        <div class="reveal" data-delay="2" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+          <a class="btn btn--lg magnetic" style="background:#fff;color:#0071e3;" href={`tel:${site.phone.tel}`}>
+            <Icon name="phone" size={18} strokeWidth={2.5} />
+            {site.phone.display}
+          </a>
+          <a class="btn btn--lg magnetic" style="background:rgba(255,255,255,0.18);color:#fff;backdrop-filter:blur(20px);" href={site.whatsapp} target="_blank" rel="noopener">
+            <Icon name="chat" size={18} strokeWidth={2.5} />
+            Abrir WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
 
-    <CTA
-      title="¿Tienes un problema tecnológico?"
-      lead="Te lo soluciono hoy mismo. Llámame o escríbeme por WhatsApp y lo vemos al momento."
-      ctas={[
-        { label: site.phone.display, href: `tel:${site.phone.tel}`, variant: 'primary' },
-        { label: 'Abrir WhatsApp', href: site.whatsapp, variant: 'ghost', external: true },
-      ]}
-    />
   </main>
 </BaseLayout>

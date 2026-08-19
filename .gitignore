@@ -1,5 +1,6 @@
 # build output
 dist/
+dist-*/
 .output/
 
 # dependencies
@@ -24,3 +25,11 @@ pnpm-debug.log*
 
 # astro cache
 .astro/
+
+# local preview screenshots
+previews/
+previews-astro/
+previews-v3/
+
+# legacy HTML archive
+satpcgo-rebuild-html-archive/

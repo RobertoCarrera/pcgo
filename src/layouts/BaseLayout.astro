@@ -204,13 +204,24 @@ const allJsonLd = [
     <Footer />
     <Fab />
     <script>
-      // Nav: scrolled state
+      // === Nav: scrolled state + hide on scroll down ===
       const nav = document.getElementById('nav');
-      const onScroll = () => nav?.classList.toggle('nav--scrolled', window.scrollY > 12);
+      let lastY = 0;
+      const onScroll = () => {
+        const y = window.scrollY;
+        nav?.classList.toggle('nav--scrolled', y > 12);
+        // Hide on scroll down, show on scroll up (Apple pattern)
+        if (y > 240 && y > lastY + 8) {
+          nav?.classList.add('nav--hidden');
+        } else if (y < lastY - 4) {
+          nav?.classList.remove('nav--hidden');
+        }
+        lastY = y;
+      };
       document.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
 
-      // Nav: mobile toggle
+      // === Nav: mobile toggle ===
       const navToggle = document.querySelector('.nav__toggle');
       const navMenu = document.getElementById('navMenu');
       navToggle?.addEventListener('click', () => {
@@ -226,7 +237,7 @@ const allJsonLd = [
         })
       );
 
-      // Reveal on scroll
+      // === Reveal on scroll ===
       if ('IntersectionObserver' in window) {
         const io = new IntersectionObserver(
           (entries) => {
@@ -239,15 +250,60 @@ const allJsonLd = [
           },
           { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
         );
-        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+        document.querySelectorAll('.reveal, .reveal--scale').forEach((el) => io.observe(el));
       } else {
-        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
+        document.querySelectorAll('.reveal, .reveal--scale').forEach((el) => el.classList.add('is-visible'));
       }
 
-      // FAQ <details> aria
+      // === FAQ <details> aria ===
       document.querySelectorAll('.faq__item').forEach((d) => {
         d.addEventListener('toggle', () => d.setAttribute('aria-expanded', String((d as HTMLDetailsElement).open)));
       });
+
+      // === Stat ticker (animated counter) ===
+      const animateCount = (el: HTMLElement) => {
+        const target = parseFloat(el.dataset.count ?? '0');
+        const decimals = parseInt(el.dataset.decimals ?? '0', 10);
+        const suffix = el.dataset.suffix ?? '';
+        const prefix = el.dataset.prefix ?? '';
+        const dur = 1600;
+        const start = performance.now();
+        const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+        const step = (now: number) => {
+          const t = Math.min(1, (now - start) / dur);
+          const v = target * ease(t);
+          el.textContent = prefix + (decimals > 0 ? v.toFixed(decimals) : Math.round(v).toString()) + suffix;
+          if (t < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      if ('IntersectionObserver' in window) {
+        const co = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              animateCount(e.target as HTMLElement);
+              co.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.4 });
+        document.querySelectorAll('[data-count]').forEach((el) => co.observe(el));
+      }
+
+      // === Magnetic effect on .magnetic elements ===
+      if (window.matchMedia('(pointer: fine)').matches) {
+        document.querySelectorAll<HTMLElement>('.magnetic').forEach((el) => {
+          const strength = 0.25;
+          el.addEventListener('mousemove', (ev) => {
+            const r = el.getBoundingClientRect();
+            const x = (ev.clientX - r.left - r.width / 2) * strength;
+            const y = (ev.clientY - r.top - r.height / 2) * strength;
+            el.style.transform = `translate(${x}px, ${y}px)`;
+          });
+          el.addEventListener('mouseleave', () => {
+            el.style.transform = '';
+          });
+        });
+      }
     </script>
   </body>
 </html>

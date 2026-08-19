@@ -1,0 +1,26 @@
+---
+/**
+ * StatTicker.astro — animated counter (counts up when scrolled into view).
+ * Use as <StatTicker value={10} suffix="+" label="Años" />.
+ * The animation is driven by JS in BaseLayout via IntersectionObserver.
+ */
+type Props = {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  decimals?: number;
+};
+const { value, prefix = '', suffix = '', label, decimals = 0 } = Astro.props as Props;
+---
+
+<div class="stat-ticker reveal">
+  <span
+    class="stat-ticker__num"
+    data-count={String(value)}
+    data-prefix={prefix}
+    data-suffix={suffix}
+    data-decimals={String(decimals)}
+  >{prefix}{value}{suffix}</span>
+  <div class="stat-ticker__label">{label}</div>
+</div>

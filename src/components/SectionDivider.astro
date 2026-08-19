@@ -1,0 +1,26 @@
+---
+/**
+ * SectionDivider.astro — SVG divider between scenes.
+ * Variants: 'curve' (smooth) or 'diagonal' (sharp).
+ * Pass `color` to match the section below; `flip` to invert the curve.
+ */
+type Variant = 'curve' | 'diagonal';
+type Props = {
+  variant?: Variant;
+  color?: string;
+  flip?: boolean;
+  height?: number;
+};
+const { variant = 'curve', color = '#ffffff', flip = false, height } = Astro.props as Props;
+const transform = flip ? 'scale(1,-1) translate(0,-100)' : '';
+const pathD =
+  variant === 'curve'
+    ? 'M0,96 C320,0 1120,0 1440,96 L1440,100 L0,100 Z'
+    : 'M0,0 L1440,100 L1440,100 L0,100 Z';
+---
+
+<div class={`divider divider--${variant}`} style={height ? `--d-h: ${height}px` : ''} aria-hidden="true">
+  <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style={height ? `height:${height}px` : ''}>
+    <g set:html={`<path d="${pathD}" fill="${color}" transform="${transform}" />`} />
+  </svg>
+</div>
