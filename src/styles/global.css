@@ -324,9 +324,9 @@ h1, h2, h3, h4, h5 {
 .btn:hover { transform: translateY(-1px); }
 .btn:active { transform: translateY(0); }
 
-.btn--primary { background: var(--c-accent); color: #fff; }
-.btn--primary:hover { background: var(--c-accent-hover); box-shadow: 0 8px 24px rgba(0, 113, 227, 0.25); }
-.btn--primary:active { background: var(--c-accent-press); }
+.btn--primary { background: var(--c-text); color: #fff; }
+.btn--primary:hover { background: #000; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); }
+.btn--primary:active { background: #000; transform: translateY(0); }
 
 .btn--dark { background: var(--c-text); color: var(--c-text-inv); }
 .btn--dark:hover { background: #000; }
@@ -389,10 +389,10 @@ h1, h2, h3, h4, h5 {
   background: linear-gradient(180deg, #fff 0%, #fafafc 100%);
 }
 .card--price--featured {
-  background: linear-gradient(160deg, #0071e3 0%, #5e5cff 100%);
+  background: linear-gradient(160deg, #1d1d1f 0%, #2c2c2e 100%);
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 20px 60px rgba(0, 113, 227, 0.25);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 .card--price--featured .card__price-amount,
 .card--price--featured .card__price-unit,
@@ -689,6 +689,18 @@ h1, h2, h3, h4, h5 {
 .scene--blue { background: linear-gradient(180deg, #0071e3 0%, #5e5cff 100%); color: #fff; }
 .scene--blue h1, .scene--blue h2, .scene--blue h3, .scene--blue h4, .scene--blue .eyebrow { color: #fff; }
 .scene--blue .lead { color: rgba(255, 255, 255, 0.85); }
+/* New: full-bleed dark scene with subtle blue accent gradient */
+.scene--black { background: linear-gradient(180deg, #0a0a0a 0%, #1d1d1f 100%); color: #fff; position: relative; overflow: hidden; }
+.scene--black::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 40% 35% at 30% 40%, rgba(0, 113, 227, 0.15), transparent 60%),
+    radial-gradient(ellipse 35% 30% at 70% 60%, rgba(94, 92, 255, 0.12), transparent 60%);
+  pointer-events: none;
+}
+.scene--black > * { position: relative; z-index: 1; }
+.scene--black h1, .scene--black h2, .scene--black h3, .scene--black h4, .scene--black .eyebrow { color: #fff; }
+.scene--black .lead { color: rgba(255, 255, 255, 0.8); }
 
 /* Subtle noise overlay for depth (used on dark scenes) */
 .scene--noise::after {
@@ -755,12 +767,12 @@ h1, h2, h3, h4, h5 {
   width: 56px; height: 56px;
   border-radius: 16px;
   display: grid; place-items: center;
-  background: rgba(0, 113, 227, 0.12);
-  color: var(--c-accent);
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--c-text);
   margin-bottom: 20px;
 }
 .bento-card--dark .bento-card__icon, .bento-card--blue .bento-card__icon, .bento-card--gradient-soft .bento-card__icon {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
 }
 .bento-card__icon svg { width: 28px; height: 28px; }
@@ -829,12 +841,13 @@ h1, h2, h3, h4, h5 {
   line-height: 0.95;
   font-weight: 600;
   letter-spacing: -0.035em;
-  background: linear-gradient(135deg, #0071e3 0%, #5e5cff 100%);
+  background: linear-gradient(180deg, #1d1d1f 0%, #4a4a4f 100%);
   -webkit-background-clip: text; background-clip: text;
   color: transparent;
   display: block;
 }
 .scene--dark .stat-ticker__num { background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%); -webkit-background-clip: text; background-clip: text; }
+.scene--black .stat-ticker__num { background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%); -webkit-background-clip: text; background-clip: text; }
 .scene--blue .stat-ticker__num { background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%); -webkit-background-clip: text; background-clip: text; }
 .stat-ticker__label {
   margin-top: 8px;
@@ -1033,9 +1046,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 600;
   letter-spacing: -0.03em;
   line-height: 1;
-  background: linear-gradient(135deg, #0071e3 0%, #5e5cff 100%);
-  -webkit-background-clip: text; background-clip: text;
-  color: transparent;
+  color: var(--c-text);
   display: block;
   margin-bottom: 16px;
 }

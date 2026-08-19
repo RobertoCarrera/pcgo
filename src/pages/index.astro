@@ -109,10 +109,10 @@ const serviceDescs: Record<string, string> = {
         </header>
 
         <div class="bento">
-          <!-- Big card: Soporte Apple (highlighted) -->
-          <a href="/servicios/soporte-apple" class="bento-card bento--lg bento-card--blue reveal" data-delay="1">
+          <!-- Big card: Soporte Apple (highlighted, dark) -->
+          <a href="/servicios/soporte-apple" class="bento-card bento--lg bento-card--gradient-soft reveal" data-delay="1">
             <div class="bento-card__visual" aria-hidden="true"></div>
-            <div class="pill-badge pill-badge--dark" style="background:rgba(255,255,255,0.25);">Servicio estrella</div>
+            <div class="pill-badge pill-badge--dark" style="background:rgba(255,255,255,0.15);">Servicio estrella</div>
             <h3 class="bento-card__title">Soporte Apple.</h3>
             <p class="bento-card__desc">Mac, iPhone, iPad, Apple Watch, Apple TV. Más de 2 años como especialista certificado. Configuración, migración, iCloud, Time Machine y reparación.</p>
             <span class="bento-card__link">Ver detalle</span>
@@ -239,7 +239,7 @@ const serviceDescs: Record<string, string> = {
               <li><Icon name="check" size={18} /> Soporte continuado o por proyectos</li>
               <li><Icon name="check" size={18} /> Factura simplificada o completa</li>
             </ul>
-            <a class="btn btn--block" style="background:#fff;color:#0071e3;" href="/tarifas#b2b">Ver packs B2B</a>
+            <a class="btn btn--block" style="background:#fff;color:#1d1d1f;" href="/tarifas#b2b">Ver packs B2B</a>
           </article>
 
           <article class="card card--price reveal" data-delay="3">
@@ -418,19 +418,19 @@ const serviceDescs: Record<string, string> = {
       </div>
     </section>
 
-    <!-- ===================== SCENE 11: CTA (blue, full) ===================== -->
-    <section class="scene scene--full scene--blue" aria-labelledby="ctaTitle">
+    <!-- ===================== SCENE 11: CTA (black, full) ===================== -->
+    <section class="scene scene--full scene--black" aria-labelledby="ctaTitle">
       <div class="container" style="text-align:center;">
         <h2 id="ctaTitle" class="display-1 reveal" style="margin-bottom:24px;">¿Tienes un problema<br>tecnológico?</h2>
-        <p class="lead reveal" data-delay="1" style="color:rgba(255,255,255,0.9);max-width:680px;margin:0 auto 40px;font-size:clamp(20px, 1.7vw, 24px);line-height:1.4;">
+        <p class="lead reveal" data-delay="1" style="color:rgba(255,255,255,0.85);max-width:680px;margin:0 auto 40px;font-size:clamp(20px, 1.7vw, 24px);line-height:1.4;">
           Te lo soluciono hoy mismo. Llámame o escríbeme por WhatsApp y lo vemos al momento. Sin compromiso.
         </p>
         <div class="reveal" data-delay="2" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
-          <a class="btn btn--lg magnetic" style="background:#fff;color:#0071e3;" href={`tel:${site.phone.tel}`}>
+          <a class="btn btn--primary btn--lg magnetic" href={`tel:${site.phone.tel}`}>
             <Icon name="phone" size={18} strokeWidth={2.5} />
             {site.phone.display}
           </a>
-          <a class="btn btn--lg magnetic" style="background:rgba(255,255,255,0.18);color:#fff;backdrop-filter:blur(20px);" href={site.whatsapp} target="_blank" rel="noopener">
+          <a class="btn btn--lg magnetic" style="background:rgba(255,255,255,0.12);color:#fff;backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.2);" href={site.whatsapp} target="_blank" rel="noopener">
             <Icon name="chat" size={18} strokeWidth={2.5} />
             Abrir WhatsApp
           </a>
