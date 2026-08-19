@@ -1,0 +1,326 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Hero from '~/components/Hero.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import CTA from '~/components/CTA.astro';
+import FAQ from '~/components/FAQ.astro';
+import { services, getService } from '~/data/services';
+import { site } from '~/data/site';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (() =>
+  services.map((s) => ({ params: { slug: s.slug }, props: { service: s } }))) satisfies GetStaticPaths;
+
+const { service } = Astro.props as { service: ReturnType<typeof getService> & {} };
+if (!service) throw new Error('Service not found');
+
+const seo = {
+  title: `${service.name} a Domicilio en Vilanova, Sitges y Garraf | PCGO`,
+  description: service.metaDescription,
+  canonical: `/servicios/${service.slug}`,
+  includeGeo: true,
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: service.serviceType,
+  name: service.name,
+  description: service.metaDescription,
+  provider: { '@id': `${site.website}#localbusiness` },
+  areaServed: ['Vilanova i la Geltrú', 'Sitges', 'Sant Pere de Ribes', 'Cubelles'].map((name) => ({
+    '@type': 'City',
+    name,
+  })),
+  offers: { '@type': 'Offer', price: '45', priceCurrency: 'EUR', unitText: 'hora' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: service.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: site.website },
+    { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${site.website}/servicios` },
+    { '@type': 'ListItem', position: 3, name: service.name, item: `${site.website}/servicios/${service.slug}` },
+  ],
+};
+
+// Per-service body content (cards with bullets)
+const serviceBodies: Record<string, { groups: { title: string; items: string[] }[] }> = {
+  'reparacion-ordenadores': {
+    groups: [
+      {
+        title: 'Problemas de software',
+        items: [
+          'Windows va lento o se reinicia',
+          'Virus, malware, ransomware',
+          'Errores de actualización',
+          'Pantalla azul (BSOD)',
+          'Programas que no arrancan',
+          'Drivers desactualizados',
+        ],
+      },
+      {
+        title: 'Problemas de hardware',
+        items: [
+          'El PC no enciende',
+          'Disco duro HDD → SSD (acelera el equipo)',
+          'Ampliación de RAM',
+          'Cambio de pasta térmica',
+          'Sustitución de fuente de alimentación',
+          'Pantalla, teclado o bisagra rota en portátil',
+        ],
+      },
+      {
+        title: 'Datos y copias',
+        items: [
+          'Recuperación de datos de discos dañados',
+          'Copias de seguridad automáticas',
+          'Migración a un equipo nuevo',
+          'Recuperación de archivos borrados',
+          'Configuración de RAID y NAS',
+        ],
+      },
+      {
+        title: 'Mantenimiento preventivo',
+        items: [
+          'Limpieza interna anual',
+          'Optimización del sistema',
+          'Actualización a Windows 11',
+          'Puesta a punto de portátil viejo',
+          'Plan de mantenimiento empresarial',
+        ],
+      },
+    ],
+  },
+  'redes-wifi': {
+    groups: [
+      {
+        title: 'WiFi doméstico',
+        items: [
+          'Estudio de cobertura con WiFi analyzer',
+          'Sistemas mesh (Orbi, Deco, Eero, ASUS)',
+          'Cambio de router del operador',
+          'Configuración de red para invitados',
+          'Control parental y horarios',
+        ],
+      },
+      {
+        title: 'Redes para negocios',
+        items: [
+          'Cableado estructurado Cat 6 / Cat 7',
+          'Switches gestionables y VLANs',
+          'APs profesionales (Ubiquiti, TP-Link Omada)',
+          'VPN para teletrabajadores',
+          'Firewall y seguridad perimetral',
+        ],
+      },
+      {
+        title: 'Almacenamiento en red',
+        items: [
+          'Synology y QNAP',
+          'Backups automáticos',
+          'Acceso remoto seguro',
+          'Servidor multimedia (Plex, Jellyfin)',
+        ],
+      },
+      {
+        title: 'Problemas comunes',
+        items: [
+          'WiFi lenta o con cortes',
+          'Zonas sin cobertura',
+          'Interferencias con vecinos',
+          'Configuración de la operadora',
+          'Cambio de compañía sin perder equipos',
+        ],
+      },
+    ],
+  },
+  'soporte-apple': {
+    groups: [
+      {
+        title: 'Mac (macOS)',
+        items: [
+          'Instalación limpia y migración de datos',
+          'Cambio de disco HDD a SSD (tu Mac irá como nuevo)',
+          'Ampliación de RAM en modelos compatibles',
+          'Limpieza interna y cambio de pasta térmica',
+          'Resolución de problemas de rendimiento',
+          'Configuración de Time Machine y copias',
+          'Instalación de apps y configuración de correo',
+        ],
+      },
+      {
+        title: 'iPhone y iPad (iOS / iPadOS)',
+        items: [
+          'Configuración inicial y activación',
+          'Migración entre iPhones o desde Android',
+          'iCloud: estrategia de almacenamiento y backup',
+          'Apple ID, Family Sharing y Buscar mi iPhone',
+          'Problemas de batería, almacenamiento o apps',
+          'Formación personalizada para personas mayores',
+        ],
+      },
+      {
+        title: 'Apple Watch y Apple TV',
+        items: [
+          'Emparejamiento con tu iPhone',
+          'Configuración de notificaciones, fitness y salud',
+          'Apple TV: instalación, apps, AirPlay',
+          'Integración con HomeKit y domótica',
+          'Solución de problemas de sincronización',
+        ],
+      },
+      {
+        title: 'Empresas y profesionales',
+        items: [
+          'Implantación de flotas Mac en oficinas',
+          'Configuración con MDM (Jamf, Mosyle, etc.)',
+          'Migración desde PC a Mac en equipo',
+          'Mantenimiento continuado con PackGo!',
+          'Compatibilidad Mac/Windows en red mixta',
+        ],
+      },
+    ],
+  },
+  'reparacion-consolas': {
+    groups: [
+      {
+        title: 'PlayStation',
+        items: ['PS3, PS4, PS5 y PS Vita', 'Cambio de pasta térmica', 'Limpieza interna y cambio de ventilador', 'Sustitución de HDMI y puertos', 'Problemas de fuente de alimentación', 'Discos duros y SSD'],
+      },
+      {
+        title: 'Xbox',
+        items: ['Xbox 360, One, Series S/X', 'Red ring of death (Xbox 360)', 'Cambio de pasta y limpieza', 'HDMI, puertos y fuentes', 'Problemas de lectura de discos'],
+      },
+      {
+        title: 'Nintendo',
+        items: ['Switch, Switch Lite, OLED', 'Joycons con drift', '3DS, New 3DS, 2DS, DS Lite', 'Wii y Wii U', 'Sustitución de pantallas y baterías'],
+      },
+      {
+        title: 'Vintage y retro',
+        items: ['PlayStation 1 y 2', 'Game Boy, GBA, N64, SNES', 'Dreamcast, Saturn, Mega Drive', 'Consolas arcade (consultar)', 'Recapping y restauración'],
+      },
+    ],
+  },
+  'venta-equipos': {
+    groups: [
+      {
+        title: 'PC Gaming a medida',
+        items: ['Te pregunto qué juegos, a qué resolución, con qué presupuesto', 'Componentes con mejor relación calidad/precio', 'Sin marcas infladas, sin RGB innecesario'],
+      },
+      {
+        title: 'Estaciones de trabajo',
+        items: ['Edición de vídeo, diseño 3D, fotografía o programación', 'Drivers correctos y software optimizado para tu flujo de trabajo'],
+      },
+      {
+        title: 'Portátiles',
+        items: ['Asesoramiento sin compromiso', 'No todos los "gaming" valen para todos los juegos', 'No todos los "ultraligeros" sirven para lo mismo'],
+      },
+      {
+        title: 'Apple',
+        items: ['MacBook Air, MacBook Pro, iMac, Mac mini, Mac Studio', 'Configuración inicial con migración de tu equipo antiguo'],
+      },
+    ],
+  },
+  'clases-personalizadas': {
+    groups: [
+      {
+        title: 'Móvil y tablet',
+        items: ['Manejo básico del smartphone', 'WhatsApp, videollamadas, fotos', 'Apps útiles: banca, salud, transporte', 'Seguridad y estafas online'],
+      },
+      {
+        title: 'Ordenador',
+        items: ['Primeros pasos con Windows o Mac', 'Organizar archivos y fotos', 'Correo electrónico (Gmail, Outlook)', 'Videollamadas con la familia'],
+      },
+      {
+        title: 'Hogar digital',
+        items: ['Smart TV, Chromecast, Fire TV', 'Asistentes (Alexa, Google Home)', 'Impresoras WiFi', 'Cámaras y videoporteros'],
+      },
+      {
+        title: 'Nivel intermedio',
+        items: ['Montar tu propio PC Gaming', 'Edición de fotos y vídeo básica', 'Programación para niños (Scratch)', 'Ofimática avanzada (Excel, Sheets)'],
+      },
+    ],
+  },
+};
+
+const body = serviceBodies[service.slug] ?? { groups: [] };
+---
+
+<BaseLayout seo={seo} jsonLd={[serviceSchema, faqSchema, breadcrumbs]}>
+  <main id="main">
+    <Crumbs
+      items={[
+        { name: 'Inicio', href: '/' },
+        { name: 'Servicios', href: '/servicios' },
+        { name: service.name },
+      ]}
+    />
+
+    <Hero
+      eyebrow={service.eyebrow}
+      title={service.h1}
+      lead={service.lead}
+      ctas={[
+        { label: `Reservar visita (${site.phone.display})`, href: `tel:${site.phone.tel}`, variant: 'primary' },
+        { label: 'Ver tarifas', href: '/tarifas', variant: 'ghost' },
+      ]}
+    />
+
+    <section class="section">
+      <div class="container container--narrow">
+        <h2 class="h-2 reveal">Lo que {service.slug === 'soporte-apple' ? 'hacemos por tus dispositivos Apple' : 'arreglamos / cubrimos'}</h2>
+        <p class="lead reveal" data-delay="1" style="margin-top:16px;">{service.lead}</p>
+        <div class={`grid ${body.groups.length === 4 ? 'grid--2' : 'grid--2'} mt-5`}>
+          {body.groups.map((g, i) => (
+            <div class="card reveal" data-delay={(i % 6) + 1}>
+              <h3 class="card__title">{g.title}</h3>
+              <ul style="margin-top:12px;display:flex;flex-direction:column;gap:8px;color:var(--c-text-2);">
+                {g.items.map((it) => <li>· {it}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {service.slug === 'soporte-apple' && (
+      <section class="section section--soft" aria-labelledby="appleRepairTitle">
+        <div class="container container--narrow">
+          <header class="section__head">
+            <span class="eyebrow reveal">Reparaciones oficiales</span>
+            <h2 id="appleRepairTitle" class="h-2 reveal" data-delay="1">Presupuestos oficiales de Apple</h2>
+            <p class="lead reveal" data-delay="2">Para reparaciones de hardware complejas, te enlazamos con la herramienta oficial de Apple. Tú decides dónde la haces.</p>
+          </header>
+          <div class="flex-center" style="gap:14px;flex-wrap:wrap;">
+            <a class="btn btn--primary reveal" data-delay="1" href="https://support.apple.com/es-es/iphone/repair" target="_blank" rel="noopener">Precio reparación iPhone</a>
+            <a class="btn btn--primary reveal" data-delay="2" href="https://support.apple.com/es-es/mac/repair" target="_blank" rel="noopener">Precio reparación Mac</a>
+          </div>
+          <p class="muted text-center mt-3 reveal" data-delay="3" style="font-size:14px;">* No tramitamos AppleCare+. Si quieres presupuesto personalizado en zona Garraf, contáctanos.</p>
+        </div>
+      </section>
+    )}
+
+    <FAQ eyebrow={`Preguntas sobre ${service.name.toLowerCase()}`} title="Resolvemos tus dudas" faqs={service.faqs} />
+
+    <CTA
+      title="¿Listo para empezar?"
+      lead="Cuéntame qué necesitas y te respondo en menos de 2 horas con presupuesto cerrado."
+      ctas={[
+        { label: site.phone.display, href: `tel:${site.phone.tel}`, variant: 'primary' },
+        { label: 'WhatsApp', href: site.whatsapp, variant: 'ghost', external: true },
+      ]}
+    />
+  </main>
+</BaseLayout>

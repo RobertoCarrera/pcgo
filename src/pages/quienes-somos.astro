@@ -1,0 +1,199 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Hero from '~/components/Hero.astro';
+import CTA from '~/components/CTA.astro';
+import Icon from '~/components/Icon.astro';
+import { site } from '~/data/site';
+
+const seo = {
+  title: 'Quiénes Somos — Alberto Domínguez · PCGO Garraf',
+  description:
+    'PCGO es Alberto Domínguez, técnico informático con 10+ años de experiencia y 2+ como especialista Apple. Servicio a domicilio en Vilanova, Sitges y Garraf, basado en la honestidad, la cercanía y la accesibilidad.',
+  canonical: '/quienes-somos',
+  includeGeo: true,
+  ogType: 'profile' as const,
+};
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.legalName,
+  jobTitle: 'Técnico informático y especialista Apple',
+  worksFor: { '@id': `${site.website}#localbusiness` },
+  url: `${site.website}/quienes-somos`,
+  sameAs: [site.instagram],
+  knowsAbout: [
+    'Reparación de hardware',
+    'Reparación de Mac',
+    'Reparación de iPhone',
+    'Redes y WiFi',
+    'Migración de datos',
+    'Eliminación de malware',
+  ],
+};
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'Quiénes somos — PCGO',
+  url: `${site.website}/quienes-somos`,
+  isPartOf: { '@id': `${site.website}#website` },
+  about: { '@id': `${site.website}#localbusiness` },
+  inLanguage: 'es-ES',
+};
+
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: site.website },
+    { '@type': 'ListItem', position: 2, name: 'Quiénes somos', item: `${site.website}/quienes-somos` },
+  ],
+};
+---
+
+<BaseLayout seo={seo} jsonLd={[personSchema, aboutSchema, breadcrumbs]}>
+  <main id="main">
+    <Hero
+      eyebrow="Quiénes somos"
+      title={`Una persona, una comarca,<br>una forma de trabajar.`}
+      lead="PCGO es Alberto Domínguez Jiménez. Más de 10 años arreglando tecnología, 2 como especialista Apple, y la convicción de que un servicio técnico se mide por la honestidad con la que se factura."
+    />
+
+    <!-- STORY -->
+    <section class="section" aria-labelledby="historiaTitle">
+      <div class="container container--narrow">
+        <article>
+          <h2 id="historiaTitle" class="h-2 reveal">La historia detrás de PCGO</h2>
+          <p class="lead reveal" data-delay="1" style="margin-top:16px;">Un proyecto personal que nace de la pasión por la tecnología y el deseo de hacerla accesible para todos.</p>
+
+          <div class="reveal" data-delay="2" style="margin-top:32px;font-size:19px;line-height:1.65;color:var(--c-text-2);">
+            <p>Soy <strong>Alberto Domínguez</strong>. Después de más de 10 años trabajando como técnico informático en Sitges y alrededores, y 2 años como especialista en Apple, decidí emprender un camino distinto: <strong>llevar los servicios informáticos al domicilio o negocio del cliente</strong>, sin complicaciones y con la máxima transparencia.</p>
+            <p style="margin-top:16px;">La idea de PCGO surge de algo muy sencillo: <strong>facilitar la vida a las personas</strong>. Con el rápido avance tecnológico, cada vez es más complicado para algunos seguir el ritmo. Mi misión es que nadie se quede atrás. No importa si se trata de la reparación de un equipo, la instalación de redes o la asesoría informática personalizada, siempre doy lo mejor de mí para garantizar que tu tecnología funcione como debe, de forma fácil y sin estrés.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FILOSOFIA -->
+    <section class="section section--soft" aria-labelledby="filosofiaTitle">
+      <div class="container">
+        <header class="section__head">
+          <span class="eyebrow reveal">Filosofía</span>
+          <h2 id="filosofiaTitle" class="h-2 reveal" data-delay="1">Honestidad, cercanía, accesibilidad</h2>
+          <p class="lead reveal" data-delay="2">Tres valores que se notan en cada visita.</p>
+        </header>
+        <div class="grid grid--3">
+          <div class="card reveal" data-delay="1">
+            <div class="card__icon" aria-hidden="true"><Icon name="shield" size={28} strokeWidth={2} /></div>
+            <h3 class="card__title">Honestidad radical</h3>
+            <p class="card__desc">Si no hace falta cambiar algo, te lo digo. Si tu PC tiene arreglo, te lo digo. Si te están cobrando de más en otro sitio, te lo digo. Prefiero perder una factura a perder tu confianza.</p>
+          </div>
+          <div class="card reveal" data-delay="2">
+            <div class="card__icon" aria-hidden="true"><Icon name="chat" size={28} strokeWidth={2} /></div>
+            <h3 class="card__title">Cercanía real</h3>
+            <p class="card__desc">Te llamo por tu nombre. Te explico el problema en cristiano. Te aviso si voy a llegar 10 minutos tarde. Soy una persona, no una centralita. Y eso se nota desde la primera llamada.</p>
+          </div>
+          <div class="card reveal" data-delay="3">
+            <div class="card__icon" aria-hidden="true"><Icon name="lock" size={28} strokeWidth={2} /></div>
+            <h3 class="card__title">Accesibilidad primero</h3>
+            <p class="card__desc">La tecnología debe estar al alcance de todos. Por eso las clases son al ritmo de cada persona, las explicaciones sin tecnicismos y los servicios adaptados a quien más lo necesita.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LO QUE NO SOMOS -->
+    <section class="section" aria-labelledby="noSomosTitle">
+      <div class="container container--narrow">
+        <h2 id="noSomosTitle" class="h-2 reveal">Lo que no somos</h2>
+        <p class="lead reveal" data-delay="1" style="margin-top:12px;">Tan importante es saber qué haces como qué no haces.</p>
+        <div class="grid grid--2 mt-5">
+          <div class="card reveal" data-delay="1" style="border-left:4px solid var(--c-danger);">
+            <h3 class="card__title">No somos una gran empresa</h3>
+            <p class="card__desc">No tenemos call center, no te atiende un bot, no hayDepartamento de "satisfacción del cliente" en la octava planta. Hablas conmigo, y el que viene a tu casa soy yo.</p>
+          </div>
+          <div class="card reveal" data-delay="2" style="border-left:4px solid var(--c-danger);">
+            <h3 class="card__title">No inflamos presupuestos</h3>
+            <p class="card__desc">Si tu PC necesita 30 minutos y vale 22 €, te cobro 22 €. Si necesita 2 horas, te digo antes que van a ser 2 horas. Sin extras ocultos ni "esto no lo esperábamos".</p>
+          </div>
+          <div class="card reveal" data-delay="3" style="border-left:4px solid var(--c-danger);">
+            <h3 class="card__title">No vendemos humo</h3>
+            <p class="card__desc">No te voy a recomendar cambiar un equipo que tiene arreglo, ni a instalar un antivirus de 80 € al año cuando con el gratuito vas sobrado. Te digo lo que necesitas, no lo que me da más margen.</p>
+          </div>
+          <div class="card reveal" data-delay="4" style="border-left:4px solid var(--c-danger);">
+            <h3 class="card__title">No prometemos lo que no es</h3>
+            <p class="card__desc">Si un disco duro está muerto, te lo digo. Si tus fotos son irrecuperables, te lo digo. Prefiero ser honesto ahora que dejarte con la miel en los labios.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LO QUE SI HACEMOS -->
+    <section class="section section--dark" aria-labelledby="siHacemosTitle">
+      <div class="container">
+        <header class="section__head">
+          <span class="eyebrow reveal" style="color:#a1a1a6;">Lo que sí somos</span>
+          <h2 id="siHacemosTitle" class="h-2 reveal" data-delay="1">Una empresa con cariño</h2>
+          <p class="lead reveal" data-delay="2">PCGO es el resultado de mucho esfuerzo, cariño y dedicación. Cada servicio, cada reparación, cada instalación está realizada pensando en tu satisfacción y en tu comodidad.</p>
+        </header>
+        <div class="grid grid--3">
+          <div class="card reveal" data-delay="1" style="background:#2c2c2e;border-color:#3a3a3c;">
+            <div class="stat__num" style="background:linear-gradient(135deg,#fff 0%,#a1a1a6 100%);-webkit-background-clip:text;background-clip:text;">10+</div>
+            <p style="color:#a1a1a6;margin-top:8px;">Años arreglando tecnología en el Garraf</p>
+          </div>
+          <div class="card reveal" data-delay="2" style="background:#2c2c2e;border-color:#3a3a3c;">
+            <div class="stat__num" style="background:linear-gradient(135deg,#fff 0%,#a1a1a6 100%);-webkit-background-clip:text;background-clip:text;">2+</div>
+            <p style="color:#a1a1a6;margin-top:8px;">Años como especialista Apple certificado</p>
+          </div>
+          <div class="card reveal" data-delay="3" style="background:#2c2c2e;border-color:#3a3a3c;">
+            <div class="stat__num" style="background:linear-gradient(135deg,#fff 0%,#a1a1a6 100%);-webkit-background-clip:text;background-clip:text;">12</div>
+            <p style="color:#a1a1a6;margin-top:8px;">Poblaciones cubiertas en Garraf y Penedès</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPROMISO -->
+    <section class="section" aria-labelledby="compromisoTitle">
+      <div class="container container--narrow">
+        <h2 id="compromisoTitle" class="h-2 reveal">Compromiso con la accesibilidad</h2>
+        <p class="reveal" data-delay="1" style="margin-top:16px;font-size:19px;line-height:1.65;color:var(--c-text-2);">
+          Uno de los pilares fundamentales de PCGO es la <strong>accesibilidad</strong>. Entiendo que la tecnología debe estar al alcance de todos, incluidas aquellas personas con discapacidades. Me esfuerzo por adaptar los servicios y garantizar que cada persona, sin importar sus limitaciones, pueda disfrutar de un entorno tecnológico cómodo y funcional.
+        </p>
+        <p class="reveal" data-delay="2" style="margin-top:16px;font-size:19px;line-height:1.65;color:var(--c-text-2);">
+          Si necesitas que el servicio se adapte a una condición particular (movilidad reducida, dificultad visual, auditiva, cognitiva), dímelo al contactarme y preparamos la visita para que todo fluya sin sobresaltos.
+        </p>
+      </div>
+    </section>
+
+    <!-- DATOS LEGALES -->
+    <section class="section section--soft" aria-labelledby="legalTitle">
+      <div class="container container--narrow">
+        <h2 id="legalTitle" class="h-3 reveal">Datos del titular</h2>
+        <div class="card reveal" data-delay="1" style="margin-top:24px;">
+          <dl style="display:grid;grid-template-columns:auto 1fr;gap:12px 24px;font-size:17px;">
+            <dt style="color:var(--c-text-2);">Titular</dt><dd style="margin:0;font-weight:500;">{site.legalName}</dd>
+            <dt style="color:var(--c-text-2);">NIF</dt><dd style="margin:0;font-weight:500;">{site.nif}</dd>
+            <dt style="color:var(--c-text-2);">Actividad</dt><dd style="margin:0;font-weight:500;">Servicios técnicos de informática y consultoría</dd>
+            <dt style="color:var(--c-text-2);">Dirección</dt><dd style="margin:0;">{site.city}, {site.province} (España)</dd>
+            <dt style="color:var(--c-text-2);">Teléfono</dt><dd style="margin:0;"><a href={`tel:${site.phone.tel}`}>{site.phone.display}</a></dd>
+            <dt style="color:var(--c-text-2);">Email</dt><dd style="margin:0;"><a href={`mailto:info&#64;satpcgo&#46;es`}>info&#64;satpcgo.es</a></dd>
+            <dt style="color:var(--c-text-2);">Web</dt><dd style="margin:0;"><a href={site.website}>{site.website.replace('https://', '')}</a></dd>
+            <dt style="color:var(--c-text-2);">Instagram</dt><dd style="margin:0;"><a href={site.instagram} target="_blank" rel="noopener">@pcgo.ig</a></dd>
+            <dt style="color:var(--c-text-2);">Horario</dt><dd style="margin:0;">Lunes a sábado · 09:00 a 20:00</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <CTA
+      title="¿Hablamos?"
+      lead="Cuéntame qué necesitas. Te respondo en menos de 2 horas (laborables) y sin compromiso."
+      ctas={[
+        { label: site.phone.display, href: `tel:${site.phone.tel}`, variant: 'primary' },
+        { label: 'WhatsApp', href: site.whatsapp, variant: 'ghost', external: true },
+      ]}
+    />
+  </main>
+</BaseLayout>

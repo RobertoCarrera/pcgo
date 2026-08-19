@@ -1,0 +1,26 @@
+{
+  "name": "satpcgo-web",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PCGO - Servicio técnico informático a domicilio en Vilanova, Sitges y Garraf. Apple-inspired Astro site.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "engines": {
+    "node": ">=18.17.1"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.1.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.7.2"
+  }
+}

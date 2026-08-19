@@ -1,0 +1,45 @@
+---
+/**
+ * Nav.astro — fixed frosted-glass nav with mobile toggle.
+ * Highlights the current page via aria-current="page".
+ */
+import { site } from '~/data/site';
+
+const path = Astro.url.pathname;
+const isHome = path === '/' || path === '';
+const isServicios = path.startsWith('/servicios');
+const isTarifas = path === '/tarifas' || path === '/tarifas/';
+const isQuienes = path === '/quienes-somos' || path === '/quienes-somos/';
+const isBlog = path.startsWith('/blog');
+const isZonas = path.startsWith('/zonas');
+
+function cls(active: boolean) {
+  return active ? 'nav__link' : 'nav__link';
+}
+function ariaCurrent(active: boolean) {
+  return active ? 'page' : undefined;
+}
+---
+
+<header class="nav" id="nav" role="banner">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="/" aria-label={`${site.name} - Inicio`}>
+      <span class="nav__brand-mark" aria-hidden="true">P</span>
+      <span>{site.name}</span>
+    </a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú">
+      <span></span>
+    </button>
+    <nav class="nav__menu" id="navMenu" aria-label="Navegación principal">
+      <a class={cls(isHome)} href="/" aria-current={ariaCurrent(isHome)}>Inicio</a>
+      <a class={cls(isServicios)} href="/servicios" aria-current={ariaCurrent(isServicios)}>Servicios</a>
+      <a class={cls(isTarifas)} href="/tarifas" aria-current={ariaCurrent(isTarifas)}>Tarifas</a>
+      <a class={cls(isQuienes)} href="/quienes-somos" aria-current={ariaCurrent(isQuienes)}>Quiénes somos</a>
+      <a class={cls(isBlog)} href="/blog" aria-current={ariaCurrent(isBlog)}>Blog</a>
+      <a class={cls(isZonas)} href="/#zonas">Zonas</a>
+      <a class="nav__cta" href={`tel:${site.phone.tel}`} aria-label={`Llamar a ${site.name} al ${site.phone.display}`}>
+        {site.phone.display}
+      </a>
+    </nav>
+  </div>
+</header>

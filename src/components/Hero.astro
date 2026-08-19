@@ -1,0 +1,50 @@
+---
+/**
+ * Hero.astro — reusable hero with gradient background, eyebrow, h1, lead, CTAs.
+ * Supports both Apple-style gradient and a plain variant.
+ */
+type Cta = { label: string; href: string; variant?: 'primary' | 'ghost' | 'dark'; external?: boolean; ariaLabel?: string };
+type Props = {
+  eyebrow?: string;
+  /** HTML allowed (for <br>, <em>, etc.) */
+  title: string;
+  /** Plain text lead paragraph. */
+  lead: string;
+  ctas?: Cta[];
+  /** Adds Apple-style gradient mesh background. Default: true. */
+  gradient?: boolean;
+  /** Tight variant for inner pages (less padding). */
+  tight?: boolean;
+  /** Optional visual block under the CTAs. */
+  visual?: string;
+};
+
+const { eyebrow, title, lead, ctas = [], gradient = true, tight = false, visual } = Astro.props as Props;
+const cls = ['hero'];
+if (gradient) cls.push('hero--gradient');
+if (tight) cls.push('hero--tight');
+---
+
+<section class={cls.join(' ')} aria-labelledby="hero-title">
+  <div class="container hero__inner">
+    {eyebrow && <span class="eyebrow hero__eyebrow reveal">{eyebrow}</span>}
+    <h1 id="hero-title" class="h-1 hero__title reveal" set:html={title} data-delay="1" />
+    <p class="hero__sub reveal" data-delay="2">{lead}</p>
+    {ctas.length > 0 && (
+      <div class="hero__cta reveal" data-delay="3">
+        {ctas.map((c) => (
+          <a
+            class={`btn btn--${c.variant ?? 'primary'} btn--lg`}
+            href={c.href}
+            aria-label={c.ariaLabel ?? c.label}
+            target={c.external ? '_blank' : undefined}
+            rel={c.external ? 'noopener' : undefined}
+          >
+            {c.label}
+          </a>
+        ))}
+      </div>
+    )}
+    {visual && <div class="hero__visual reveal" data-delay="4" set:html={visual} aria-hidden="true" />}
+  </div>
+</section>

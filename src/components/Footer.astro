@@ -1,0 +1,60 @@
+---
+/**
+ * Footer.astro — 4-column footer with NAP, services, empresa, contacto.
+ */
+import { site } from '~/data/site';
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">
+          <span class="nav__brand-mark" aria-hidden="true">P</span>
+          <span>{site.name}</span>
+        </div>
+        <p class="footer__desc">Servicio técnico informático a domicilio en Vilanova, Sitges y toda la comarca del Garraf. Más de 10 años haciendo que la tecnología trabaje para ti.</p>
+      </div>
+      <div>
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="/servicios/reparacion-ordenadores">Reparación de PC</a></li>
+          <li><a href="/servicios/soporte-apple">Soporte Apple</a></li>
+          <li><a href="/servicios/redes-wifi">Redes y WiFi</a></li>
+          <li><a href="/servicios/reparacion-consolas">Reparación de consolas</a></li>
+          <li><a href="/servicios/venta-equipos">Venta de equipos</a></li>
+          <li><a href="/servicios/clases-personalizadas">Clases personalizadas</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="/quienes-somos">Quiénes somos</a></li>
+          <li><a href="/tarifas">Tarifas</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/#zonas">Zonas</a></li>
+          <li><a href="/#contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href={`tel:${site.phone.tel}`}>{site.phone.display}</a></li>
+          <li><a href={`mailto:info&#64;satpcgo&#46;es`}>info&#64;satpcgo.es</a></li>
+          <li><a href={site.whatsapp} target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href={site.instagram} target="_blank" rel="noopener">@pcgo.ig</a></li>
+          <li>L–S 09:00–20:00</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 {site.name} — {site.legalName} · NIF {site.nif}</span>
+      <div class="footer__bottom-links">
+        <a href="/legal/aviso-legal">Aviso legal</a>
+        <a href="/legal/politica-de-privacidad">Privacidad</a>
+        <a href="/legal/condiciones">Condiciones</a>
+        <a href="/legal/condiciones-servicio">Condiciones de servicio</a>
+      </div>
+    </div>
+  </div>
+</footer>

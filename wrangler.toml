@@ -1,0 +1,6 @@
+# Cloudflare Pages (only used if you migrate to SSR/edge later)
+# For pure static output (current setup), Cloudflare Pages auto-detects dist/
+# and you don't need this file. Keep it for future-proofing.
+name = "satpcgo-web"
+compatibility_date = "2024-12-01"
+pages_build_output_dir = "./dist"

@@ -1,0 +1,55 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { legalPages, getLegal } from '~/data/legal';
+import { site } from '~/data/site';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (() =>
+  legalPages.map((l) => ({ params: { slug: l.slug }, props: { page: l } }))) satisfies GetStaticPaths;
+
+const { page } = Astro.props as { page: ReturnType<typeof getLegal> & {} };
+if (!page) throw new Error('Legal page not found');
+
+const seo = {
+  title: page.title,
+  description: page.description,
+  canonical: `/legal/${page.slug}`,
+  noLocalBusiness: true,
+};
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: page.title,
+  isPartOf: { '@id': `${site.website}#website` },
+  inLanguage: 'es-ES',
+};
+---
+
+<BaseLayout seo={seo} jsonLd={[webPageSchema]}>
+  <main id="main">
+    <section class="section">
+      <div class="container container--narrow">
+        <span class="eyebrow reveal">Legal</span>
+        <h1 class="h-1 reveal" data-delay="1" style="margin-top:12px;">{page.h1}</h1>
+        <div class="reveal" data-delay="2" style="margin-top:32px;font-size:17px;line-height:1.7;color:var(--c-text-2);" set:html={page.body} />
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  /* Prose styles for legal pages */
+  .container--narrow h2 {
+    color: var(--c-text);
+    margin-top: 32px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .container--narrow ul {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+</style>

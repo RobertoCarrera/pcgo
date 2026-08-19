@@ -1,0 +1,44 @@
+# PCGO — Servicio Técnico Informático a Domicilio
+
+> Servicio técnico informático a domicilio en Vilanova i la Geltrú, Sitges y comarca del Garraf (Barcelona). Más de 10 años de experiencia y 2 años como especialista Apple. Particular: 45 €/h, empresa: 50 €/h, desplazamiento incluido en todo el Garraf.
+
+## Servicios
+
+- [Reparación de ordenadores](https://satpcgo.es/servicios/reparacion-ordenadores): PCs de sobremesa y portátiles, Windows. Diagnóstico, limpieza, recuperación, aceleración, malware.
+- [Soporte Apple](https://satpcgo.es/servicios/soporte-apple): Mac, iPhone, iPad, Apple Watch, Apple TV. Configuración, migración, iCloud, copias. Especialidad principal con 2+ años de experiencia.
+- [Redes e internet](https://satpcgo.es/servicios/redes-wifi): WiFi mesh, cableado, routers, NAS, configuración avanzada. Para casa y negocio.
+- [Reparación de consolas](https://satpcgo.es/servicios/reparacion-consolas): PlayStation, Xbox, Nintendo y vintage. Recogida incluida en Garraf.
+- [Venta de equipos](https://satpcgo.es/servicios/venta-equipos): PC Gaming a medida, workstations, portátiles, Apple. Asesoramiento honesto.
+- [Clases personalizadas](https://satpcgo.es/servicios/clases-personalizadas): Uno-a-uno a domicilio, a tu ritmo. Especial personas mayores.
+
+## Zonas cubiertas
+
+- [Vilanova i la Geltrú](https://satpcgo.es/zonas/vilanova-i-la-geltru) (capital del Garraf, sede)
+- [Sitges](https://satpcgo.es/zonas/sitges) (10+ años atendiendo)
+- [Sant Pere de Ribes](https://satpcgo.es/zonas/sant-pere-de-ribes)
+- [Cubelles](https://satpcgo.es/zonas/cubelles)
+- [Canyelles](https://satpcgo.es/zonas/canyelles)
+- [Baix Penedès](https://satpcgo.es/zonas/baix-penedes) (Vilafranca, El Vendrell, Calafell, Cunit)
+
+## Tarifas
+
+- [Tarifas completas](https://satpcgo.es/tarifas): particulares 45 €/h, empresas 50 €/h, PackGo! 3h a 49 €/h, PackGo! 5h a 48 €/h, PackGo! 10h a 46 €/h, PackGo! 20h a 45 €/h, taller 40 €/h con recogida en Garraf, remoto 30 €/primera hora.
+- TarifaGo (urgencia < 24h): +20 €/h.
+- Desplazamiento: incluido en Garraf; 10 € entre 25-50 km.
+
+## Empresa
+
+- [Quiénes somos](https://satpcgo.es/quienes-somos): proyecto personal de Alberto Domínguez Jiménez, NIF 46499111B.
+- [Blog](https://satpcgo.es/blog): consejos prácticos sin tecnicismos.
+
+## Datos de contacto
+
+- Teléfono: 620 67 15 15
+- Email: info@satpcgo.es
+- WhatsApp: https://wa.me/message/5SXSSL6VY63EG1
+- Instagram: https://www.instagram.com/pcgo.ig
+- Web: https://satpcgo.es
+- Horario: lunes a sábado, 09:00 a 20:00
+- Titular: José Alberto Domínguez Jiménez · NIF 46499111B
+- Zona: Comarca del Garraf y Baix Penedès (Barcelona, España)
+- Coordenadas: 41.2376, 1.7284

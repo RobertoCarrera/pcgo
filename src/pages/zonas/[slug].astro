@@ -1,0 +1,99 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Hero from '~/components/Hero.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import CTA from '~/components/CTA.astro';
+import FAQ from '~/components/FAQ.astro';
+import { zones, getZone } from '~/data/zones';
+import { site } from '~/data/site';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (() =>
+  zones.map((z) => ({ params: { slug: z.slug }, props: { zone: z } }))) satisfies GetStaticPaths;
+
+const { zone } = Astro.props as { zone: ReturnType<typeof getZone> & {} };
+if (!zone) throw new Error('Zone not found');
+
+const seo = {
+  title: `Servicio Técnico Informático en ${zone.name} | PCGO`,
+  description: `Servicio técnico informático a domicilio en ${zone.name}, ${zone.province}. Reparación de PC, Mac, consolas, redes WiFi. 45 €/h, desplazamiento incluido.`,
+  canonical: `/zonas/${zone.slug}`,
+  includeGeo: true,
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: zone.faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout seo={seo} jsonLd={[faqSchema]}>
+  <main id="main">
+    <Crumbs
+      items={[
+        { name: 'Inicio', href: '/' },
+        { name: 'Zonas', href: '/#zonas' },
+        { name: zone.name },
+      ]}
+    />
+
+    <Hero
+      eyebrow={`Zona · ${zone.province}`}
+      title={`Servicio técnico en ${zone.name}`}
+      lead={zone.lead}
+      ctas={[
+        { label: site.phone.display, href: `tel:${site.phone.tel}`, variant: 'primary' },
+        { label: 'WhatsApp', href: site.whatsapp, variant: 'ghost', external: true },
+      ]}
+    />
+
+    <section class="section">
+      <div class="container container--narrow">
+        <p class="lead reveal">{zone.intro}</p>
+      </div>
+    </section>
+
+    {zone.groups.length > 0 && (
+      <section class="section">
+        <div class="container container--narrow">
+          <h2 class="h-2 reveal">{zone.slug === 'vilanova-i-la-geltru' ? `Cobertura completa en ${zone.name}` : `Cobertura en ${zone.name}`}</h2>
+          <div class="grid grid--2 mt-5">
+            {zone.groups.map((g, i) => (
+              <div class="card reveal" data-delay={(i % 6) + 1}>
+                <h3 class="card__title">{g.title}</h3>
+                <ul style="margin-top:12px;display:flex;flex-direction:column;gap:6px;color:var(--c-text-2);">
+                  {g.items.map((it) => <li>· {it}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {zone.unique.map((p, i) => (
+      <section class={`section ${i % 2 === 0 ? 'section--soft' : ''}`}>
+        <div class="container container--narrow">
+          <h2 class="h-2 reveal">{zone.slug === 'vilanova-i-la-geltru' ? `¿Por qué elegir PCGO en ${zone.name}?` : i === 0 ? `Servicios habituales en ${zone.name}` : `Lo que más piden en ${zone.name}`}</h2>
+          <p class="reveal" data-delay="1" style="margin-top:16px;font-size:19px;line-height:1.65;color:var(--c-text-2);">{p}</p>
+        </div>
+      </section>
+    ))}
+
+    <FAQ eyebrow={`Dudas en ${zone.name}`} title={`Preguntas sobre el servicio en ${zone.name}`} faqs={zone.faqs} />
+
+    <CTA
+      title={`¿Necesitas un técnico en ${zone.name}?`}
+      lead="Llámame o escríbeme por WhatsApp. Te respondo en menos de 2 horas."
+      ctas={[
+        { label: site.phone.display, href: `tel:${site.phone.tel}`, variant: 'primary' },
+        { label: 'WhatsApp', href: site.whatsapp, variant: 'ghost', external: true },
+      ]}
+    />
+  </main>
+</BaseLayout>

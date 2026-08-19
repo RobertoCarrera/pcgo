@@ -1,0 +1,253 @@
+---
+/**
+ * BaseLayout.astro — HTML shell for every page.
+ * Handles SEO, OpenGraph, JSON-LD, nav, footer, FAB, inline scripts.
+ *
+ * Usage:
+ *   <BaseLayout seo={seo} jsonLd={jsonLd}>
+ *     <main>...</main>
+ *   </BaseLayout>
+ */
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Fab from '../components/Fab.astro';
+import JsonLd from '../components/JsonLd.astro';
+import { site } from '../data/site';
+
+export type SeoProps = {
+  title: string;
+  description: string;
+  /** Path relative to site root, e.g. '/servicios/apple'. Used for canonical + og:url. */
+  canonical: string;
+  /** OpenGraph image, defaults to site.ogImage. */
+  ogImage?: string;
+  /** OpenGraph type, default 'website'. */
+  ogType?: 'website' | 'article' | 'profile';
+  /** True for service / zone / home pages where geo meta makes sense. */
+  includeGeo?: boolean;
+  /** If true, suppresses the LocalBusiness JSON-LD (used on non-service pages like legal). */
+  noLocalBusiness?: boolean;
+};
+
+type Props = {
+  seo: SeoProps;
+  /** Additional JSON-LD objects to inject. */
+  jsonLd?: object[];
+};
+
+const { seo, jsonLd = [] } = Astro.props as Props;
+
+const canonicalUrl = new URL(seo.canonical, Astro.site ?? site.website).toString();
+const ogImageUrl = new URL(seo.ogImage ?? site.ogImage, Astro.site ?? site.website).toString();
+const noindex = false; // Set to true on staging or previews
+
+// LocalBusiness JSON-LD — present on every page (except where explicitly suppressed)
+const localBusinessSchema: Record<string, unknown> = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${site.website}#localbusiness`,
+  name: `${site.name} - Servicio Técnico Informático a Domicilio`,
+  alternateName: 'PcGo!',
+  description: site.description,
+  url: site.website,
+  telephone: site.phone.tel,
+  priceRange: '€€',
+  image: `${site.website}${site.ogImage}`,
+  logo: `${site.website}/logo-1920.png`,
+  currenciesAccepted: 'EUR',
+  paymentAccepted: 'Cash, Credit Card, Bank Transfer, Bizum',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.city,
+    addressRegion: site.province,
+    addressCountry: 'ES',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.geo.lat,
+    longitude: site.geo.lng,
+  },
+  hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.name + ' ' + site.city)}`,
+  openingHoursSpecification: site.hours.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: h.day.split('-'),
+    opens: h.opens,
+    closes: h.closes,
+  })),
+  founder: {
+    '@type': 'Person',
+    name: site.legalName,
+    jobTitle: 'Técnico informático y especialista Apple',
+  },
+  sameAs: site.social.map((s) => s.url),
+  areaServed: [
+    'Vilanova i la Geltrú',
+    'Sitges',
+    'Sant Pere de Ribes',
+    'Cubelles',
+    'Canyelles',
+    'Olivella',
+    'Vilafranca del Penedès',
+    'El Vendrell',
+    'Calafell',
+    'Cunit',
+    'Comarca del Garraf',
+    'Baix Penedès',
+    'Alt Penedès',
+  ].map((name) => ({ '@type': 'Place', name })),
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: String(site.rating.value),
+    reviewCount: String(site.rating.count),
+    bestRating: '5',
+    worstRating: '1',
+  },
+  knowsAbout: [
+    'Reparación de ordenadores',
+    'Reparación de Mac',
+    'Reparación de iPhone',
+    'Reparación de consolas',
+    'Redes WiFi',
+    'Soporte técnico remoto',
+    'Migración de datos',
+    'Recuperación de datos',
+    'Eliminación de malware',
+    'Configuración de redes',
+    'Clases de informática',
+    'Venta de PC Gaming',
+  ],
+};
+
+// WebSite JSON-LD (for site links search)
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${site.website}#website`,
+  url: site.website,
+  name: site.name,
+  inLanguage: 'es-ES',
+  publisher: { '@id': `${site.website}#localbusiness` },
+};
+
+const allJsonLd = [
+  ...(seo.noLocalBusiness ? [] : [localBusinessSchema, websiteSchema]),
+  ...jsonLd,
+];
+---
+
+<!doctype html>
+<html lang="es-ES">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1d1d1f" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <meta name="author" content="PCGO - Alberto Domínguez Jiménez" />
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    )}
+    <meta name="googlebot" content="index, follow" />
+    <meta name="format-detection" content="telephone=yes" />
+
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="es-ES" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    {seo.includeGeo && (
+      <>
+        <meta name="geo.region" content={site.region} />
+        <meta name="geo.placename" content={`${site.city}, Garraf, ${site.province}`} />
+        <meta name="geo.position" content={`${site.geo.lat};${site.geo.lng}`} />
+        <meta name="ICBM" content={`${site.geo.lat}, ${site.geo.lng}`} />
+      </>
+    )}
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content={seo.ogType ?? 'website'} />
+    <meta property="og:site_name" content={`${site.name} - Servicio Técnico Informático`} />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={seo.title} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seo.title} />
+    <meta name="twitter:description" content={seo.description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- CSS: served from public/ as a static asset (Astro/Vite wasn't processing the import in this build) -->
+    <link rel="stylesheet" href="/global.css" />
+
+    <JsonLd data={allJsonLd} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Saltar al contenido principal</a>
+    <Nav />
+    <slot />
+    <Footer />
+    <Fab />
+    <script>
+      // Nav: scrolled state
+      const nav = document.getElementById('nav');
+      const onScroll = () => nav?.classList.toggle('nav--scrolled', window.scrollY > 12);
+      document.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // Nav: mobile toggle
+      const navToggle = document.querySelector('.nav__toggle');
+      const navMenu = document.getElementById('navMenu');
+      navToggle?.addEventListener('click', () => {
+        const open = navMenu?.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      navMenu?.querySelectorAll('a').forEach((a) =>
+        a.addEventListener('click', () => {
+          navMenu.classList.remove('is-open');
+          navToggle?.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        })
+      );
+
+      // Reveal on scroll
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+        document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
+      }
+
+      // FAQ <details> aria
+      document.querySelectorAll('.faq__item').forEach((d) => {
+        d.addEventListener('toggle', () => d.setAttribute('aria-expanded', String((d as HTMLDetailsElement).open)));
+      });
+    </script>
+  </body>
+</html>

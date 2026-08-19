@@ -1,0 +1,56 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Hero from '~/components/Hero.astro';
+import { getCollection } from 'astro:content';
+import { site } from '~/data/site';
+
+const seo = {
+  title: 'Blog de PCGO — Consejos y guías de informática | Garraf',
+  description:
+    'Consejos prácticos para sacar más partido a tu PC, Mac, smartphone y red WiFi. Guías claras y sin tecnicismos desde la comarca del Garraf.',
+  canonical: '/blog',
+  includeGeo: true,
+};
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+const blogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Blog PCGO',
+  url: `${site.website}/blog`,
+  inLanguage: 'es-ES',
+  publisher: { '@id': `${site.website}#localbusiness` },
+};
+---
+
+<BaseLayout seo={seo} jsonLd={[blogSchema]}>
+  <main id="main">
+    <Hero
+      eyebrow="Blog PCGO"
+      title={`Consejos prácticos,<br>sin tecnicismos.`}
+      lead="Guías honestas para que tu tecnología funcione mejor. Por Alberto, técnico con 10+ años de experiencia."
+    />
+
+    <section class="section">
+      <div class="container">
+        {posts.length === 0 ? (
+          <p class="muted text-center">Aún no hay artículos publicados. Vuelve pronto.</p>
+        ) : (
+          <div class="grid grid--3">
+            {posts.map((post) => (
+              <a class="card card--feature reveal" href={`/blog/${post.slug}`}>
+                {post.data.eyebrow && <span class="eyebrow" style="margin-bottom:12px;">{post.data.eyebrow}</span>}
+                <h3 class="card__title">{post.data.title}</h3>
+                <p class="card__desc">{post.data.description}</p>
+                <span class="card__link">Leer artículo</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

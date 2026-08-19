@@ -1,0 +1,89 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Crumbs from '~/components/Crumbs.astro';
+import CTA from '~/components/CTA.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { site } from '~/data/site';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const { Content } = await post.render();
+
+const seo = {
+  title: `${post.data.title} | PCGO`,
+  description: post.data.description,
+  canonical: `/blog/${post.slug}`,
+  includeGeo: true,
+  ogType: 'article' as const,
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  datePublished: post.data.pubDate.toISOString().slice(0, 10),
+  dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString().slice(0, 10),
+  author: { '@type': 'Person', name: post.data.author },
+  publisher: { '@id': `${site.website}#localbusiness` },
+  mainEntityOfPage: `${site.website}/blog/${post.slug}`,
+  inLanguage: 'es-ES',
+  description: post.data.description,
+};
+
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: site.website },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site.website}/blog` },
+    { '@type': 'ListItem', position: 3, name: post.data.title, item: `${site.website}/blog/${post.slug}` },
+  ],
+};
+
+const dateStr = post.data.pubDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+const readMin = Math.max(1, Math.round(post.body.split(/\s+/).length / 200));
+---
+
+<BaseLayout seo={seo} jsonLd={[articleSchema, breadcrumbs]}>
+  <main id="main">
+    <Crumbs
+      items={[
+        { name: 'Inicio', href: '/' },
+        { name: 'Blog', href: '/blog' },
+        { name: post.data.title },
+      ]}
+    />
+
+    <article class="section">
+      <div class="container container--narrow">
+        <header style="text-align:center;margin-bottom:48px;">
+          {post.data.eyebrow && <span class="eyebrow reveal">{post.data.eyebrow}</span>}
+          <h1 class="h-1 reveal" data-delay="1" style="margin-top:12px;">{post.data.title}</h1>
+          <p class="muted reveal" data-delay="2" style="margin-top:16px;font-size:14px;">
+            {dateStr} · {readMin} min de lectura · Por {post.data.author}
+          </p>
+        </header>
+        <div class="reveal" data-delay="3" style="font-size:19px;line-height:1.7;color:var(--c-text-2);">
+          <Content />
+        </div>
+      </div>
+    </article>
+
+    <CTA
+      title="¿Prefieres que lo haga yo por ti?"
+      lead="Vengo a tu casa en Vilanova, Sitges o Garraf. 45 €/h, desplazamiento incluido. Y te digo honestamente si merece la pena."
+      ctas={[
+        { label: site.phone.display, href: `tel:${site.phone.tel}`, variant: 'primary' },
+        { label: 'WhatsApp', href: site.whatsapp, variant: 'ghost', external: true },
+      ]}
+    />
+  </main>
+</BaseLayout>

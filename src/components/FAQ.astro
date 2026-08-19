@@ -1,0 +1,37 @@
+---
+/**
+ * FAQ.astro — FAQ section with native <details> + reveal animations.
+ * Use the same questions in JSON-LD FAQPage schema in the page.
+ */
+type Faq = { q: string; a: string };
+type Props = {
+  eyebrow?: string;
+  title: string;
+  faqs: Faq[];
+  /** Optional max width container. Default 'narrow'. */
+  width?: 'narrow' | 'default';
+};
+const { eyebrow, title, faqs, width = 'narrow' } = Astro.props as Props;
+const containerCls = width === 'narrow' ? 'container--narrow' : '';
+---
+
+<section class="section">
+  <div class={`container ${containerCls}`}>
+    <header class="section__head">
+      {eyebrow && <span class="eyebrow reveal">{eyebrow}</span>}
+      <h2 class="h-2 reveal" data-delay="1">{title}</h2>
+    </header>
+    <div class="faq">
+      {faqs.map((f, i) => (
+        <details class="faq__item reveal" data-delay={(i % 6) + 1}>
+          <summary class="faq__q">{f.q}</summary>
+          <div class="faq__a">
+            <div class="faq__a-inner">
+              <p>{f.a}</p>
+            </div>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Hero from '~/components/Hero.astro';
+import Icon from '~/components/Icon.astro';
+import { services } from '~/data/services';
+import { site } from '~/data/site';
+
+const seo = {
+  title: 'Servicios Informáticos a Domicilio en Vilanova, Sitges y Garraf | PCGO',
+  description:
+    'Todos los servicios de PCGO: reparación de PC y Mac, soporte Apple, redes WiFi, venta de equipos, reparación de consolas y clases personalizadas en Vilanova i la Geltrú, Sitges y comarca del Garraf.',
+  canonical: '/servicios',
+  includeGeo: true,
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: services.map((s, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: s.name,
+    url: `${site.website}/servicios/${s.slug}`,
+  })),
+};
+---
+
+<BaseLayout seo={seo} jsonLd={[itemListSchema]}>
+  <main id="main">
+    <Hero
+      eyebrow="Nuestros servicios"
+      title={`Todo lo que hacemos<br>por tu tecnología.`}
+      lead="A domicilio, en tu negocio o en remoto. Tú eliges cómo. Y siempre con la misma honestidad en la factura."
+    />
+
+    <section class="section">
+      <div class="container">
+        <div class="grid grid--3">
+          {services.map((s, i) => (
+            <a class="card card--feature reveal" data-delay={(i % 6) + 1} href={`/servicios/${s.slug}`}>
+              <div class="svc-icon" aria-hidden="true">
+                <Icon name={s.icon} size={48} />
+              </div>
+              <h3 class="card__title">{s.name}</h3>
+              <p class="card__desc">{s.lead}</p>
+              <span class="card__link">Ver servicio</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--soft">
+      <div class="container container--narrow text-center">
+        <h2 class="h-2 reveal">¿No encuentras lo que buscas?</h2>
+        <p class="lead reveal" data-delay="1" style="margin-top:12px;">Cuéntame qué necesitas. Si está en mi ámbito, lo hago. Si no, te recomiendo a alguien de confianza.</p>
+        <div class="flex-center mt-4 reveal" data-delay="2" style="gap:14px;flex-wrap:wrap;">
+          <a class="btn btn--primary btn--lg" href={`tel:${site.phone.tel}`}>Llamar ahora</a>
+          <a class="btn btn--ghost btn--lg" href={site.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

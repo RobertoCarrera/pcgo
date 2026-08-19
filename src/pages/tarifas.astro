@@ -1,0 +1,244 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Hero from '~/components/Hero.astro';
+import CTA from '~/components/CTA.astro';
+import FAQ from '~/components/FAQ.astro';
+import Icon from '~/components/Icon.astro';
+import { site } from '~/data/site';
+
+const seo = {
+  title: 'Tarifas y Precios 2026 — PCGO Vilanova, Sitges y Garraf',
+  description:
+    'Tarifas transparentes de PCGO: particulares 45 €/h, empresas 50 €/h, PackGo! desde 3h con descuento progresivo hasta 45 €/h, taller 40 €/h con recogida en Garraf, soporte remoto 30 €. Desplazamiento incluido. Sin sorpresas.',
+  canonical: '/tarifas',
+  includeGeo: true,
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Servicio técnico informático PCGO',
+  description:
+    'Servicio técnico a domicilio para particulares, empresas y soporte remoto. Tarifas por hora con descuentos por pack. Desplazamiento incluido en el Garraf.',
+  provider: { '@id': `${site.website}#localbusiness` },
+  areaServed: [
+    'Vilanova i la Geltrú', 'Sitges', 'Sant Pere de Ribes', 'Cubelles',
+    'Canyelles', 'Olivella', 'Vilafranca del Penedès', 'El Vendrell',
+    'Calafell', 'Cunit',
+  ].map((name) => ({ '@type': 'City', name })),
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Tarifas PCGO 2026',
+    itemListElement: [
+      { '@type': 'Offer', name: 'Particulares B2C', price: '45', priceCurrency: 'EUR', unitText: 'hora' },
+      { '@type': 'Offer', name: 'Empresas B2B (estándar)', price: '50', priceCurrency: 'EUR', unitText: 'hora' },
+      { '@type': 'Offer', name: 'PackGo! 3 horas', price: '49', priceCurrency: 'EUR', unitText: 'hora' },
+      { '@type': 'Offer', name: 'PackGo! 5 horas', price: '48', priceCurrency: 'EUR', unitText: 'hora' },
+      { '@type': 'Offer', name: 'PackGo! 10 horas', price: '46', priceCurrency: 'EUR', unitText: 'hora' },
+      { '@type': 'Offer', name: 'PackGo! 20 horas', price: '45', priceCurrency: 'EUR', unitText: 'hora' },
+      { '@type': 'Offer', name: 'TarifaGo urgencia', price: '20', priceCurrency: 'EUR', unitText: 'hora adicional' },
+      { '@type': 'Offer', name: 'Taller con recogida Garraf', price: '40', priceCurrency: 'EUR', unitText: 'hora' },
+      { '@type': 'Offer', name: 'Soporte remoto (primera hora)', price: '30', priceCurrency: 'EUR', unitText: 'primera hora' },
+      { '@type': 'Offer', name: 'Soporte remoto (tramos adicionales)', price: '15', priceCurrency: 'EUR', unitText: '30 minutos' },
+    ],
+  },
+};
+
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: site.website },
+    { '@type': 'ListItem', position: 2, name: 'Tarifas', item: `${site.website}/tarifas` },
+  ],
+};
+---
+
+<BaseLayout seo={seo} jsonLd={[serviceSchema, breadcrumbs]}>
+  <main id="main">
+    <Hero
+      eyebrow="Tarifas 2026"
+      title="Precios claros. Sin sorpresas."
+      lead="Particulares, empresas, talleres y soporte remoto. La tarifa que se adapta a ti, con el desplazamiento incluido en todo el Garraf."
+      gradient={true}
+    />
+
+    <!-- B2C / B2B -->
+    <section class="section" id="b2b" aria-labelledby="b2bTitle">
+      <div class="container">
+        <header class="section__head">
+          <span class="eyebrow reveal">Lo más habitual</span>
+          <h2 id="b2bTitle" class="h-2 reveal" data-delay="1">Particulares y empresas</h2>
+        </header>
+        <div class="grid grid--2">
+          <article class="card card--price reveal" data-delay="1">
+            <h3>Particulares (B2C)</h3>
+            <p class="muted" style="margin-top:8px;">Ideal para clientes particulares y autónomos</p>
+            <div style="margin:28px 0;">
+              <span class="card__price-amount">45</span><span class="card__price-unit">€/hora</span>
+            </div>
+            <ul class="card__price-features">
+              <li><Icon name="check" size={18} /> Desplazamiento incluido en todo el Garraf</li>
+              <li><Icon name="check" size={18} /> Diagnóstico gratuito sin compromiso</li>
+              <li><Icon name="check" size={18} /> Pago por Bizum, tarjeta, transferencia o efectivo</li>
+              <li><Icon name="check" size={18} /> Factura simplificada</li>
+              <li style="color:var(--c-danger);"><strong>TarifaGo (urgencia &lt; 24h): +20 €/hora</strong></li>
+            </ul>
+            <a class="btn btn--ghost btn--block" href={`tel:${site.phone.tel}`}>Llamar ahora</a>
+          </article>
+
+          <article class="card card--price card--price--featured reveal" data-delay="2">
+            <span class="card__price-badge">Para empresas</span>
+            <h3>Empresas (B2B)</h3>
+            <p class="muted" style="margin-top:8px;">Pensado para soporte continuado o por proyectos</p>
+            <div style="margin:28px 0;">
+              <span class="card__price-amount">50</span><span class="card__price-unit">€/hora</span>
+            </div>
+            <ul class="card__price-features">
+              <li><Icon name="check" size={18} /> PackGo! con descuento desde 3h</li>
+              <li><Icon name="check" size={18} /> Factura completa para tu contabilidad</li>
+              <li><Icon name="check" size={18} /> Soporte continuado o por proyectos</li>
+              <li><Icon name="check" size={18} /> TarifaGo de urgencia disponible: +20 €/h</li>
+            </ul>
+            <a class="btn btn--block" style="background:#fff;color:#0071e3;" href={`tel:${site.phone.tel}`}>Pedir PackGo!</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACK TABLE -->
+    <section class="section section--soft" aria-labelledby="packTitle">
+      <div class="container">
+        <header class="section__head">
+          <span class="eyebrow reveal">Tabla PackGo!</span>
+          <h2 id="packTitle" class="h-2 reveal" data-delay="1">Cuanto más pack, menos por hora</h2>
+          <p class="lead reveal" data-delay="2">Para empresas con mantenimiento continuado. Horas prepagadas con 6 meses de validez.</p>
+        </header>
+        <div class="card reveal" data-delay="1" style="padding:0;overflow:hidden;">
+          <div style="overflow-x:auto;">
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th>Pack</th><th>Horas</th><th>Tarifa / hora</th><th>Ahorro vs. estándar</th><th>Validez</th><th>Ideal para</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Estándar B2B</strong></td><td>Por horas</td><td>50 €/h</td><td>—</td><td>—</td><td>Proyectos puntuales</td></tr>
+                <tr style="background:var(--c-accent-soft);"><td><strong>PackGo! 3h</strong></td><td>3 horas</td><td>49 €/h</td><td>2 % (3 €)</td><td>6 meses</td><td>Pymes y autónomos</td></tr>
+                <tr><td><strong>PackGo! 5h</strong></td><td>5 horas</td><td>48 €/h</td><td>4 % (10 €)</td><td>6 meses</td><td>Negocios con 1-2 equipos</td></tr>
+                <tr style="background:var(--c-accent-soft);"><td><strong>PackGo! 10h</strong></td><td>10 horas</td><td>46 €/h</td><td>8 % (40 €)</td><td>6 meses</td><td>Oficinas con varios puestos</td></tr>
+                <tr><td><strong>PackGo! 20h</strong> <span style="color:var(--c-accent);font-weight:600;">★ Mejor precio</span></td><td>20 horas</td><td>45 €/h</td><td>10 % (100 €)</td><td>6 meses</td><td>Negocios con mantenimiento mensual</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="muted mt-3 text-center" style="font-size:14px;">* Precios sin IVA. El IVA se desglosa en la factura (21 % en particulares o el tipo aplicable en empresas).</p>
+      </div>
+    </section>
+
+    <!-- TALLER / REMOTO -->
+    <section class="section" id="remoto" aria-labelledby="tallerTitle">
+      <div class="container">
+        <header class="section__head">
+          <span class="eyebrow reveal">Más opciones</span>
+          <h2 id="tallerTitle" class="h-2 reveal" data-delay="1">Taller y soporte remoto</h2>
+        </header>
+        <div class="grid grid--2">
+          <article class="card card--price reveal" data-delay="1">
+            <h3>Taller con recogida</h3>
+            <p class="muted" style="margin-top:8px;">Dejamos y recogemos el equipo en tu casa</p>
+            <div style="margin:28px 0;">
+              <span class="card__price-amount">40</span><span class="card__price-unit">€/hora</span>
+            </div>
+            <ul class="card__price-features">
+              <li><Icon name="check" size={18} /> Recogida y entrega incluida en el Garraf</li>
+              <li><Icon name="check" size={18} /> Reparación en banco de trabajo</li>
+              <li><Icon name="check" size={18} /> Presupuesto cerrado antes de intervenir</li>
+              <li style="color:var(--c-danger);"><strong>TarifaGo (urgencia &lt; 24h): +15 €/hora</strong></li>
+            </ul>
+            <a class="btn btn--ghost btn--block" href={`tel:${site.phone.tel}`}>Solicitar recogida</a>
+          </article>
+
+          <article class="card card--price reveal" data-delay="2">
+            <h3>Soporte remoto</h3>
+            <p class="muted" style="margin-top:8px;">Resolvemos en tu pantalla, en minutos</p>
+            <div style="margin:28px 0;">
+              <span class="card__price-amount">30</span><span class="card__price-unit">€ primera hora</span>
+            </div>
+            <ul class="card__price-features">
+              <li><Icon name="check" size={18} /> Tramos adicionales: 15 € / 30 min</li>
+              <li><Icon name="check" size={18} /> Conexión cifrada, sin instalar nada raro</li>
+              <li><Icon name="check" size={18} /> Pago por adelantado (Bizum / tarjeta)</li>
+              <li><Icon name="check" size={18} /> Disponible L-S de 09:00 a 20:00</li>
+            </ul>
+            <a class="btn btn--ghost btn--block" href={site.whatsapp} target="_blank" rel="noopener">Pedir conexión remota</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLE -->
+    <section class="section section--soft" aria-labelledby="appleTitle">
+      <div class="container container--narrow">
+        <div class="card reveal" data-delay="1" style="text-align:center;padding:48px 36px;">
+          <div class="svc-icon" style="margin:0 auto 24px;" aria-hidden="true">
+            <Icon name="apple" size={48} />
+          </div>
+          <h2 id="appleTitle" class="h-3" style="margin-bottom:12px;">Reparaciones de Apple</h2>
+          <p style="color:var(--c-text-2);max-width:520px;margin:0 auto 28px;">Consulta el coste estimado para la reparación de tu dispositivo Apple directamente en la herramienta oficial de Apple. Selecciona modelo y tipo de reparación.</p>
+          <div class="flex-center" style="gap:12px;flex-wrap:wrap;">
+            <a class="btn btn--primary" href="https://support.apple.com/es-es/iphone/repair" target="_blank" rel="noopener">Precio reparación iPhone</a>
+            <a class="btn btn--primary" href="https://support.apple.com/es-es/mac/repair" target="_blank" rel="noopener">Precio reparación Mac</a>
+          </div>
+          <p class="muted mt-3" style="font-size:13px;">* Actualmente no tramitamos AppleCare+. Para presupuesto personalizado en zona Garraf, contáctanos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESPLAZAMIENTO -->
+    <section class="section" aria-labelledby="despTitle">
+      <div class="container container--narrow">
+        <header class="section__head">
+          <span class="eyebrow reveal">Desplazamientos</span>
+          <h2 id="despTitle" class="h-2 reveal" data-delay="1">Lo que pagas por venir</h2>
+        </header>
+        <div class="card reveal" data-delay="1" style="padding:0;overflow:hidden;">
+          <div style="overflow-x:auto;">
+            <table class="tbl">
+              <thead><tr><th>Distancia</th><th>Coste</th><th>Notas</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Hasta 25 km (todo el Garraf)</strong></td><td><strong style="color:var(--c-success);">Incluido</strong></td><td>Vilanova, Sitges, Sant Pere de Ribes, Cubelles, Canyelles, Olivella</td></tr>
+                <tr><td>25 – 50 km</td><td>+ 10 €</td><td>Vilafranca del Penedès, El Vendrell, Calafell, Cunit</td></tr>
+                <tr><td>Más de 50 km</td><td>Presupuesto previo</td><td>Te confirmamos el importe antes de desplazarnos</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p class="muted mt-3 text-center" style="font-size:14px;">* Los precios indicados no incluyen IVA. Aceptamos efectivo, tarjeta, Bizum y transferencia bancaria.</p>
+      </div>
+    </section>
+
+    <FAQ
+      eyebrow="Dudas habituales"
+      title="Preguntas sobre tarifas"
+      faqs={[
+        { q: '¿Por qué cobráis por horas y no por trabajo?', a: 'Porque un PC que no enciende y otro con virus pueden llevar el mismo tiempo, o no. Cobrar por horas te garantiza que solo pagas por el tiempo real dedicado. El diagnóstico inicial es gratuito si no aceptas el presupuesto.' },
+        { q: '¿Cómo funciona la PackGo!?', a: 'Contratas un pack de horas prepagadas (3, 5, 10 o 20) y la tarifa por hora se reduce progresivamente. Las horas no consumidas tienen 6 meses de validez. Recomendado para empresas con mantenimiento continuado.' },
+        { q: '¿Cuándo se aplica la TarifaGo de urgencia?', a: 'Cuando necesitas que vayamos a tu casa o negocio en menos de 24h. Suma 20 €/h al precio estándar (15 €/h en taller). Para soporte remoto no hay TarifaGo: la respuesta es siempre rápida.' },
+        { q: '¿Qué incluye el desplazamiento?', a: 'Está incluido en todo el territorio del Garraf. Para poblaciones a 25-50 km son 10 € adicionales. Más de 50 km, presupuesto previo sin compromiso.' },
+        { q: '¿Los precios incluyen IVA?', a: 'No. Los precios de la web no incluyen IVA (21 % en el caso general). Se desglosa siempre en la factura para empresas y autónomos.' },
+        { q: '¿Y si no se soluciona el problema?', a: 'No se cobra la reparación. Solo se factura el tiempo de diagnóstico si lo has autorizado. Si se identifica un problema mayor, se cierra el parte sin coste.' },
+        { q: '¿Emitís factura?', a: 'Sí, siempre. Factura simplificada o completa según lo que necesites, emitida por José Alberto Domínguez Jiménez (NIF 46499111B).' },
+      ]}
+    />
+
+    <CTA
+      title="¿Listo para empezar?"
+      lead="Cuéntame qué necesitas y te doy un presupuesto cerrado en menos de 2 horas."
+      ctas={[
+        { label: site.phone.display, href: `tel:${site.phone.tel}`, variant: 'primary' },
+        { label: 'WhatsApp', href: site.whatsapp, variant: 'ghost', external: true },
+      ]}
+    />
+  </main>
+</BaseLayout>

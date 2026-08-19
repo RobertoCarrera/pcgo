@@ -1,0 +1,35 @@
+---
+/**
+ * CTA.astro — dark gradient CTA banner.
+ */
+type Cta = { label: string; href: string; variant?: 'primary' | 'ghost' | 'dark'; external?: boolean };
+type Props = {
+  title: string;
+  lead: string;
+  ctas: Cta[];
+};
+const { title, lead, ctas } = Astro.props as Props;
+---
+
+<section class="section">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <div class="cta-banner__inner">
+        <h2 class="h-2">{title}</h2>
+        <p>{lead}</p>
+        <div class="flex-center" style="gap:14px;flex-wrap:wrap;">
+          {ctas.map((c) => (
+            <a
+              class={`btn btn--${c.variant ?? 'primary'} btn--lg`}
+              href={c.href}
+              target={c.external ? '_blank' : undefined}
+              rel={c.external ? 'noopener' : undefined}
+            >
+              {c.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

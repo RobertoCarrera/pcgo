@@ -1,0 +1,20 @@
+---
+/**
+ * Crumbs.astro — accessible breadcrumb nav.
+ * Pass an array of {name, href?}. Last item is current.
+ */
+type Crumb = { name: string; href?: string };
+type Props = { items: Crumb[] };
+const { items } = Astro.props as Props;
+---
+
+<nav class="container" aria-label="Migas">
+  <ol class="crumbs">
+    {items.map((c, i) => (
+      <>
+        {i > 0 && <li><span aria-hidden="true">›</span></li>}
+        <li>{c.href ? <a href={c.href}>{c.name}</a> : <span aria-current="page">{c.name}</span>}</li>
+      </>
+    ))}
+  </ol>
+</nav>
