@@ -1,0 +1,56 @@
+# Cloudflare Pages _headers
+# Reference: https://developers.cloudflare.com/pages/configuration/headers/
+#
+# Strategy:
+# - HTML pages: NEVER cache. Browser always revalidates with the server
+#   (no-cache + no-store + must-revalidate). This is what fixes the
+#   "I don't see the changes" problem after each deploy.
+# - Hashed assets in /_astro/* (Astro generates hashes in the filename):
+#   cache FOREVER (immutable). When the content changes, the hash changes
+#   too, so a new file is created and the old one is dropped automatically.
+#   No manual cache busting needed.
+# - Other static assets (logo, images, fonts): long cache with revalidation.
+#   When you change the logo you bump the file (or rename it).
+
+# === HTML pages: always revalidate (the key fix) ===
+/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# === Hashed Astro assets: cache forever (immutable) ===
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+  X-Content-Type-Options: nosniff
+
+# === Fonts: cache 1 year (immutable) ===
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+# === Images and other static assets: 1 day with revalidation ===
+/images/*
+  Cache-Control: public, max-age=86400, must-revalidate
+*.png
+  Cache-Control: public, max-age=86400, must-revalidate
+*.jpg
+  Cache-Control: public, max-age=86400, must-revalidate
+*.jpeg
+  Cache-Control: public, max-age=86400, must-revalidate
+*.gif
+  Cache-Control: public, max-age=86400, must-revalidate
+*.webp
+  Cache-Control: public, max-age=86400, must-revalidate
+*.avif
+  Cache-Control: public, max-age=86400, must-revalidate
+*.svg
+  Cache-Control: public, max-age=86400, must-revalidate
+*.ico
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# === Security headers for sensitive paths ===
+/legal/*
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: public, max-age=3600
