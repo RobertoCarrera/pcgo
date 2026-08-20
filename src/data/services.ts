@@ -12,6 +12,12 @@ export type Service = {
   faqs: { q: string; a: string }[];
   /** SVG path data for the icon (single-color stroke style, Apple-SF-Symbols-like) */
   icon: 'pc' | 'apple' | 'wifi' | 'box' | 'console' | 'chat';
+  /** Unsplash photo URL used as a heavily-blurred card background. */
+  image: string;
+  /** Card color theme for the Servicios page bento. */
+  theme: 'default' | 'dark' | 'blue' | 'tinted';
+  /** Optional layout class for the bento grid (e.g. col-span-2 row-span-2). */
+  span?: string;
 };
 
 export const services: Service[] = [
@@ -27,6 +33,8 @@ export const services: Service[] = [
       'Tu PC va lento, se reinicia, no enciende o tiene virus. Vamos a tu casa y lo solucionamos. 45 €/h, desplazamiento incluido.',
     serviceType: 'Reparación de ordenadores PC y Mac',
     icon: 'pc',
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80&auto=format&fit=crop',
+    theme: 'default',
     faqs: [
       {
         q: '¿Cuánto tarda una reparación típica?',
@@ -58,6 +66,9 @@ export const services: Service[] = [
       'Especialista Apple en Vilanova, Sitges y Garraf. Mac, iPhone, iPad. 2+ años de experiencia.',
     serviceType: 'Soporte técnico Apple',
     icon: 'apple',
+    image: 'https://images.unsplash.com/photo-1491933382434-500287f9a54e?w=900&q=80&auto=format&fit=crop',
+    theme: 'dark',
+    span: 'col-span-2 row-span-2',
     faqs: [
       {
         q: '¿Hacéis reparaciones de hardware de Mac e iPhone?',
@@ -89,6 +100,8 @@ export const services: Service[] = [
       'WiFi sin zonas muertas, mesh, cableado y NAS. Para casa y para negocio. Desplazamiento incluido en Garraf.',
     serviceType: 'Instalación y mejora de redes WiFi',
     icon: 'wifi',
+    image: 'https://images.unsplash.com/photo-1606857521015-7f9fcf423740?w=900&q=80&auto=format&fit=crop',
+    theme: 'tinted',
     faqs: [
       {
         q: '¿Cuánto cuesta mejorar la WiFi de mi casa?',
@@ -120,6 +133,8 @@ export const services: Service[] = [
       'Reparación de PS, Xbox, Nintendo y vintage. Pasta térmica, HDMI, fuentes. Recogida en Garraf.',
     serviceType: 'Reparación de consolas y equipos gaming',
     icon: 'console',
+    image: 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=900&q=80&auto=format&fit=crop',
+    theme: 'default',
     faqs: [
       {
         q: '¿Cuánto cuesta cambiar la pasta térmica de una PS5?',
@@ -146,11 +161,13 @@ export const services: Service[] = [
     h1: 'Te ayudo a elegir el equipo<br>que <span class="text-gradient-blue">realmente necesitas</span>.',
     lead: 'PC Gaming, workstations, portátiles, barebones, dispositivos Apple. Asesoramiento sin venderte humo: solo lo que necesitas, configurado y listo.',
     metaDescription:
-      'Asesoramiento y venta de PC Gaming a medida, workstations, portátiles, barebones y dispositivos Apple en Vilanova, Sitges y Garraf. Te recomiendo solo lo que necesitas.',
+      'Asesoramiento y venta de PC Gaming a medida, workstations, portátiles, barebones y dispositivos Apple en Vilanova, Sitges y Garraf. Te recomendamos solo lo que necesitas.',
     ogDescription:
       'PC Gaming, workstations, portátiles, Apple. Asesoramiento honesto, solo lo que necesitas. Configurado y listo.',
     serviceType: 'Venta de equipos a medida',
     icon: 'box',
+    image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=900&q=80&auto=format&fit=crop',
+    theme: 'default',
     faqs: [
       {
         q: '¿Vendéis componentes sueltos?',
@@ -182,6 +199,8 @@ export const services: Service[] = [
       'Clases uno-a-uno a domicilio. Aprende a tu ritmo, sin tecnicismos. Especial personas mayores.',
     serviceType: 'Clases de informática personalizadas',
     icon: 'chat',
+    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=80&auto=format&fit=crop',
+    theme: 'tinted',
     faqs: [
       {
         q: '¿Cuánto dura cada clase?',

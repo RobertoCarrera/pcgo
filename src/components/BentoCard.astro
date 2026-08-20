@@ -12,6 +12,10 @@
  *   - the icon scales to 0.75
  *   - the CTA reveal slides in from the bottom
  *   - a subtle black/3 overlay fades in
+ *
+ * If `image` is provided, a heavily-blurred photo is rendered behind the
+ * card content as a soft color field. The blur + scale prevent the photo
+ * from competing with the text.
  */
 type Props = {
   name: string;
@@ -20,6 +24,7 @@ type Props = {
   cta: string;
   class?: string;
   theme?: 'default' | 'dark' | 'blue' | 'tinted';
+  image?: string;
 };
 const {
   name,
@@ -28,10 +33,17 @@ const {
   cta,
   class: className = '',
   theme = 'default',
+  image,
 } = Astro.props as Props;
 const themeClass = theme !== 'default' ? `bento-card--${theme}` : '';
 ---
-<div class={`bento-card ${themeClass} ${className}`}>
+<div class={`bento-card ${themeClass} ${className} ${image ? 'bento-card--has-image' : ''}`}>
+  {image && (
+    <div class="bento-card__bg" aria-hidden="true">
+      <img src={image} alt="" loading="lazy" decoding="async" />
+      <div class="bento-card__bg-overlay"></div>
+    </div>
+  )}
   <div class="bento-card__visual">
     <slot name="visual" />
   </div>

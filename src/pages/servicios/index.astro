@@ -2,6 +2,8 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Hero from '~/components/Hero.astro';
 import Icon from '~/components/Icon.astro';
+import BentoGrid from '~/components/BentoGrid.astro';
+import BentoCard from '~/components/BentoCard.astro';
 import { services } from '~/data/services';
 import { site } from '~/data/site';
 
@@ -35,18 +37,21 @@ const itemListSchema = {
 
     <section class="section">
       <div class="container">
-        <div class="grid grid--3">
-          {services.map((s, i) => (
-            <a class="card card--feature reveal" data-delay={(i % 6) + 1} href={`/servicios/${s.slug}`}>
-              <div class="svc-icon" aria-hidden="true">
-                <Icon name={s.icon} size={48} />
-              </div>
-              <h3 class="card__title">{s.name}</h3>
-              <p class="card__desc">{s.lead}</p>
-              <span class="card__link">Ver servicio</span>
-            </a>
+        <BentoGrid>
+          {services.map((s) => (
+            <BentoCard
+              name={`${s.name}.`}
+              description={s.lead}
+              href={`/servicios/${s.slug}`}
+              cta="Ver servicio"
+              theme={s.theme}
+              image={s.image}
+              class={s.span ?? ''}
+            >
+              <Icon slot="icon" name={s.icon} size={26} strokeWidth={1.7} />
+            </BentoCard>
           ))}
-        </div>
+        </BentoGrid>
       </div>
     </section>
 
