@@ -68,7 +68,6 @@ export const services: Service[] = [
     icon: 'apple',
     image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80&auto=format&fit=crop',
     theme: 'dark',
-    span: 'col-span-2 row-span-2',
     faqs: [
       {
         q: '¿Hacéis reparaciones de hardware de Mac e iPhone?',
