@@ -36,12 +36,12 @@ const breadcrumbs = {
 
 // Service descriptions for the bento
 const serviceDescs: Record<string, string> = {
-  'reparacion-ordenadores': 'Diagnóstico, limpieza, ampliación de RAM, cambio a SSD, eliminación de virus. Tu PC como nuevo sin cambiar de equipo.',
-  'soporte-apple': 'Mac, iPhone, iPad, Apple Watch, Apple TV. Configuración, migración, iCloud, Time Machine y reparación. Especialista certificado.',
-  'redes-wifi': 'WiFi mesh, cableado estructurado, switches, NAS. Sin zonas muertas en casa o en la oficina.',
-  'reparacion-consolas': 'PlayStation, Xbox, Nintendo y vintage. Pasta térmica, HDMI, fuentes, lectores.',
-  'venta-equipos': 'PC Gaming a medida, workstations, portátiles, Apple. Asesoramiento honesto y configuración inicial.',
-  'clases-personalizadas': 'Uno-a-uno, a tu ritmo. Smartphone, PC, copias, fotos, videollamadas. Especial personas mayores.',
+  'reparacion-ordenadores': 'Diagnóstico, limpieza, RAM, cambio a SSD, virus. Tu PC como nuevo sin tener que comprar uno.',
+  'soporte-apple': 'Mac, iPhone, iPad, Apple Watch, Apple TV. 2+ años en ecosistema Apple: configuración, migración, iCloud, Time Machine y reparación.',
+  'redes-wifi': 'WiFi mesh, cableado estructurado, switches, NAS, VPN. Para casa y para oficina, sin zonas muertas.',
+  'reparacion-consolas': 'PlayStation, Xbox, Nintendo y también vintage. Pasta térmica, HDMI, fuentes, lectores.',
+  'venta-equipos': 'PC Gaming, workstations, portátiles, equipos montados. Te recomiendo solo lo que necesitas, configurado y listo.',
+  'clases-personalizadas': 'Uno-a-uno, a tu ritmo. Móvil, PC, copias, fotos, videollamadas. Paciencia especial con personas mayores.',
 };
 ---
 
@@ -52,15 +52,14 @@ const serviceDescs: Record<string, string> = {
     <section class="hero hero--pro" aria-labelledby="heroTitle">
       <div class="container hero__inner">
         <div class="pill-badge reveal" data-delay="0">
-          <Icon name="map-pin" size={14} strokeWidth={2} /> Servicio técnico · Garraf
+          <Icon name="map-pin" size={14} strokeWidth={2} /> Informático · Garraf
         </div>
         <h1 id="heroTitle" class="display-1 hero__title reveal" data-delay="1">
-          Hacemos que la tecnología<br>
-          trabaje <span class="text-gradient-blue">para ti</span>,<br>
-          no al revés.
+          Informático de campo.<br>
+          PC, Mac, redes <span class="text-gradient-blue">y servidores</span>.
         </h1>
         <p class="lead-soft hero__sub reveal" data-delay="2">
-          Informático a domicilio en la comarca del Garraf y Baix Penedès. Reparación de PC, Mac, consolas y redes WiFi — con desplazamiento incluido y tarifa transparente desde 45 €/h.
+          Limpio virus, monto WiFi, configuro Active Directory, te enseño a usar el móvil. Voy a tu casa o a tu negocio en el Garraf y Baix Penedès. 10+ años. 45 €/h, desplazamiento incluido.
         </p>
         <div class="hero__cta reveal" data-delay="3" style="margin-top:40px;gap:16px;">
           <a class="btn btn--primary btn--lg magnetic" href={`tel:${site.phone.tel}`}>
@@ -81,13 +80,13 @@ const serviceDescs: Record<string, string> = {
         <header class="section-heading" style="margin-bottom:80px;">
           <div class="section-heading__title">
             <div class="accent-bar" aria-hidden="true"></div>
-            <p class="eyebrow-lg" id="statsTitle">Por qué confían en nosotros</p>
-            <h2 class="display-2" style="margin-top:8px;">Diez años haciendo que la tecnología funcione.</h2>
+            <p class="eyebrow-lg" id="statsTitle">En qué te ayudo</p>
+            <h2 class="display-2" style="margin-top:8px;">Diez años arreglando PC y redes en el Garraf.</h2>
           </div>
-          <p class="section-heading__aside">No prometemos lo que no es. Si tu disco está muerto, te lo digo. Si tu PC tiene arreglo, te lo digo.</p>
+          <p class="section-heading__aside">Si tu PC va lento, tu WiFi no llega o tu servidor se ha caído, te echo una mano. Y si no tiene arreglo, te lo digo antes de cobrarte.</p>
         </header>
         <div class="grid grid--4">
-          <StatTicker value={10} suffix="+" label="Años arreglando tecnología" />
+          <StatTicker value={10} suffix="+" label="Años arreglando PC y redes" />
           <StatTicker value={24} suffix="h" label="TarifaGo de urgencia" />
           <StatTicker value={12} label="Poblaciones cubiertas" />
           <StatTicker value={0} prefix="" suffix="€" label="Desplazamiento en Garraf" />
@@ -103,17 +102,17 @@ const serviceDescs: Record<string, string> = {
         <header class="section-heading">
           <div class="section-heading__title">
             <div class="accent-bar" aria-hidden="true"></div>
-            <p class="eyebrow-lg" id="servicesTitle">Lo que hacemos</p>
-            <h2 class="display-2" style="margin-top:8px;">Servicio técnico, a tu manera.</h2>
+            <p class="eyebrow-lg" id="servicesTitle">Lo que hago</p>
+            <h2 class="display-2" style="margin-top:8px;">En qué te puedo ayudar.</h2>
           </div>
-          <p class="section-heading__aside">A domicilio, en tu negocio o en remoto. Tú eliges cómo. Cero sorpresas, cero letra pequeña.</p>
+          <p class="section-heading__aside">PC, Mac, redes, servidores, Active Directory, NAS, formación. A domicilio, en tu negocio o en remoto. Lo que tengas, cuando lo necesites.</p>
         </header>
 
         <BentoGrid>
           <!-- Featured: Soporte Apple (2x2, dark) -->
           <BentoCard
             name="Soporte Apple."
-            description="Mac, iPhone, iPad, Apple Watch, Apple TV. Más de 2 años como especialista certificado. Configuración, migración, iCloud, Time Machine y reparación."
+            description="Mac, iPhone, iPad, Apple Watch, Apple TV. 2+ años en ecosistema Apple: configuración, migración, iCloud, Time Machine y reparación."
             href="/servicios/soporte-apple"
             cta="Ver soporte Apple"
             class="col-span-2 row-span-2"
@@ -183,10 +182,10 @@ const serviceDescs: Record<string, string> = {
     <!-- ===================== SCENE 4: SPOTLIGHT ===================== -->
     <section class="scene section--soft" aria-labelledby="spotlightTitle">
       <div class="container text-center">
-        <div class="pill-badge reveal" style="display:inline-flex;">Por qué PCGO</div>
-        <h2 id="spotlightTitle" class="display-2 reveal" data-delay="1" style="margin-top:16px;">Honesto, rápido<br>y con cariño.</h2>
+        <div class="pill-badge reveal" style="display:inline-flex;">Cómo trabajo</div>
+        <h2 id="spotlightTitle" class="display-2 reveal" data-delay="1" style="margin-top:16px;">Te digo lo que tienes.<br>Te cobro lo que hago.</h2>
         <p class="lead reveal" data-delay="2" style="color:rgba(29,29,31,0.75);max-width:680px;margin:24px auto 0;font-size:clamp(18px, 1.5vw, 22px);line-height:1.45;">
-          Tres palabras que resumen cómo trabajo cada día. Cero sorpresas en la factura, cero letra pequeña, cero promesas que no pueda cumplir.
+          Precio cerrado antes de tocar nada. Si la avería tiene arreglo, te lo hago y te lo cobro. Si no, te lo digo. Sin extras de última hora, sin letra pequeña, sin sorpresas en la factura.
         </p>
       </div>
     </section>
@@ -195,24 +194,24 @@ const serviceDescs: Record<string, string> = {
     <section class="scene section--soft" aria-labelledby="valuesTitle">
       <div class="container">
         <header class="section__head">
-          <p class="eyebrow-lg reveal">Lo que prometemos</p>
-          <h2 id="valuesTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">Tres principios que se notan en cada visita.</h2>
+          <p class="eyebrow-lg reveal">Cómo se trabaja conmigo</p>
+          <h2 id="valuesTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">Lo que pasa cuando me llamas.</h2>
         </header>
         <div class="grid grid--3 mt-5">
           <article class="card reveal" data-delay="1">
             <div class="card__icon" aria-hidden="true"><Icon name="shield" size={28} strokeWidth={1.8} /></div>
-            <h3 class="card__title">Transparencia total</h3>
-            <p class="card__desc">Te explico el problema, te doy el precio y solo trabajo si tú dices que sí. Si algo cambia, te aviso antes de seguir.</p>
+            <h3 class="card__title">Diagnóstico en cristiano</h3>
+            <p class="card__desc">Te explico qué le pasa al equipo con palabras normales, te doy precio cerrado y solo trabajo si tú dices que sí. Si algo cambia, te aviso antes de seguir.</p>
           </article>
           <article class="card reveal" data-delay="2">
             <div class="card__icon" aria-hidden="true"><Icon name="zap" size={28} strokeWidth={1.8} /></div>
-            <h3 class="card__title">Rapidez real</h3>
-            <p class="card__desc">TarifaGo: en menos de 24h te visitamos en cualquier punto del Garraf. Y si se puede resolver en remoto, en 30 minutos estás funcionando.</p>
+            <h3 class="card__title">Voy cuando digo que voy</h3>
+            <p class="card__desc">TarifaGo: en menos de 24h estoy en tu casa en cualquier punto del Garraf. Y si se puede resolver en remoto, en 30 minutos estás funcionando.</p>
           </article>
           <article class="card reveal" data-delay="3">
             <div class="card__icon" aria-hidden="true"><Icon name="heart" size={28} strokeWidth={1.8} /></div>
-            <h3 class="card__title">Trato como propio</h3>
-            <p class="card__desc">Trato cada equipo como si fuera mío. Por eso muchos clientes vuelven y me recomiendan a sus amigos y familia.</p>
+            <h3 class="card__title">Trato tu equipo como si fuera mío</h3>
+            <p class="card__desc">Hago el trabajo que haría en mi propio equipo. Por eso muchos clientes vuelven y me recomiendan a sus amigos y familia.</p>
           </article>
         </div>
       </div>
@@ -278,8 +277,8 @@ const serviceDescs: Record<string, string> = {
     <section class="scene section--soft" aria-labelledby="processTitle">
       <div class="container">
         <header class="section__head">
-          <p class="eyebrow-lg reveal">Cómo trabajamos</p>
-          <h2 id="processTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">De la llamada al alta, en 4 pasos.</h2>
+          <p class="eyebrow-lg reveal">Cómo se trabaja conmigo</p>
+          <h2 id="processTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">De la llamada al alta: 4 pasos.</h2>
         </header>
         <div class="process-grid mt-5 reveal">
           <div class="process-step">
@@ -310,8 +309,8 @@ const serviceDescs: Record<string, string> = {
     <section class="scene scene--full scene--dark scene--noise" aria-labelledby="testimonialsTitle">
       <div class="container">
         <header class="section__head">
-          <p class="eyebrow-lg reveal" style="color:#a1a1a6;">Clientes hablan</p>
-          <h2 id="testimonialsTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">Lo que dicen por ahí.</h2>
+          <p class="eyebrow-lg reveal" style="color:#a1a1a6;">Clientes</p>
+          <h2 id="testimonialsTitle" class="display-3 reveal" data-delay="1" style="margin-top:12px;">Lo que dicen los clientes.</h2>
         </header>
         <div class="testimonial-feature reveal" data-delay="2" style="margin-top:48px;">
           <div role="img" aria-label="5 estrellas" style="color:#ff9500;letter-spacing:4px;font-size:24px;margin-bottom:24px;">★★★★★</div>
@@ -436,9 +435,9 @@ const serviceDescs: Record<string, string> = {
     <!-- ===================== SCENE 11: CTA (black, full) ===================== -->
     <section class="scene scene--full scene--black" aria-labelledby="ctaTitle">
       <div class="container" style="text-align:center;">
-        <h2 id="ctaTitle" class="display-1 reveal" style="margin-bottom:24px;">¿Tienes un problema<br>tecnológico?</h2>
+        <h2 id="ctaTitle" class="display-1 reveal" style="margin-bottom:24px;">¿Se te ha roto algo?</h2>
         <p class="lead reveal" data-delay="1" style="color:rgba(255,255,255,0.85);max-width:680px;margin:0 auto 40px;font-size:clamp(20px, 1.7vw, 24px);line-height:1.4;">
-          Te lo soluciono hoy mismo. Llámame o escríbeme por WhatsApp y lo vemos al momento. Sin compromiso.
+          Llámame o escríbeme por WhatsApp. Si está en mi mano, voy hoy. Y si no, te digo quién te lo puede arreglar.
         </p>
         <div class="reveal" data-delay="2" style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
           <a class="btn btn--primary btn--lg magnetic" href={`tel:${site.phone.tel}`}>

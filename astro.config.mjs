@@ -9,6 +9,12 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
+  // Use a non-standard port (14321) so it doesn't collide with other
+  // dev servers (3000, 4200, 4321, 5173, etc.) when running multiple
+  // projects in parallel.
+  server: {
+    port: 14321,
+  },
   integrations: [
     sitemap({
       changefreq: 'weekly',

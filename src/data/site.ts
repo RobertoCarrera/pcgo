@@ -7,9 +7,9 @@ export const site = {
   name: 'PCGO',
   legalName: 'José Alberto Domínguez Jiménez',
   nif: '46499111B',
-  tagline: 'Servicio técnico informático a domicilio en Vilanova, Sitges y Garraf',
+  tagline: 'Informático a domicilio en Vilanova, Sitges y Garraf',
   description:
-    'Servicio técnico a domicilio en Vilanova i la Geltrú, Sitges y comarca del Garraf. Reparación de PC, Mac, consolas, redes WiFi, soporte remoto. 10+ años de experiencia, 2+ como especialista Apple.',
+    'Informático a domicilio en Vilanova i la Geltrú, Sitges y comarca del Garraf. PC, Mac, redes, servidores, Active Directory, NAS. 10+ años arreglando tecnología.',
 
   // Contact
   phone: {
@@ -54,7 +54,7 @@ export const site = {
 
   // Stats
   stats: [
-    { num: '10+', label: 'Años de experiencia' },
+    { num: '10+', label: 'Años arreglando PC y redes' },
     { num: '24h', label: 'TarifaGo de urgencia' },
     { num: '12', label: 'Poblaciones cubiertas' },
     { num: '0€', label: 'Desplazamiento en Garraf' },

@@ -6,9 +6,9 @@ import Icon from '~/components/Icon.astro';
 import { site } from '~/data/site';
 
 const seo = {
-  title: 'Quiénes Somos — Alberto Domínguez · PCGO Garraf',
+  title: 'Quién soy — Alberto Domínguez · PCGO Garraf',
   description:
-    'PCGO es Alberto Domínguez, técnico informático con 10+ años de experiencia y 2+ como especialista Apple. Servicio a domicilio en Vilanova, Sitges y Garraf, basado en la honestidad, la cercanía y la accesibilidad.',
+    'Soy Alberto Domínguez, técnico informático en el Garraf. 10+ años arreglando PC, Mac, redes y servidores a domicilio en Vilanova, Sitges y Baix Penedès.',
   canonical: '/quienes-somos',
   includeGeo: true,
   ogType: 'profile' as const,
@@ -55,21 +55,21 @@ const breadcrumbs = {
 <BaseLayout seo={seo} jsonLd={[personSchema, aboutSchema, breadcrumbs]}>
   <main id="main">
     <Hero
-      eyebrow="Quiénes somos"
-      title={`Una persona, una comarca,<br>una forma de trabajar.`}
-      lead="PCGO es Alberto Domínguez Jiménez. Más de 10 años arreglando tecnología, 2 como especialista Apple, y la convicción de que un servicio técnico se mide por la honestidad con la que se factura."
+      eyebrow="Quién soy"
+      title={`Soy Alberto.<br>Informático en el Garraf,<br>10 años arreglando PC y redes.`}
+      lead="Empecé arreglando PC en una tienda de Sitges. Ahora voy a casas y oficinas del Garraf a arreglar lo que se rompe: PC, Mac, redes WiFi, servidores, Active Directory. Sin tienda, sin intermediarios, sin sorpresas en la factura."
     />
 
     <!-- STORY -->
     <section class="section" aria-labelledby="historiaTitle">
       <div class="container container--narrow">
         <article>
-          <h2 id="historiaTitle" class="h-2 reveal">La historia detrás de PCGO</h2>
-          <p class="lead reveal" data-delay="1" style="margin-top:16px;">Un proyecto personal que nace de la pasión por la tecnología y el deseo de hacerla accesible para todos.</p>
+          <h2 id="historiaTitle" class="h-2 reveal">Cómo llegué hasta aquí</h2>
+          <p class="lead reveal" data-delay="1" style="margin-top:16px;">Empecé en una tienda de informática. Ahora trabajo por mi cuenta, a domicilio.</p>
 
           <div class="reveal" data-delay="2" style="margin-top:32px;font-size:19px;line-height:1.65;color:var(--c-text-2);">
-            <p>Soy <strong>Alberto Domínguez</strong>. Después de más de 10 años trabajando como técnico informático en Sitges y alrededores, y 2 años como especialista en Apple, decidí emprender un camino distinto: <strong>llevar los servicios informáticos al domicilio o negocio del cliente</strong>, sin complicaciones y con la máxima transparencia.</p>
-            <p style="margin-top:16px;">La idea de PCGO surge de algo muy sencillo: <strong>facilitar la vida a las personas</strong>. Con el rápido avance tecnológico, cada vez es más complicado para algunos seguir el ritmo. Mi misión es que nadie se quede atrás. No importa si se trata de la reparación de un equipo, la instalación de redes o la asesoría informática personalizada, siempre doy lo mejor de mí para garantizar que tu tecnología funcione como debe, de forma fácil y sin estrés.</p>
+            <p>Soy <strong>Alberto Domínguez</strong>. llevo más de 10 años arreglando PC, Mac y redes. Los primeros años los pasé en una tienda de Sitges; los dos últimos me he especializado a fondo en el ecosistema Apple (Mac, iPhone, iPad, Apple TV, Time Machine, iCloud).</p>
+            <p style="margin-top:16px;">PCGO es el paso natural: en vez de esperar a que el cliente venga a la tienda, <strong>voy yo a su casa o a su negocio</strong> con todo lo necesario. Resuelvo sobre la marcha lo que se pueda y me llevo el equipo al taller solo si hace falta. Es más cómodo para ti y, a menudo, más rápido y más barato.</p>
           </div>
         </article>
       </div>
@@ -79,25 +79,25 @@ const breadcrumbs = {
     <section class="section section--soft" aria-labelledby="filosofiaTitle">
       <div class="container">
         <header class="section__head">
-          <span class="eyebrow reveal">Filosofía</span>
-          <h2 id="filosofiaTitle" class="h-2 reveal" data-delay="1">Honestidad, cercanía, accesibilidad</h2>
-          <p class="lead reveal" data-delay="2">Tres valores que se notan en cada visita.</p>
+          <span class="eyebrow reveal">Cómo se trabaja conmigo</span>
+          <h2 id="filosofiaTitle" class="h-2 reveal" data-delay="1">Diagnóstico, precio y al lío.</h2>
+          <p class="lead reveal" data-delay="2">Tres cosas que pasan en cada visita.</p>
         </header>
         <div class="grid grid--3">
           <div class="card reveal" data-delay="1">
             <div class="card__icon" aria-hidden="true"><Icon name="shield" size={28} strokeWidth={2} /></div>
-            <h3 class="card__title">Honestidad radical</h3>
-            <p class="card__desc">Si no hace falta cambiar algo, te lo digo. Si tu PC tiene arreglo, te lo digo. Si te están cobrando de más en otro sitio, te lo digo. Prefiero perder una factura a perder tu confianza.</p>
+            <h3 class="card__title">Te digo lo que tienes</h3>
+            <p class="card__desc">Miro el equipo, te explico qué le pasa con palabras normales y te digo si merece la pena arreglarlo. Si no la merece, también te lo digo.</p>
           </div>
           <div class="card reveal" data-delay="2">
             <div class="card__icon" aria-hidden="true"><Icon name="chat" size={28} strokeWidth={2} /></div>
-            <h3 class="card__title">Cercanía real</h3>
-            <p class="card__desc">Te llamo por tu nombre. Te explico el problema en cristiano. Te aviso si voy a llegar 10 minutos tarde. Soy una persona, no una centralita. Y eso se nota desde la primera llamada.</p>
+            <h3 class="card__title">Precio cerrado antes de tocar</h3>
+            <p class="card__desc">Te paso presupuesto antes de hacer nada. Si la cosa se complica sobre la marcha, te llamo y te pido OK antes de seguir. Cero extras de última hora.</p>
           </div>
           <div class="card reveal" data-delay="3">
             <div class="card__icon" aria-hidden="true"><Icon name="lock" size={28} strokeWidth={2} /></div>
-            <h3 class="card__title">Accesibilidad primero</h3>
-            <p class="card__desc">La tecnología debe estar al alcance de todos. Por eso las clases son al ritmo de cada persona, las explicaciones sin tecnicismos y los servicios adaptados a quien más lo necesita.</p>
+            <h3 class="card__title">Sin tecnicismos</h3>
+            <p class="card__desc">Te explico en cristiano, no en jerga. Si quieres que te cuente detalles técnicos, los cuento, pero empiezo por lo que necesitas saber para decidir.</p>
           </div>
         </div>
       </div>
@@ -106,23 +106,23 @@ const breadcrumbs = {
     <!-- LO QUE NO SOMOS -->
     <section class="section" aria-labelledby="noSomosTitle">
       <div class="container container--narrow">
-        <h2 id="noSomosTitle" class="h-2 reveal">Lo que no somos</h2>
-        <p class="lead reveal" data-delay="1" style="margin-top:12px;">Tan importante es saber qué haces como qué no haces.</p>
+        <h2 id="noSomosTitle" class="h-2 reveal">Lo que no hago</h2>
+        <p class="lead reveal" data-delay="1" style="margin-top:12px;">Para que no te lleves sorpresas.</p>
         <div class="grid grid--2 mt-5">
           <div class="card reveal" data-delay="1" style="border-left:4px solid var(--c-danger);">
-            <h3 class="card__title">No somos una gran empresa</h3>
-            <p class="card__desc">No tenemos call center, no te atiende un bot, no hayDepartamento de "satisfacción del cliente" en la octava planta. Hablas conmigo, y el que viene a tu casa soy yo.</p>
+            <h3 class="card__title">No soy Apple Store</h3>
+            <p class="card__desc">No tramito AppleCare+, no uso sus herramientas oficiales de diagnóstico, no sustituyo pantallas con piezas originales suyas. Para eso te envío a la tienda. Lo que sí hago: configuración, migración, reparación, recuperación de datos, Mac con virus.</p>
           </div>
           <div class="card reveal" data-delay="2" style="border-left:4px solid var(--c-danger);">
-            <h3 class="card__title">No inflamos presupuestos</h3>
+            <h3 class="card__title">No inflo presupuestos</h3>
             <p class="card__desc">Si tu PC necesita 30 minutos y vale 22 €, te cobro 22 €. Si necesita 2 horas, te digo antes que van a ser 2 horas. Sin extras ocultos ni "esto no lo esperábamos".</p>
           </div>
           <div class="card reveal" data-delay="3" style="border-left:4px solid var(--c-danger);">
-            <h3 class="card__title">No vendemos humo</h3>
+            <h3 class="card__title">No vendo humo</h3>
             <p class="card__desc">No te voy a recomendar cambiar un equipo que tiene arreglo, ni a instalar un antivirus de 80 € al año cuando con el gratuito vas sobrado. Te digo lo que necesitas, no lo que me da más margen.</p>
           </div>
           <div class="card reveal" data-delay="4" style="border-left:4px solid var(--c-danger);">
-            <h3 class="card__title">No prometemos lo que no es</h3>
+            <h3 class="card__title">No prometo lo que no es</h3>
             <p class="card__desc">Si un disco duro está muerto, te lo digo. Si tus fotos son irrecuperables, te lo digo. Prefiero ser honesto ahora que dejarte con la miel en los labios.</p>
           </div>
         </div>
@@ -133,18 +133,18 @@ const breadcrumbs = {
     <section class="section section--dark" aria-labelledby="siHacemosTitle">
       <div class="container">
         <header class="section__head">
-          <span class="eyebrow reveal" style="color:#a1a1a6;">Lo que sí somos</span>
-          <h2 id="siHacemosTitle" class="h-2 reveal" data-delay="1">Una empresa con cariño</h2>
-          <p class="lead reveal" data-delay="2">PCGO es el resultado de mucho esfuerzo, cariño y dedicación. Cada servicio, cada reparación, cada instalación está realizada pensando en tu satisfacción y en tu comodidad.</p>
+          <span class="eyebrow reveal" style="color:#a1a1a6;">Lo que sí hago</span>
+          <h2 id="siHacemosTitle" class="h-2 reveal" data-delay="1">Cifras y zonas</h2>
+          <p class="lead reveal" data-delay="2">Lo que he hecho en estos 10 años, en datos.</p>
         </header>
         <div class="grid grid--3">
           <div class="card reveal" data-delay="1" style="background:#2c2c2e;border-color:#3a3a3c;">
             <div class="stat__num" style="background:linear-gradient(135deg,#fff 0%,#a1a1a6 100%);-webkit-background-clip:text;background-clip:text;">10+</div>
-            <p style="color:#a1a1a6;margin-top:8px;">Años arreglando tecnología en el Garraf</p>
+            <p style="color:#a1a1a6;margin-top:8px;">Años arreglando PC, Mac y redes en el Garraf</p>
           </div>
           <div class="card reveal" data-delay="2" style="background:#2c2c2e;border-color:#3a3a3c;">
             <div class="stat__num" style="background:linear-gradient(135deg,#fff 0%,#a1a1a6 100%);-webkit-background-clip:text;background-clip:text;">2+</div>
-            <p style="color:#a1a1a6;margin-top:8px;">Años como especialista Apple certificado</p>
+            <p style="color:#a1a1a6;margin-top:8px;">Años en exclusiva con Mac, iPhone y iPad</p>
           </div>
           <div class="card reveal" data-delay="3" style="background:#2c2c2e;border-color:#3a3a3c;">
             <div class="stat__num" style="background:linear-gradient(135deg,#fff 0%,#a1a1a6 100%);-webkit-background-clip:text;background-clip:text;">12</div>
@@ -154,15 +154,12 @@ const breadcrumbs = {
       </div>
     </section>
 
-    <!-- COMPROMISO -->
+    <!-- ACCESIBILIDAD -->
     <section class="section" aria-labelledby="compromisoTitle">
       <div class="container container--narrow">
-        <h2 id="compromisoTitle" class="h-2 reveal">Compromiso con la accesibilidad</h2>
+        <h2 id="compromisoTitle" class="h-2 reveal">Si necesitas que me adapte a ti</h2>
         <p class="reveal" data-delay="1" style="margin-top:16px;font-size:19px;line-height:1.65;color:var(--c-text-2);">
-          Uno de los pilares fundamentales de PCGO es la <strong>accesibilidad</strong>. Entiendo que la tecnología debe estar al alcance de todos, incluidas aquellas personas con discapacidades. Me esfuerzo por adaptar los servicios y garantizar que cada persona, sin importar sus limitaciones, pueda disfrutar de un entorno tecnológico cómodo y funcional.
-        </p>
-        <p class="reveal" data-delay="2" style="margin-top:16px;font-size:19px;line-height:1.65;color:var(--c-text-2);">
-          Si necesitas que el servicio se adapte a una condición particular (movilidad reducida, dificultad visual, auditiva, cognitiva), dímelo al contactarme y preparamos la visita para que todo fluya sin sobresaltos.
+          Si tienes movilidad reducida, dificultad visual, auditiva o cognitiva, dímelo cuando contactes. Preparo la visita para que todo fluya: herramientas, ritmo de explicación, apoyo de alguien si hace falta. No es un "compromiso con la accesibilidad" en plan marketing; es algo que hago sin coste extra cuando hace falta.
         </p>
       </div>
     </section>
