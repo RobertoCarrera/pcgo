@@ -19,7 +19,7 @@ export const services: Service[] = [
     slug: 'reparacion-ordenadores',
     name: 'Reparación de ordenadores',
     eyebrow: 'Servicio técnico PC',
-    h1: 'Tu ordenador, como nuevo.<br>Sin moverlo de casa.',
+    h1: 'Tu ordenador, <span class="text-gradient-blue">como nuevo</span>.<br>Sin moverlo de casa.',
     lead: 'Diagnóstico honesto, presupuesto cerrado antes de tocar nada, y reparación in situ. Si no se puede arreglar, te lo digo.',
     metaDescription:
       'Reparación de ordenadores PC y portátiles a domicilio en Vilanova, Sitges y Garraf. Diagnóstico, limpieza, eliminación de virus, recuperación de datos, ampliación de RAM y SSD. 45 €/h con desplazamiento incluido.',
@@ -50,7 +50,7 @@ export const services: Service[] = [
     slug: 'soporte-apple',
     name: 'Soporte Apple',
     eyebrow: 'Servicio estrella',
-    h1: 'Soporte Apple a domicilio.<br>Como en la Apple Store, en tu casa.',
+    h1: 'Soporte <span class="text-gradient-blue">Apple</span> a domicilio.<br>Voy a tu casa o a tu negocio.',
     lead: 'Especialista con 2+ años de experiencia en Mac, iPhone, iPad, Apple Watch y Apple TV. Voy a tu casa o negocio en Vilanova, Sitges y todo el Garraf.',
     metaDescription:
       'Especialista Apple a domicilio en Vilanova i la Geltrú, Sitges y comarca del Garraf. Configuración, reparación, migración y soporte de Mac, iPhone e iPad. 2+ años de experiencia. 45 €/h, desplazamiento incluido.',
@@ -81,7 +81,7 @@ export const services: Service[] = [
     slug: 'redes-wifi',
     name: 'Redes e internet',
     eyebrow: 'Conectividad',
-    h1: 'WiFi rápido, sin zonas muertas,<br>en toda tu casa o negocio.',
+    h1: 'WiFi rápido, <span class="text-gradient-blue">sin zonas muertas</span>,<br>en toda tu casa o negocio.',
     lead: 'Estudio de cobertura, instalación de mesh o cableado, configuración avanzada. Para particulares y empresas.',
     metaDescription:
       'Instalación y mejora de redes WiFi en Vilanova, Sitges y Garraf. Mesh, routers, cableado estructurado, switches, NAS. Sin zonas muertas, en casa o en tu negocio.',
@@ -112,7 +112,7 @@ export const services: Service[] = [
     slug: 'reparacion-consolas',
     name: 'Reparación de consolas',
     eyebrow: 'Gaming',
-    h1: 'Tu consola, otra vez como nueva.',
+    h1: 'Tu consola, otra vez <span class="text-gradient-blue">como nueva</span>.',
     lead: 'PlayStation, Xbox, Nintendo y también vintage. Recogida y entrega incluida en el Garraf. 40 €/h en taller.',
     metaDescription:
       'Reparación de PlayStation, Xbox, Nintendo y consolas vintage en Vilanova, Sitges y Garraf. Cambio de pasta térmica, HDMI, fuentes, lectores. Recogida incluida en Garraf.',
@@ -143,7 +143,7 @@ export const services: Service[] = [
     slug: 'venta-equipos',
     name: 'Venta de equipos',
     eyebrow: 'Venta de equipos',
-    h1: 'Te ayudo a elegir el equipo<br>que realmente necesitas.',
+    h1: 'Te ayudo a elegir el equipo<br>que <span class="text-gradient-blue">realmente necesitas</span>.',
     lead: 'PC Gaming, workstations, portátiles, barebones, dispositivos Apple. Asesoramiento sin venderte humo: solo lo que necesitas, configurado y listo.',
     metaDescription:
       'Asesoramiento y venta de PC Gaming a medida, workstations, portátiles, barebones y dispositivos Apple en Vilanova, Sitges y Garraf. Te recomiendo solo lo que necesitas.',
@@ -174,7 +174,7 @@ export const services: Service[] = [
     slug: 'clases-personalizadas',
     name: 'Clases personalizadas',
     eyebrow: 'Formación',
-    h1: 'Aprende a tu ritmo.<br>Sin tecnicismos.',
+    h1: 'Aprende <span class="text-gradient-blue">a tu ritmo</span>.<br>Sin tecnicismos.',
     lead: 'Clases uno-a-uno a domicilio. Desde manejar el smartphone hasta montar tu PC Gaming, pasando por copias, fotos o videollamadas con la familia.',
     metaDescription:
       'Clases de informática uno-a-uno a domicilio en Vilanova, Sitges y Garraf. Aprende a tu ritmo: smartphone, PC, copias, fotos, videollamadas. Especial personas mayores.',

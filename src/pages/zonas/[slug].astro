@@ -44,7 +44,7 @@ const faqSchema = {
 
     <Hero
       eyebrow={`Zona · ${zone.province}`}
-      title={`Servicio técnico en ${zone.name}`}
+      title={`Servicio técnico en <span class="text-gradient-blue">${zone.name}</span>`}
       lead={zone.lead}
       ctas={[
         { label: site.phone.display, href: `tel:${site.phone.tel}`, variant: 'primary' },
