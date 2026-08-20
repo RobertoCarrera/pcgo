@@ -298,6 +298,45 @@ const allJsonLd = [
       //     field-tech site. The .magnetic class is no longer applied to
       //     any element, but the class hook stays in CSS in case it's
       //     wanted back later.
+
+      // === Nav: sliding underline indicator ===
+      // A single shared pill that translates between the hovered link and
+      // the active page link. Inspired by Stripe / Linear / Vercel — the
+      // movement sells the engineering without being playful.
+      const navIndicator = document.getElementById('navIndicator');
+      const navMenuEl = document.getElementById('navMenu');
+      if (navIndicator && navMenuEl) {
+        const links = Array.from(navMenuEl.querySelectorAll<HTMLElement>('.nav__link'));
+        const active = navMenuEl.querySelector<HTMLElement>('.nav__link[aria-current="page"]');
+        const place = (link: HTMLElement | null) => {
+          if (!link) { navIndicator.classList.remove('is-visible'); return; }
+          const menuRect = navMenuEl.getBoundingClientRect();
+          const linkRect = link.getBoundingClientRect();
+          const x = linkRect.left - menuRect.left;
+          const w = linkRect.width;
+          const y = linkRect.top - menuRect.top + linkRect.height;
+          navIndicator.style.transform = `translateX(${x}px)`;
+          navIndicator.style.width = `${w}px`;
+          navIndicator.style.top = `${y}px`;
+          navIndicator.classList.add('is-visible');
+        };
+        place(active);
+        links.forEach((link) => {
+          link.addEventListener('mouseenter', () => place(link));
+        });
+        navMenuEl.addEventListener('mouseleave', () => place(active));
+        let raf = 0;
+        window.addEventListener('resize', () => {
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(() => place(active));
+        });
+        // Hide indicator while the mobile menu is open — it's only for desktop.
+        const navToggle = document.querySelector('.nav__toggle');
+        navToggle?.addEventListener('click', () => {
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navIndicator.style.opacity = expanded ? '1' : '0';
+        });
+      }
     </script>
   </body>
 </html>

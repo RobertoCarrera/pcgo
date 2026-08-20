@@ -36,6 +36,7 @@ function ariaCurrent(active: boolean) {
       <a class={cls(isQuienes)} href="/quienes-somos" aria-current={ariaCurrent(isQuienes)}>Quiénes somos</a>
       <a class={cls(isBlog)} href="/blog" aria-current={ariaCurrent(isBlog)}>Blog</a>
       <a class={cls(isZonas)} href="/#zonas">Zonas</a>
+      <span class="nav__indicator" id="navIndicator" aria-hidden="true"></span>
       <a class="nav__cta" href={`tel:${site.phone.tel}`} aria-label={`Llamar a ${site.name} al ${site.phone.display}`}>
         {site.phone.display}
       </a>
