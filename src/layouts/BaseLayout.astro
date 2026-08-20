@@ -195,6 +195,10 @@ const allJsonLd = [
     <!-- CSS: served from public/ as a static asset (Astro/Vite wasn't processing the import in this build) -->
     <link rel="stylesheet" href="/global.css" />
 
+    <!-- Web fonts: Satoshi (display + body) via Fontshare -->
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400;500;550;700;900&display=swap" />
+
     <JsonLd data={allJsonLd} />
   </head>
   <body>
