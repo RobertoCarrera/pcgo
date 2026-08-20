@@ -294,21 +294,10 @@ const allJsonLd = [
         document.querySelectorAll('[data-count]').forEach((el) => co.observe(el));
       }
 
-      // === Magnetic effect on .magnetic elements ===
-      if (window.matchMedia('(pointer: fine)').matches) {
-        document.querySelectorAll<HTMLElement>('.magnetic').forEach((el) => {
-          const strength = 0.25;
-          el.addEventListener('mousemove', (ev) => {
-            const r = el.getBoundingClientRect();
-            const x = (ev.clientX - r.left - r.width / 2) * strength;
-            const y = (ev.clientY - r.top - r.height / 2) * strength;
-            el.style.transform = `translate(${x}px, ${y}px)`;
-          });
-          el.addEventListener('mouseleave', () => {
-            el.style.transform = '';
-          });
-        });
-      }
+      // === Magnetic effect removed: it was too "trendy" / decorative for a
+      //     field-tech site. The .magnetic class is no longer applied to
+      //     any element, but the class hook stays in CSS in case it's
+      //     wanted back later.
     </script>
   </body>
 </html>
