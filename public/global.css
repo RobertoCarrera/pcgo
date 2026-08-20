@@ -1003,16 +1003,9 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ---------- Hero — feature modifier (used on home only) ----------
-   Same warm-ivory gradient background as .hero--gradient, but with a bit
-   more breathing room and a bigger display-1 title. Keeps the visual
-   language of the rest of the site intact (left-aligned, eyebrow, gradient
-   text on the key word). */
-.hero--feature {
-  padding-top: calc(56px + clamp(64px, 8vw, 120px));
-  padding-bottom: clamp(80px, 10vw, 140px);
-}
-.hero--feature .hero__title { margin-bottom: 28px; max-width: 1050px; }
-.hero--feature .hero__sub   { font-size: clamp(1.05rem, 1.5vw, 1.28rem); line-height: 1.5; max-width: 620px; }
+   Removed in v13 final: the home hero now uses the same .hero--gradient
+   and h-1 size as inner pages. The home stays the "important" page
+   through copy length + the CTA buttons, not through a bigger title. */
 
 /* ---------- Cinematic product/feature visual block ---------- */
 .product-visual {
