@@ -4,6 +4,10 @@
  * Ported from @magicui/bento-grid (MIT).
  * Styles live in src/styles/global.css (see .bento-card).
  *
+ * The OUTER element is an <a>, so the whole card is clickable. The
+ * `.bento-card__cta` is a visual span (not a link) that just shows the
+ * "Ver servicio →" reveal on hover.
+ *
  * Slot "visual" — decorative background element (optional).
  * Slot "icon"   — the leading icon.
  *
@@ -37,7 +41,7 @@ const {
 } = Astro.props as Props;
 const themeClass = theme !== 'default' ? `bento-card--${theme}` : '';
 ---
-<div class={`bento-card ${themeClass} ${className} ${image ? 'bento-card--has-image' : ''}`}>
+<a class={`bento-card ${themeClass} ${className} ${image ? 'bento-card--has-image' : ''}`} href={href}>
   {image && (
     <div class="bento-card__bg" aria-hidden="true">
       <img src={image} alt="" loading="lazy" decoding="async" />
@@ -54,11 +58,11 @@ const themeClass = theme !== 'default' ? `bento-card--${theme}` : '';
     <h3 class="bento-card__name">{name}</h3>
     <p class="bento-card__desc">{description}</p>
   </div>
-  <a class="bento-card__cta" href={href}>
+  <span class="bento-card__cta" aria-hidden="true">
     <span>{cta}</span>
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
     </svg>
-  </a>
+  </span>
   <div class="bento-card__overlay" aria-hidden="true"></div>
-</div>
+</a>

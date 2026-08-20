@@ -883,6 +883,9 @@ h1, h2, h3, h4, h5 {
     0 12px 24px rgba(0, 0, 0, 0.05);
   transform: translateZ(0);
   isolation: isolate;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 
 .bento-card__visual {

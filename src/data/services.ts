@@ -33,7 +33,7 @@ export const services: Service[] = [
       'Tu PC va lento, se reinicia, no enciende o tiene virus. Vamos a tu casa y lo solucionamos. 45 €/h, desplazamiento incluido.',
     serviceType: 'Reparación de ordenadores PC y Mac',
     icon: 'pc',
-    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=900&q=80&auto=format&fit=crop',
     theme: 'default',
     faqs: [
       {
@@ -66,7 +66,7 @@ export const services: Service[] = [
       'Especialista Apple en Vilanova, Sitges y Garraf. Mac, iPhone, iPad. 2+ años de experiencia.',
     serviceType: 'Soporte técnico Apple',
     icon: 'apple',
-    image: 'https://images.unsplash.com/photo-1491933382434-500287f9a54e?w=900&q=80&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80&auto=format&fit=crop',
     theme: 'dark',
     span: 'col-span-2 row-span-2',
     faqs: [
@@ -100,7 +100,7 @@ export const services: Service[] = [
       'WiFi sin zonas muertas, mesh, cableado y NAS. Para casa y para negocio. Desplazamiento incluido en Garraf.',
     serviceType: 'Instalación y mejora de redes WiFi',
     icon: 'wifi',
-    image: 'https://images.unsplash.com/photo-1606857521015-7f9fcf423740?w=900&q=80&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a0?w=900&q=80&auto=format&fit=crop',
     theme: 'tinted',
     faqs: [
       {
