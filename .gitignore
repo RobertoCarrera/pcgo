@@ -33,3 +33,7 @@ previews-v3/
 
 # legacy HTML archive
 satpcgo-rebuild-html-archive/
+
+# sync-css state (last synced hash, not for repo)
+.sync-css-hash
+

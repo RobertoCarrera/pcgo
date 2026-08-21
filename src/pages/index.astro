@@ -7,6 +7,7 @@ import BentoGrid from '~/components/BentoGrid.astro';
 import BentoCard from '~/components/BentoCard.astro';
 import { site } from '~/data/site';
 import { zones } from '~/data/zones';
+import { services } from '~/data/services';
 
 const seo = {
   title: 'Servicio Técnico Informático a Domicilio en Vilanova, Sitges y Garraf | PCGO',
@@ -43,6 +44,10 @@ const serviceDescs: Record<string, string> = {
   'venta-equipos': 'PC Gaming, workstations, portátiles, equipos montados. Te recomiendo solo lo que necesitas, configurado y listo.',
   'clases-personalizadas': 'Uno-a-uno, a tu ritmo. Móvil, PC, copias, fotos, videollamadas. Paciencia especial con personas mayores.',
 };
+/** slug → image URL, used to give the home bento the same photo treatment as /servicios. */
+const serviceImage: Record<string, string> = Object.fromEntries(
+  services.map((s) => [s.slug, s.image]),
+);
 ---
 
 <BaseLayout seo={seo} jsonLd={[faqSchema, breadcrumbs]}>
@@ -112,10 +117,9 @@ const serviceDescs: Record<string, string> = {
             description="Mac, iPhone, iPad, Apple Watch, Apple TV. 2+ años en ecosistema Apple: configuración, migración, iCloud, Time Machine y reparación."
             href="/servicios/soporte-apple"
             cta="Ver soporte Apple"
-            theme="dark"
+            image={serviceImage['soporte-apple']}
           >
             <Icon slot="icon" name="apple" size={28} strokeWidth={1.6} />
-            <div slot="visual" aria-hidden="true" style="position:absolute;right:-15%;bottom:-15%;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(94,92,255,.35),transparent 70%);filter:blur(20px);"></div>
           </BentoCard>
 
           <BentoCard
@@ -123,6 +127,7 @@ const serviceDescs: Record<string, string> = {
             description={serviceDescs['reparacion-ordenadores']}
             href="/servicios/reparacion-ordenadores"
             cta="Ver detalle"
+            image={serviceImage['reparacion-ordenadores']}
           >
             <Icon slot="icon" name="pc" size={26} strokeWidth={1.7} />
           </BentoCard>
@@ -132,7 +137,7 @@ const serviceDescs: Record<string, string> = {
             description={serviceDescs['redes-wifi']}
             href="/servicios/redes-wifi"
             cta="Ver detalle"
-            theme="tinted"
+            image={serviceImage['redes-wifi']}
           >
             <Icon slot="icon" name="wifi" size={26} strokeWidth={1.7} />
           </BentoCard>
@@ -142,6 +147,7 @@ const serviceDescs: Record<string, string> = {
             description={serviceDescs['reparacion-consolas']}
             href="/servicios/reparacion-consolas"
             cta="Ver detalle"
+            image={serviceImage['reparacion-consolas']}
           >
             <Icon slot="icon" name="console" size={26} strokeWidth={1.7} />
           </BentoCard>
@@ -151,6 +157,7 @@ const serviceDescs: Record<string, string> = {
             description={serviceDescs['venta-equipos']}
             href="/servicios/venta-equipos"
             cta="Ver detalle"
+            image={serviceImage['venta-equipos']}
           >
             <Icon slot="icon" name="box" size={26} strokeWidth={1.7} />
           </BentoCard>
@@ -160,7 +167,7 @@ const serviceDescs: Record<string, string> = {
             description={serviceDescs['clases-personalizadas']}
             href="/servicios/clases-personalizadas"
             cta="Ver detalle"
-            theme="tinted"
+            image={serviceImage['clases-personalizadas']}
           >
             <Icon slot="icon" name="chat" size={26} strokeWidth={1.7} />
           </BentoCard>

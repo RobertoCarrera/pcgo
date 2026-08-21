@@ -27,8 +27,7 @@ type Props = {
   href: string;
   cta: string;
   class?: string;
-  theme?: 'default' | 'dark' | 'blue' | 'tinted';
-  image?: string;
+  image: string;
 };
 const {
   name,
@@ -36,12 +35,10 @@ const {
   href,
   cta,
   class: className = '',
-  theme = 'default',
   image,
 } = Astro.props as Props;
-const themeClass = theme !== 'default' ? `bento-card--${theme}` : '';
 ---
-<a class={`bento-card ${themeClass} ${className} ${image ? 'bento-card--has-image' : ''}`} href={href}>
+<a class={`bento-card bento-card--has-image ${className}`} href={href}>
   {image && (
     <div class="bento-card__bg" aria-hidden="true">
       <img src={image} alt="" loading="lazy" decoding="async" />

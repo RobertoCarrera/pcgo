@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 
 SHOTS = Path(r"C:\Users\puchu\.mavis\workspace\satpcgo-rebuild\previews-v17")
 SHOTS.mkdir(exist_ok=True)
-BASE = "http://localhost:14324"
+BASE = "http://localhost:14321"
 
 PAGES = [
     ("/servicios", "v17-servicios-cards.png", None, True,  None),

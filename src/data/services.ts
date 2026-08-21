@@ -12,10 +12,8 @@ export type Service = {
   faqs: { q: string; a: string }[];
   /** SVG path data for the icon (single-color stroke style, Apple-SF-Symbols-like) */
   icon: 'pc' | 'apple' | 'wifi' | 'box' | 'console' | 'chat';
-  /** Unsplash photo URL used as a heavily-blurred card background. */
+  /** Photo URL used as a dimmed background for the card. */
   image: string;
-  /** Card color theme for the Servicios page bento. */
-  theme: 'default' | 'dark' | 'blue' | 'tinted';
   /** Optional layout class for the bento grid (e.g. col-span-2 row-span-2). */
   span?: string;
 };
@@ -34,7 +32,6 @@ export const services: Service[] = [
     serviceType: 'Reparación de ordenadores PC y Mac',
     icon: 'pc',
     image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=900&q=80&auto=format&fit=crop',
-    theme: 'default',
     faqs: [
       {
         q: '¿Cuánto tarda una reparación típica?',
@@ -67,7 +64,6 @@ export const services: Service[] = [
     serviceType: 'Soporte técnico Apple',
     icon: 'apple',
     image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=900&q=80&auto=format&fit=crop',
-    theme: 'dark',
     faqs: [
       {
         q: '¿Hacéis reparaciones de hardware de Mac e iPhone?',
@@ -100,7 +96,6 @@ export const services: Service[] = [
     serviceType: 'Instalación y mejora de redes WiFi',
     icon: 'wifi',
     image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a0?w=900&q=80&auto=format&fit=crop',
-    theme: 'tinted',
     faqs: [
       {
         q: '¿Cuánto cuesta mejorar la WiFi de mi casa?',
@@ -133,7 +128,6 @@ export const services: Service[] = [
     serviceType: 'Reparación de consolas y equipos gaming',
     icon: 'console',
     image: 'https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=900&q=80&auto=format&fit=crop',
-    theme: 'default',
     faqs: [
       {
         q: '¿Cuánto cuesta cambiar la pasta térmica de una PS5?',
@@ -166,7 +160,6 @@ export const services: Service[] = [
     serviceType: 'Venta de equipos a medida',
     icon: 'box',
     image: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=900&q=80&auto=format&fit=crop',
-    theme: 'default',
     faqs: [
       {
         q: '¿Vendéis componentes sueltos?',
@@ -199,7 +192,6 @@ export const services: Service[] = [
     serviceType: 'Clases de informática personalizadas',
     icon: 'chat',
     image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=80&auto=format&fit=crop',
-    theme: 'tinted',
     faqs: [
       {
         q: '¿Cuánto dura cada clase?',
@@ -226,3 +218,4 @@ export function getService(slug: string): Service | undefined {
 }
 
 export { site };
+
